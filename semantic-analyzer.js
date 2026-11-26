@@ -13,7 +13,8 @@
     emotional:"المشاعر والحالة النفسية",
     personal:"العلاقات والحياة الشخصية",
     material:"العمل والظروف المادية",
-    spiritual:"الجوانب الروحية"
+    spiritual:"الجوانب الروحية",
+    life_circumstances:"الظروف والتحديات الشخصية"
   };
   let lexiconPromise;
   function normalize(value){
@@ -71,14 +72,20 @@
     const dimensions=[...new Set(found.map(c=>c.domain))]
       .map(id=>({id,label:domainLabels[id]||id,concepts:found.filter(c=>c.domain===id)}));
     const terms=[];
-    for(const concept of found){
-      for(const term of concept.searchTerms){
-        if(!terms.some(t=>normalize(t.term)===normalize(term))){
-          terms.push({term,conceptId:concept.id,domain:concept.domain,label:concept.label,priority:concept.confidence});
-        }else{
-          const old=terms.find(t=>normalize(t.term)===normalize(term));
-          if(old && !old.conceptIds) old.conceptIds=[old.conceptId];
-          if(old && !old.conceptIds.includes(concept.id)) old.conceptIds.push(concept.id);
+    const queues=found.map(concept=>({
+      concept,
+      terms:concept.searchTerms.slice(0,4)
+    }));
+    for(let round=0;round<4;round++){
+      for(const queue of queues){
+        const term=queue.terms[round];
+        if(!term)continue;
+        const normalizedTerm=normalize(term);
+        const existing=terms.find(t=>normalize(t.term)===normalizedTerm);
+        if(!existing){
+          terms.push({term,conceptId:queue.concept.id,conceptIds:[queue.concept.id],domain:queue.concept.domain,label:queue.concept.label,priority:queue.concept.confidence});
+        }else if(!existing.conceptIds.includes(queue.concept.id)){
+          existing.conceptIds.push(queue.concept.id);
         }
       }
     }
