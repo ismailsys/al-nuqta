@@ -302,6 +302,16 @@ body[data-page="result"] #path{margin-top:20px}
 .backBtn{border-color:var(--accent);color:var(--accent2)}
 @media(max-width:650px){.resultTop .backBtn{width:100%}.playerOptions{gap:14px}}
 
+
+.topicPicker{margin:16px 0 12px}
+.topicLabel{font-size:12px;color:var(--muted);margin-bottom:9px}
+.topicTags{display:flex;flex-wrap:wrap;gap:8px}
+.topicTag{border:1px solid #ded9ce;background:#fff;color:#69685f;border-radius:999px;padding:8px 13px;font:13px "DM Sans",sans-serif;cursor:pointer;transition:all .18s}
+.topicTag:hover{border-color:var(--accent);color:var(--accent2)}
+.topicTag.active{background:#e9e5da;border-color:var(--accent);color:#4e554b;box-shadow:0 0 0 1px var(--glow)}
+.topicHint{font-size:11px;color:var(--muted);margin:8px 0 0}
+@media(max-width:650px){.topicTags{gap:7px}.topicTag{font-size:12px;padding:8px 11px}}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -316,6 +326,20 @@ body[data-page="result"] #path{margin-top:20px}
 <div class="voiceTools">
 <button class="btn primary" id="startRecording" type="button">🎙 ابدأ التحدث</button>
 <select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
+</div>
+<div class="topicPicker" aria-label="موضوعات متكررة">
+ <div class="topicLabel">أو اختر ما يعبّر عنك</div>
+ <div class="topicTags">
+  <button class="topicTag" type="button" data-category="protection" data-label="الحماية والحسد" aria-pressed="false">الحماية والحسد</button>
+  <button class="topicTag" type="button" data-category="marriage" data-label="صعوبات الزواج والأسرة" aria-pressed="false">صعوبات الزواج والأسرة</button>
+  <button class="topicTag" type="button" data-category="rizq" data-label="الرزق والعمل" aria-pressed="false">الرزق والعمل</button>
+  <button class="topicTag" type="button" data-category="children" data-label="الأبناء والذرية" aria-pressed="false">الأبناء والذرية</button>
+  <button class="topicTag" type="button" data-category="calm" data-label="صعوبات النوم" aria-pressed="false">صعوبات النوم</button>
+  <button class="topicTag" type="button" data-category="calm" data-label="القلق والضيق النفسي" aria-pressed="false">القلق والضيق النفسي</button>
+  <button class="topicTag" type="button" data-category="calm" data-label="الحزن أو الاكتئاب" aria-pressed="false">الحزن أو الاكتئاب</button>
+  <button class="topicTag" type="button" data-category="healing" data-label="المرض وطلب العافية" aria-pressed="false">المرض وطلب العافية</button>
+ </div>
+ <p class="topicHint">يمكنك اختيار أكثر من موضوع، وستُضاف اختياراتك إلى وصفك.</p>
 </div>
 <textarea id="needText" rows="4" placeholder="ستظهر كلماتك هنا أثناء الإملاء، أو اكتب حاجتك بنفسك..."></textarea>
 <audio id="recordedAudio" controls hidden></audio>
@@ -488,12 +512,33 @@ function detectCategories(text){
  keywordRules.forEach(rule=>{if(rule.words.some(containsConcept))found.push(rule.key);});
  return found;
 }
+const topicButtons=[...document.querySelectorAll(".topicTag")];
+let selectedTopics=new Set();
+function baseDescription(){
+ return needText.value.replace(/\\n?الموضوعات المختارة:.*$/s,"").trim();
+}
+function updateTopicDescription(){
+ const base=baseDescription();
+ const labels=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.label);
+ needText.value=base+(labels.length?(base?"\\n":"")+"الموضوعات المختارة: "+labels.join("، "):"");
+ topicButtons.forEach(button=>{
+  const active=selectedTopics.has(button.dataset.label);
+  button.classList.toggle("active",active);
+  button.setAttribute("aria-pressed",String(active));
+ });
+}
+topicButtons.forEach(button=>button.addEventListener("click",()=>{
+ const label=button.dataset.label;
+ if(selectedTopics.has(label))selectedTopics.delete(label);else selectedTopics.add(label);
+ updateTopicDescription();
+}));
 function composeNeed(){
- const typed=needText.value.trim();
+ const typed=baseDescription();
  const detected=detectCategories(typed);
- let all=[...new Set(detected)];
+ const selectedCategories=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.category);
+ let all=[...new Set([...detected,...selectedCategories])];
  if(!all.length&&typed)all=["calm"];
- if(!all.length){voiceStatus.textContent="اكتب ما يشغلك أو سجّل صوتك أولاً.";return;}
+ if(!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
  const ids=[...new Set([...foundationIds,...all.flatMap(key=>categoryInfo[key].ids)])]
   .sort((a,b)=>{
    const parse=id=>{const n=Number(verses[id].audio[0]);return {surah:Math.floor(n/1000),ayah:n%1000};};
