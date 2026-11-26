@@ -93,7 +93,7 @@ body[data-theme="pain"]{--bg:#f4f0eb;--panel:#fbf9f6;--panel2:#eee8e0;--accent:#
 .needCard .hint{margin-bottom:14px}
 .needCard .voiceTools{margin:0 0 12px}
 .needCard #startRecording{min-height:48px;min-width:190px;font-size:14px}
-.needCard #stopRecording{min-height:48px}
+
 .needCard #needText{min-height:130px;background:#fff;border-color:#ded9ce;font-size:15px}
 .needCard #needText::placeholder{color:#99978e}
 .needCard #recordedAudio{margin-top:12px}
@@ -274,6 +274,18 @@ select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:1
  .composeArea .buildBtn{width:100%}
 }
 
+
+/* Compact recording controls */
+.needCard .voiceTools{display:flex;align-items:center;gap:10px}
+.needCard #startRecording{min-width:190px}
+.needCard #voiceLanguage{min-width:150px}
+.needCard .voiceStatus:empty{display:none}
+@media(max-width:650px){
+ .needCard .voiceTools{display:grid;grid-template-columns:1fr auto}
+ .needCard #startRecording{min-width:0;width:100%}
+ .needCard #voiceLanguage{min-width:0;width:100%}
+}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -287,12 +299,11 @@ select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:1
 <p class="hint">تحدث مباشرة أو اكتب ما يشغلك. يمكنك استخدام العربية أو الدارجة أو الفرنسية.</p>
 <div class="voiceTools">
 <button class="btn primary" id="startRecording" type="button">🎙 ابدأ التحدث</button>
-<button class="btn" id="stopRecording" type="button" disabled>إيقاف التسجيل</button>
 <select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
 </div>
 <textarea id="needText" rows="4" placeholder="ستظهر كلماتك هنا أثناء الإملاء، أو اكتب حاجتك بنفسك..."></textarea>
 <audio id="recordedAudio" controls hidden></audio>
-<p class="voiceStatus" id="voiceStatus" aria-live="polite">يمكنك التحدث أو الكتابة بالعربية أو الدارجة أو الفرنسية.</p>
+<p class="voiceStatus" id="voiceStatus" aria-live="polite"></p>
 </div>
 </section>
 
@@ -405,7 +416,7 @@ const categoryInfo={
  healing:{label:"الشفاء والعافية",ids:["isra","ikhlas","sharh"]}
 };
 const foundationIds=["kursi","baqara285","baqara286","ikhlas","falaq","nas"];
-const voiceStatus=document.getElementById("voiceStatus"),needText=document.getElementById("needText"),recordButton=document.getElementById("startRecording"),stopRecordButton=document.getElementById("stopRecording"),recordedAudio=document.getElementById("recordedAudio");
+const voiceStatus=document.getElementById("voiceStatus"),needText=document.getElementById("needText"),recordButton=document.getElementById("startRecording"),recordedAudio=document.getElementById("recordedAudio");
 let mediaRecorder=null,recordedChunks=[],recordedStream=null,recognition=null,recordedUrl=null;
 function normalizeNeed(value){
  return (value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u064b-\u065f\u0670]/g,"").replace(/ـ/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه");
@@ -450,7 +461,14 @@ function composeNeed(){
 }
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
 needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.textContent="راجع النص، ثم اضغط على «إنشاء مساري القرآني».";});
+function finishRecording(){
+ if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
+ if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
+ recordButton.textContent="🎙 ابدأ التحدث";
+ recordButton.classList.add("primary");
+}
 recordButton.addEventListener("click",async()=>{
+ if(mediaRecorder&&mediaRecorder.state!=="inactive"){finishRecording();return;}
  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){voiceStatus.textContent="التسجيل الصوتي غير متاح في هذا المتصفح. يمكنك كتابة حاجتك بدلاً من ذلك.";return;}
  try{
   recordedStream=await navigator.mediaDevices.getUserMedia({audio:true});recordedChunks=[];
@@ -461,9 +479,13 @@ recordButton.addEventListener("click",async()=>{
    if(recordedUrl)URL.revokeObjectURL(recordedUrl);
    recordedUrl=URL.createObjectURL(blob);recordedAudio.src=recordedUrl;recordedAudio.hidden=false;
    recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
-   voiceStatus.textContent="انتهى التسجيل. إذا كانت الكتابة الصوتية متاحة فسيظهر النص أعلاه، وإلا يمكنك كتابة حاجتك يدوياً.";
+   recordButton.textContent="🎙 ابدأ التحدث";
+   recordButton.classList.add("primary");
+   voiceStatus.textContent="انتهى التسجيل.";
   };
-  mediaRecorder.start();recordButton.disabled=true;stopRecordButton.disabled=false;
+  mediaRecorder.start();
+  recordButton.textContent="⏹ إيقاف التسجيل";
+  recordButton.classList.remove("primary");
   const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(SpeechRecognition){
    recognition=new SpeechRecognition();recognition.lang=document.getElementById("voiceLanguage").value;recognition.continuous=true;recognition.interimResults=true;
@@ -475,13 +497,12 @@ recordButton.addEventListener("click",async()=>{
    };
    recognition.onerror=()=>{voiceStatus.textContent="تعذرت الكتابة الصوتية التلقائية. يمكنك كتابة حاجتك يدوياً.";};
    recognition.start();voiceStatus.textContent="جارٍ تسجيل الصوت وتحويله إلى نص…";
-  }else{voiceStatus.textContent="التسجيل جارٍ. هذا المتصفح لا يدعم تحويل الصوت إلى نص تلقائياً.";}
- }catch(error){voiceStatus.textContent="تعذر الوصول إلى الميكروفون. تحقق من أذونات المتصفح.";}
-});
-stopRecordButton.addEventListener("click",()=>{
- if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
- if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
- recordButton.disabled=false;stopRecordButton.disabled=true;
+  }else{voiceStatus.textContent="التسجيل جارٍ.";}
+ }catch(error){
+  recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
+  recordButton.textContent="🎙 ابدأ التحدث";recordButton.classList.add("primary");
+  voiceStatus.textContent="تعذر الوصول إلى الميكروفون. تحقق من أذونات المتصفح.";
+ }
 });
 playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
 stopAll.addEventListener("click",stopPlayback);
