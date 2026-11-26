@@ -37,7 +37,7 @@
 <div class="note"><strong>تنبيه مهم</strong><br>هذه الصفحة مساحة للتلاوة والذكر والتدبر، وليست تشخيصاً أو علاجاً طبياً. لا يمكن استنتاج السحر أو العين أو أي سبب غيبي من الأعراض. الرقية لا تغني عن استشارة مختص عند استمرار الألم أو الضيق أو اضطراب النوم. ربط الآيات بالموضوعات هنا للتأمل، وليس ادعاءً بوجود علاج مخصوص لكل حالة.</div>
 <div class="footer">استلهام مفاهيمي من معاني القلب والذكر والتوجه عند ابن عربي، دون نسبة أقوال حرفية إليه.</div>
 </div>
-<audio id="player" preload="none"></audio>
+
 <script>
 const verses={
  fatiha:{ref:"سورة الفاتحة · ١–٧",title:"الفاتحة",text:"بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",meaning:"فاتحة الكتاب تجمع الحمد والعبودية والاستعانة وطلب الهداية؛ ويمكن قراءتها لاستحضار التوجه إلى الله.",audio:["001001","001002","001003","001004","001005","001006","001007"]},
@@ -58,15 +58,15 @@ const paths={
  pain:{title:"مسار الدعاء والرحمة",text:"نقرأ بنية الدعاء والرجاء، مع التأكيد أن التلاوة لا تستبدل التقييم الطبي أو العلاج عند الحاجة.",ids:["fatiha","isra","ikhlas"]}
 };
 const choices=document.querySelectorAll(".choice"),path=document.getElementById("path"),versesBox=document.getElementById("verses"),player=document.getElementById("player");
-let activeButton=null;
-function renderVerse(id){const v=verses[id];const card=document.createElement("article");card.className="verse";card.innerHTML='<div class="versehead"><span>'+v.ref+'</span><span>تلاوة وتدبر</span></div><div class="arabic">'+v.text+'</div><div class="meaning">'+v.meaning+'</div><div class="actions"><button class="btn primary play">▶ استمع</button><button class="btn repeat">↻ إعادة</button><button class="btn pause">إيقاف</button></div>';
+let activeButton=null,currentAudio=null;
+function renderVerse(id){const v=verses[id];const audio=new Audio();const card=document.createElement("article");card.className="verse";card.innerHTML='<div class="versehead"><span>'+v.ref+'</span><span>تلاوة وتدبر</span></div><div class="arabic">'+v.text+'</div><div class="meaning">'+v.meaning+'</div><div class="actions"><button class="btn primary play">▶ استمع</button><button class="btn repeat">↻ إعادة</button><button class="btn pause">إيقاف</button></div>';
 const play=card.querySelector(".play"),repeat=card.querySelector(".repeat"),pause=card.querySelector(".pause");
 let index=0,repeatMode=false;
-function playCurrent(){if(index>=v.audio.length){index=0;return}player.src="https://everyayah.com/data/Alafasy_128kbps/"+v.audio[index]+".mp3";player.play().catch(()=>{play.textContent="تعذر التشغيل — حاول مجدداً";});}
-player.addEventListener("ended",()=>{if(!card.isConnected)return;if(repeatMode){playCurrent();return}index++;if(index<v.audio.length)playCurrent();else{index=0;play.textContent="▶ استمع";}});
+function playCurrent(){if(index>=v.audio.length){index=0;return}if(currentAudio&&currentAudio!==audio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=audio;audio.src="https://everyayah.com/data/Alafasy_128kbps/"+v.audio[index]+".mp3";audio.play().catch(()=>{play.textContent="تعذر التشغيل — حاول مجدداً";});}
+audio.addEventListener("ended",()=>{if(!card.isConnected)return;if(repeatMode){playCurrent();return}index++;if(index<v.audio.length)playCurrent();else{index=0;play.textContent="▶ استمع";}});
 play.onclick=()=>{repeatMode=false;index=0;playCurrent();play.textContent="▶ تشغيل الآيات";};
 repeat.onclick=()=>{repeatMode=true;index=0;playCurrent();play.textContent="↻ تكرار";};
-pause.onclick=()=>{player.pause();play.textContent="▶ استمع";};
+pause.onclick=()=>{audio.pause();play.textContent="▶ استمع";};
 return card}
 choices.forEach(btn=>btn.addEventListener("click",()=>{if(activeButton)activeButton.classList.remove("active");activeButton=btn;btn.classList.add("active");const p=paths[btn.dataset.key];document.getElementById("pathTitle").textContent=p.title;document.getElementById("pathText").textContent=p.text;versesBox.innerHTML="";p.ids.forEach(id=>versesBox.appendChild(renderVerse(id)));path.classList.add("show");path.scrollIntoView({behavior:"smooth",block:"start"});}));
 </script>
