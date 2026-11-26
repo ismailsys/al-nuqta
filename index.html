@@ -659,8 +659,19 @@ function playNext(){
  currentAudio.addEventListener("ended",()=>{stopFrequency();playIndex++;playNext();},{once:true});
  currentAudio.addEventListener("error",()=>{stopFrequency();setStatus("تعذر تحميل المقطع الصوتي. تحقق من الاتصال ثم أعد المحاولة.");playIndex++;playNext();},{once:true});
  const audioToPlay=currentAudio;
- const resume=audioContext&&audioContext.state==="suspended"?audioContext.resume():Promise.resolve();
- resume.then(()=>audioToPlay.play()).catch(()=>{if(audioToPlay===currentAudio){stopFrequency();setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");setPlayButton(false,"إعادة المحاولة");}});
+ // Start HTML audio immediately in the click flow; awaiting AudioContext.resume()
+ // first can lose the browser's user-activation permission and block playback.
+ const playPromise=audioToPlay.play();
+ if(audioContext&&audioContext.state==="suspended"){
+  audioContext.resume().catch(()=>stopFrequency());
+ }
+ playPromise.catch(()=>{
+  if(audioToPlay===currentAudio){
+   stopFrequency();
+   setStatus("تعذر تشغيل الصوت. تحقق من اتصالك بالإنترنت ثم أعد المحاولة.");
+   setPlayButton(false,"إعادة المحاولة");
+  }
+ });
 }
 function renderVerse(id){
  const v=verses[id],card=document.createElement("article");card.className="verse";card.dataset.verse=id;
