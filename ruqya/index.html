@@ -340,6 +340,50 @@ body{background:radial-gradient(ellipse at 50% -18%,#e4e9df 0%,#f3f0e9 62%)}
 .path{border-color:#d5c7a7}
 @media(prefers-reduced-motion:reduce){.playButton.is-playing{animation:none}.soundBars i{animation:none;height:10px}}
 
+
+/* Unified writing and voice composer */
+.needCard{padding:clamp(17px,2.6vw,25px);border:1px solid #c9b88f;background:linear-gradient(145deg,#fffefa,#f1f4ec);box-shadow:0 14px 38px #514b3f10,inset 0 0 0 1px #ffffffa8}
+.needCard h2{font-size:clamp(23px,3vw,28px);line-height:1.45}
+.needCard .hint{margin-bottom:11px;font-size:12px}
+.topicPicker{margin:10px 0 12px}
+.topicLabel{margin-bottom:7px}
+.topicTags{gap:6px}
+.topicTag{padding:6px 11px;font-size:12px}
+.topicHint{margin-top:6px}
+.composerField{border:1px solid #c9b88f;border-radius:16px;background:#fff;overflow:hidden;box-shadow:inset 0 1px 5px #6e624014}
+.composerField:focus-within{border-color:#a88b50;box-shadow:0 0 0 3px #c9a66b25}
+.needCard .composerField #needText{display:block;width:100%;min-height:88px;height:100px;resize:vertical;border:0;border-radius:0;background:transparent;padding:13px 15px 8px;box-shadow:none;font-size:14px}
+.needCard .composerField #needText:focus{outline:none;border:0;box-shadow:none}
+.composerToolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-top:1px solid #eee9dc;background:linear-gradient(90deg,#fbfaf6,#f4f5ef)}
+.composerToolbar .btn{min-height:39px;padding:8px 15px;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:12px}
+.composerToolbar #startRecording{background:#718a73;border-color:#b99b62;color:white}
+.composerToolbar #startRecording.recording{background:#a46f5e;border-color:#c9a66b;box-shadow:0 0 0 3px #c9a66b24}
+.micIcon{font-size:15px}
+.languageSelect{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px}
+.languageSelect select{padding:7px 10px;border-radius:9px;font-size:12px;max-width:130px}
+.needCard #recordedAudio{width:100%;margin-top:10px}
+.needCard .voiceStatus{margin:7px 0 0;font-size:11px}
+.needCard .composeArea{margin:12px 0 0}
+.needCard .composeArea .buildBtn{width:100%;min-width:0;padding:13px 20px;border-radius:13px;background:linear-gradient(110deg,#718a73,#82967b);border:1px solid #b99b62;color:#fff;font-size:14px;box-shadow:0 5px 14px #6e826b25}
+.needCard .composeHint{margin:6px 0 0;font-size:10px}
+@media(max-width:650px){
+ .needCard{padding:14px;border-radius:18px}
+ .needCard h2{font-size:22px;margin-bottom:3px}
+ .needCard .hint{font-size:11px;line-height:1.6;margin-bottom:8px}
+ .topicPicker{margin:8px 0 9px}
+ .topicTags{gap:5px}
+ .topicTag{font-size:11px;padding:6px 9px}
+ .topicHint{font-size:10px}
+ .needCard .composerField #needText{height:86px;min-height:76px;padding:10px 12px}
+ .composerToolbar{padding:7px;gap:7px}
+ .composerToolbar .btn{min-height:37px;padding:7px 10px}
+ .languageSelect{gap:5px}
+ .languageSelect select{max-width:112px;padding:7px 8px}
+ .needCard .composeArea{margin-top:9px}
+ .needCard .composeArea .buildBtn{padding:12px}
+ .needCard #recordedAudio{max-height:38px}
+}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -351,10 +395,6 @@ body{background:radial-gradient(ellipse at 50% -18%,#e4e9df 0%,#f3f0e9 62%)}
 <div class="needKicker">مساحتك الخاصة</div>
 <h2>ما الذي يشغل بالك، أو ما الشعور الذي تمرّ به؟</h2>
 <p class="hint">تحدث مباشرة أو اكتب ما يشغلك. يمكنك استخدام العربية أو الدارجة أو الفرنسية.</p>
-<div class="voiceTools">
-<button class="btn primary" id="startRecording" type="button">🎙 ابدأ التحدث</button>
-<select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
-</div>
 <div class="topicPicker" aria-label="موضوعات متكررة">
  <div class="topicLabel">أو اختر ما يعبّر عنك</div>
  <div class="topicTags">
@@ -369,13 +409,19 @@ body{background:radial-gradient(ellipse at 50% -18%,#e4e9df 0%,#f3f0e9 62%)}
  </div>
  <p class="topicHint">يمكنك اختيار أكثر من موضوع، وستُضاف اختياراتك إلى وصفك.</p>
 </div>
-<textarea id="needText" rows="4" placeholder="ستظهر كلماتك هنا أثناء الإملاء، أو اكتب حاجتك بنفسك..."></textarea>
+<div class="composerField">
+<textarea id="needText" rows="4" placeholder="اكتب ما يشغلك هنا، أو اضغط على الميكروفون للتحدث..."></textarea>
+<div class="composerToolbar">
+ <button class="btn primary" id="startRecording" type="button"><span class="micIcon">🎙</span><span>ابدأ التحدث</span></button>
+ <label class="languageSelect"><span>اللغة</span><select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select></label>
+</div>
+</div>
 <audio id="recordedAudio" controls hidden></audio>
 <p class="voiceStatus" id="voiceStatus" aria-live="polite"></p>
+<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">آيات مختارة ومرتبة حسب المصحف.</p></div>
 </div>
 </section>
-
-<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">آيات مختارة ومرتبة حسب المصحف.</p></div><section class="path" id="path" aria-live="polite">
+<section class="path" id="path" aria-live="polite">
 <div class="resultTop"><button class="btn backBtn" id="backToNeed" type="button">← العودة إلى الصفحة الأولى</button></div>
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
@@ -625,7 +671,7 @@ recordButton.addEventListener("click",async()=>{
    voiceStatus.textContent="انتهى التسجيل.";
   };
   mediaRecorder.start();
-  recordButton.textContent="⏹ إيقاف التسجيل";
+  recordButton.innerHTML='<span class="micIcon">⏹</span><span>إيقاف التسجيل</span>';recordButton.classList.add("recording");
   recordButton.classList.remove("primary");
   const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(SpeechRecognition){
@@ -641,7 +687,7 @@ recordButton.addEventListener("click",async()=>{
   }else{voiceStatus.textContent="التسجيل جارٍ.";}
  }catch(error){
   recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
-  recordButton.textContent="🎙 ابدأ التحدث";recordButton.classList.add("primary");
+  recordButton.innerHTML='<span class="micIcon">🎙</span><span>ابدأ التحدث</span>';recordButton.classList.remove("recording");recordButton.classList.add("primary");
   voiceStatus.textContent="تعذر الوصول إلى الميكروفون. تحقق من أذونات المتصفح.";
  }
 });
