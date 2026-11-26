@@ -945,8 +945,10 @@ async function searchQuranCorpus(terms){
    if(!surah||!ayah)return;
    const id="live_"+surah+"_"+ayah;
    const normalizedVerse=normalizeQuranText(textValue);
-   const lexical=normalizedVerse.includes(normalizeQuranText(term));
-   const direct=lexical&&entry.domain==="user_words";
+   const normalizedTerm=normalizeQuranText(term);
+   const verseTokens=normalizedVerse.replace(/[^\u0600-\u06FF\s]/g," ").split(/\s+/).filter(Boolean);
+   const lexical=normalizedVerse.includes(normalizedTerm);
+   const direct=entry.domain==="user_words"&&verseTokens.includes(normalizedTerm);
    const previous=found.get(id)||{
     id,score:0,key,text:textValue,directTerms:[],semanticTerms:[],hits:[],conceptIds:new Set()
    };
@@ -1078,6 +1080,11 @@ async function loadVerseContext(key,container){
      const paragraph=document.createElement("p");paragraph.textContent=block.text;tafsirText.append(paragraph);
     });
     tafsirStatus.textContent="المصدر: "+tafsir.title+" · QuranEnc"+(tafsir.version?" · version "+tafsir.version:"")+".";
+    const tafsirLink=document.createElement("a");
+    tafsirLink.href="https://quranenc.com/ar/browse/"+encodeURIComponent(tafsir.key)+"/"+key.replace(":","/");
+    tafsirLink.target="_blank";tafsirLink.rel="noopener noreferrer";
+    tafsirLink.className="contextSource";tafsirLink.textContent="فتح مصدر التفسير على QuranEnc";
+    tafsirText.append(tafsirLink);
    }else{
     tafsirStatus.textContent="Aucun extrait disponible pour cette référence dans cette ressource.";
    }
