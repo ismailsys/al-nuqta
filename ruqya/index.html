@@ -26,7 +26,7 @@ body[data-theme="pain"]{--bg:#241e18;--panel:#30271f;--panel2:#3b3025;--accent:#
 .hero p{color:var(--muted);line-height:1.95;margin:0 auto;max-width:680px;font-size:14px}
 .section{margin:22px 0 0}.section h2{font:700 25px Amiri,serif;margin:0 0 6px}
 .hint{color:var(--muted);font-size:13px;line-height:1.8;margin:0 0 16px}
-.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}\n#needText{width:100%;min-height:112px;resize:vertical;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);padding:14px;font:15px/1.8 "DM Sans",sans-serif;outline:none}\n#needText:focus{border-color:var(--accent)}\n.voiceTools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:10px}\n.voiceStatus{font-size:12px;color:var(--muted);line-height:1.8;margin:9px 0}\n#recordedAudio{width:100%;margin-top:10px}\n.buildBtn{margin-top:8px}\n@media(max-width:650px){.voiceTools>*{flex:1}}
 .choice{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);color:var(--text);border-radius:14px;padding:17px 12px;font:20px Amiri;cursor:pointer;transition:.25s}
 .choice small{display:block;color:var(--muted);font:12px "DM Sans";margin-top:5px}
 .choice:hover,.choice.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow),0 10px 30px #0002;transform:translateY(-1px)}
@@ -123,16 +123,27 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <div class="wrap">
 <header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
 <section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>اختر الحالة الأقرب إلى شعورك. ستقترح الصفحة آيات للتلاوة والتدبر، مع توضيح سبب اختيارها. الاختيارات موضوعات للتأمل وليست تشخيصاً أو وصفة علاجية.</p></section>
-<section class="section"><h2>ما الذي يشغل قلبك الآن؟</h2><p class="hint">اختر الحالة الأقرب إليك لعرض مسار قرآني مناسب للتلاوة والتأمل.</p>
+<section class="section"><h2>اختر ما تحتاجه</h2><p class="hint">يمكنك اختيار أكثر من موضوع، ثم إضافة وصف خاص بك.</p>
 <div class="choices" id="choices">
-<button class="choice" data-key="anxiety">القلق<small>السكينة والذكر</small></button>
-<button class="choice" data-key="fear">الخوف<small>الاستعاذة والحفظ</small></button>
-<button class="choice" data-key="sadness">الحزن<small>الرجاء والرحمة</small></button>
-<button class="choice" data-key="distress">الضيق<small>السعة والفرج</small></button>
-<button class="choice active" data-key="sleep">صعوبة النوم<small>الليل والراحة والتسليم</small></button>
-<button class="choice" data-key="pain">التعب أو الألم<small>الدعاء والرحمة</small></button>
+<button class="choice" data-key="protection">الحماية والتحصين<small>العين والحسد والاستعاذة</small></button>
+<button class="choice" data-key="marriage">الزواج والأسرة<small>المودة والرحمة</small></button>
+<button class="choice" data-key="rizq">الرزق والعمل<small>الرزق والتيسير والتوكل</small></button>
+<button class="choice" data-key="children">الأبناء والذرية<small>صلاح الأبناء والذرية</small></button>
+<button class="choice" data-key="calm">السكينة وراحة النفس<small>القلق والحزن والضيق</small></button>
+<button class="choice" data-key="healing">الشفاء والعافية<small>الرحمة والدعاء</small></button>
 </div></section>
-<section class="path show" id="path" aria-live="polite">
+<section class="section" id="customNeed"><h2>أو عبّر عن حاجتك بطريقتك</h2><p class="hint">اكتب ما يشغلك، أو سجّل رسالة صوتية بالعربية أو الدارجة أو الفرنسية.</p>
+<textarea id="needText" rows="4" placeholder="اكتب حاجتك هنا... مثال: أبحث عن السكينة وأتمنى تيسير الزواج والعمل."></textarea>
+<div class="voiceTools">
+<select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
+<button class="btn" id="startRecording" type="button">🎙 بدء التسجيل</button>
+<button class="btn" id="stopRecording" type="button" disabled>إيقاف التسجيل</button>
+</div>
+<audio id="recordedAudio" controls hidden></audio>
+<p class="voiceStatus" id="voiceStatus" aria-live="polite">التسجيل الصوتي لا يُرفع إلى الموقع. قد تعتمد الكتابة الصوتية على خدمة المتصفح وإعدادات الخصوصية فيه.</p>
+<button class="btn primary buildBtn" id="buildNeed" type="button">إنشاء مساري القرآني</button>
+</section>
+<section class="path" id="path" aria-live="polite">
 <h3 id="pathTitle">مسار السكينة والنوم</h3><p id="pathText">نجمع بين آيات من الأذكار المعروفة، وآيات تتناول النوم والليل والنفس والراحة. الإضافات مستوحاة من معانٍ تأملية قريبة من موضوعات تناولها ابن عربي، وليست وصفة مخصوصة منسوبة إليه.</p>
 <div class="pathMeta" id="pathMeta"><span class="pill">الأساس النبوي</span><span class="pill">معنى النوم والليل</span><span class="pill">التسليم والتفكر</span></div>
 <div class="player">
@@ -140,7 +151,7 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <h4>استمع بهدوء</h4>
 <p class="playerIntro">تلاوة متتابعة للمسار المختار</p>
 <div class="playerControls">
-<button class="btn primary" id="playAll">▶ ابدأ التلاوة</button>
+<button class="btn primary" id="playAll" disabled>▶ ابدأ التلاوة</button>
 <button class="btn" id="stopAll">إيقاف</button>
 </div>
 <div class="playerOptions">
@@ -172,6 +183,13 @@ const verses={
  naba9:{ref:"النبأ · ٩",title:"النوم راحة",text:"وَجَعَلْنَا نَوْمَكُمْ سُبَاتًۭا ٩",meaning:"تذكر الآية أن النوم جُعل للإنسان سكوناً وراحة.",audio:["078009"],kind:"إضافة للتدبر",concept:"الراحة — السكون والهدوء",source:"https://quran.com/78/9"},
  furqan47:{ref:"الفرقان · ٤٧",title:"الليل لباساً والنوم سباتاً",text:"وَهُوَ ٱلَّذِى جَعَلَ لَكُمُ ٱلَّيْلَ لِبَاسًۭا وَٱلنَّوْمَ سُبَاتًۭا وَجَعَلَ ٱلنَّهَارَ نُشُورًۭا ٤٧",meaning:"تجمع الآية بين ستر الليل وراحة النوم واليقظة في النهار.",audio:["025047"],kind:"إضافة للتدبر",concept:"الستر — الليل لباس وسكن",source:"https://quran.com/25/47"},
  rum23:{ref:"الروم · ٢٣",title:"النوم من آيات الله",text:"وَمِنْ ءَايَـٰتِهِۦ مَنَامُكُم بِٱلَّيْلِ وَٱلنَّهَارِ وَٱبْتِغَآؤُكُم مِّن فَضْلِهِۦٓ ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍ يَسْمَعُونَ ٢٣",meaning:"تدعو الآية إلى النظر في النوم بوصفه آية من آيات الله.",audio:["030023"],kind:"إضافة للتدبر",concept:"التفكر — رؤية النوم كآية",source:"https://quran.com/30/23"}
+
+ rum21:{ref:"الروم · ٢١",title:"المودة والرحمة",text:"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",meaning:"تتحدث الآية عن السكن والمودة والرحمة بين الزوجين.",audio:["030021"],kind:"آية للتدبر",source:"https://quran.com/30/21"},
+ furqan74:{ref:"الفرقان · ٧٤",title:"دعاء للأسرة والذرية",text:"وَالَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",meaning:"دعاء قرآني بصلاح الأسرة والذرية وقرة العين.",audio:["025074"],kind:"دعاء قرآني",source:"https://quran.com/25/74"},
+ hud6:{ref:"هود · ٦",title:"الرزق بيد الله",text:"وَمَا مِن دَابَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا وَيَعْلَمُ مُسْتَقَرَّهَا وَمُسْتَوْدَعَهَا ۚ كُلٌّ فِي كِتَابٍ مُّبِينٍ",meaning:"تذكير بأن الله تكفّل بأرزاق خلقه وعلمه محيط بأحوالهم.",audio:["011006"],kind:"آية للتدبر",source:"https://quran.com/11/6"},
+ talaq2:{ref:"الطلاق · ٢",title:"التقوى والمخرج",text:"فَإِذَا بَلَغْنَ أَجَلَهُنَّ فَأَمْسِكُوهُنَّ بِمَعْرُوفٍ أَوْ فَارِقُوهُنَّ بِمَعْرُوفٍ وَأَشْهِدُوا ذَوَيْ عَدْلٍ مِّنكُمْ وَأَقِيمُوا الشَّهَادَةَ لِلَّهِ ۚ ذَٰلِكُمْ يُوعَظُ بِهِ مَن كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ ۚ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا",meaning:"تختم الآية بذكر التقوى وما يجعل الله معها من مخرج.",audio:["065002"],kind:"آية للتدبر",source:"https://quran.com/65/2"},
+ talaq3:{ref:"الطلاق · ٣",title:"التوكل والرزق",text:"وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ ۚ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا",meaning:"تجمع الآية بين التوكل على الله والرزق من حيث لا يحتسب الإنسان.",audio:["065003"],kind:"آية للتدبر",source:"https://quran.com/65/3"},
+ aliImran38:{ref:"آل عمران · ٣٨",title:"دعاء زكريا بالذرية",text:"هُنَالِكَ دَعَا زَكَرِيَّا رَبَّهُ ۖ قَالَ رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً ۖ إِنَّكَ سَمِيعُ الدُّعَاءِ",meaning:"دعاء نبي الله زكريا عليه السلام بطلب الذرية الطيبة.",audio:["003038"],kind:"دعاء قرآني",source:"https://quran.com/3/38"}
 };
 const paths={
  anxiety:{title:"مسار الذكر وطمأنينة القلب",text:"نبدأ بمعنى الذكر بوصفه عودة واعية إلى الله وحضوراً للقلب. هذا اختيار للتدبر، لا وعد بنتيجة محددة.",ids:["fatiha","ra3d","sharh"],names:["السَّلَام","اللَّطِيف"],theme:"anxiety"},
@@ -182,7 +200,7 @@ const paths={
  pain:{title:"مسار الدعاء والرحمة",text:"نقرأ بنية الدعاء والرجاء، مع التأكيد أن التلاوة لا تستبدل التقييم الطبي أو العلاج عند الحاجة.",ids:["fatiha","isra","ikhlas"],names:["الرَّحْمَٰن","اللَّطِيف"],theme:"pain"}
 };
 const choices=[...document.querySelectorAll(".choice")],path=document.getElementById("path"),versesBox=document.getElementById("verses"),playAll=document.getElementById("playAll"),stopAll=document.getElementById("stopAll"),repeatSelect=document.getElementById("repeatCount"),statusEl=document.getElementById("playerStatus");
-let activeButton=document.querySelector('.choice[data-key="sleep"]'),currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTotal=3,playingCard=null,stopRequested=false;
+let activeButton=null,currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTotal=3,playingCard=null,stopRequested=false,currentIds=[];
 let toneContext=null,toneOscillator=null,toneGain=null;
 const toneToggle=document.getElementById("tone528");
 function start528Tone(){
@@ -258,12 +276,95 @@ function renderPath(key){
  versesBox.innerHTML="";p.ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
  playlist=buildPlaylist(p.ids);stopPlayback();setStatus("عدد المقاطع الصوتية في هذا المسار: "+playlist.length);
 }
-choices.forEach(btn=>btn.addEventListener("click",()=>{activeButton?.classList.remove("active");activeButton=btn;btn.classList.add("active");renderPath(btn.dataset.key);path.scrollIntoView({behavior:"smooth",block:"start"});}));
-playAll.addEventListener("click",()=>{const ids=paths[activeButton.dataset.key].ids;playQueue(buildPlaylist(ids),0,Number(repeatSelect.value),null);});
+
+const categoryInfo={
+ protection:{label:"الحماية والتحصين",ids:["kursi","ikhlas","falaq","nas"]},
+ marriage:{label:"الزواج والأسرة",ids:["rum21","furqan74"]},
+ rizq:{label:"الرزق والعمل",ids:["hud6","talaq2","talaq3"]},
+ children:{label:"الأبناء والذرية",ids:["aliImran38","furqan74"]},
+ calm:{label:"السكينة وراحة النفس",ids:["fatiha","ra3d","sharh"]},
+ healing:{label:"الشفاء والعافية",ids:["fatiha","isra","ikhlas"]}
+};
+const selectedCategories=new Set();
+const voiceStatus=document.getElementById("voiceStatus"),needText=document.getElementById("needText"),recordButton=document.getElementById("startRecording"),stopRecordButton=document.getElementById("stopRecording"),recordedAudio=document.getElementById("recordedAudio");
+let mediaRecorder=null,recordedChunks=[],recordedStream=null,recognition=null,recordedUrl=null;
+function normalizeNeed(value){
+ return (value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u064b-\u065f\u0670]/g,"").replace(/ـ/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه");
+}
+const keywordRules=[
+ {key:"protection",words:["عين","حسد","حاسد","حمايه","تحصين","حفظ","evil eye","envy","protection","mauvais oeil","jalousie","proteger"]},
+ {key:"marriage",words:["زواج","اتزوج","الزواج","زوج","زوجي","زوجتي","علاقه زوجيه","mariage","marier","couple","conjoint"]},
+ {key:"rizq",words:["رزق","الرزق","عمل","وظيفه","شغل","مال","فلوس","مشروع","توفيق مهني","travail","emploi","argent","revenu","professionnel"]},
+ {key:"children",words:["اطفال","طفل","ابناء","اولاد","ذريه","انجاب","حمل","صلاح الابناء","enfant","enfants","descendance"]},
+ {key:"calm",words:["قلق","خوف","حزن","ضيق","وسواس","نوم","توتر","راحه نفسيه","سكينه","angoisse","anxiete","stress","tristesse","peur","sommeil","calme","serenite"]},
+ {key:"healing",words:["شفاء","مرض","الم","تعب","صحه","عافيه","guerison","maladie","douleur","fatigue","sante"]}
+];
+function detectCategories(text){
+ const normalized=normalizeNeed(text),found=[];
+ keywordRules.forEach(rule=>{if(rule.words.some(word=>normalized.includes(normalizeNeed(word))))found.push(rule.key);});
+ return found;
+}
+function composeNeed(){
+ const detected=detectCategories(needText.value);
+ const all=[...new Set([...selectedCategories,...detected])];
+ if(!all.length){voiceStatus.textContent="اختر موضوعاً واحداً على الأقل أو اكتب حاجتك بكلمات أوضح.";return;}
+ const ids=[...new Set(all.flatMap(key=>categoryInfo[key].ids))].sort((a,b)=>Number(verses[a].audio[0])-Number(verses[b].audio[0]));
+ currentIds=ids;
+ document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
+ document.getElementById("pathTitle").textContent="مسارك القرآني المختار";
+ document.getElementById("pathText").textContent="تم جمع الآيات المرتبطة بالموضوعات التي اخترتها أو ظهرت في وصفك، مع حذف التكرار وترتيبها حسب ترتيب السور والآيات في المصحف.";
+ const meta=document.getElementById("pathMeta");meta.innerHTML="";
+ all.forEach(key=>{const el=document.createElement("span");el.className="pill";el.textContent=categoryInfo[key].label;meta.append(el);});
+ versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
+ playlist=buildPlaylist(ids);stopPlayback();playAll.disabled=false;
+ setStatus("تم إعداد المسار · "+ids.length+" مقاطع صوتية.");
+ path.classList.add("show");path.scrollIntoView({behavior:"smooth",block:"start"});
+ voiceStatus.textContent="الموضوعات المعتمدة: "+all.map(key=>categoryInfo[key].label).join(" · ");
+}
+choices.forEach(btn=>btn.addEventListener("click",()=>{
+ const key=btn.dataset.key;
+ if(selectedCategories.has(key)){selectedCategories.delete(key);btn.classList.remove("active");}
+ else{selectedCategories.add(key);btn.classList.add("active");}
+}));
+document.getElementById("buildNeed").addEventListener("click",composeNeed);
+recordButton.addEventListener("click",async()=>{
+ if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){voiceStatus.textContent="التسجيل الصوتي غير متاح في هذا المتصفح. يمكنك كتابة حاجتك بدلاً من ذلك.";return;}
+ try{
+  recordedStream=await navigator.mediaDevices.getUserMedia({audio:true});recordedChunks=[];
+  mediaRecorder=new MediaRecorder(recordedStream);
+  mediaRecorder.ondataavailable=e=>{if(e.data.size)recordedChunks.push(e.data);};
+  mediaRecorder.onstop=()=>{
+   const blob=new Blob(recordedChunks,{type:mediaRecorder.mimeType||"audio/webm"});
+   if(recordedUrl)URL.revokeObjectURL(recordedUrl);
+   recordedUrl=URL.createObjectURL(blob);recordedAudio.src=recordedUrl;recordedAudio.hidden=false;
+   recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
+   voiceStatus.textContent="انتهى التسجيل. إذا كانت الكتابة الصوتية متاحة فسيظهر النص أعلاه، وإلا يمكنك كتابة حاجتك يدوياً.";
+  };
+  mediaRecorder.start();recordButton.disabled=true;stopRecordButton.disabled=false;
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SpeechRecognition){
+   recognition=new SpeechRecognition();recognition.lang=document.getElementById("voiceLanguage").value;recognition.continuous=true;recognition.interimResults=true;
+   let finalText="";
+   recognition.onresult=event=>{
+    let interim="";
+    for(let i=event.resultIndex;i<event.results.length;i++){const part=event.results[i][0].transcript;if(event.results[i].isFinal)finalText+=part+" ";else interim+=part;}
+    needText.value=(finalText+interim).trim();
+   };
+   recognition.onerror=()=>{voiceStatus.textContent="تعذرت الكتابة الصوتية التلقائية. يمكنك كتابة حاجتك يدوياً.";};
+   recognition.start();voiceStatus.textContent="جارٍ تسجيل الصوت وتحويله إلى نص…";
+  }else{voiceStatus.textContent="التسجيل جارٍ. هذا المتصفح لا يدعم تحويل الصوت إلى نص تلقائياً.";}
+ }catch(error){voiceStatus.textContent="تعذر الوصول إلى الميكروفون. تحقق من أذونات المتصفح.";}
+});
+stopRecordButton.addEventListener("click",()=>{
+ if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
+ if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
+ recordButton.disabled=false;stopRecordButton.disabled=true;
+});
+playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
 stopAll.addEventListener("click",stopPlayback);
 repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
 toneToggle.addEventListener("change",()=>{if(toneToggle.checked&&currentAudio&&!currentAudio.paused){start528Tone();setStatus("طبقة 528 Hz مفعّلة مع التلاوة.");}else{stop528Tone();if(!toneToggle.checked)setStatus("تم إيقاف طبقة 528 Hz؛ تستمر التلاوة بشكل طبيعي.");}});
-renderPath("sleep");
+
 </script>
 </body>
 </html>
