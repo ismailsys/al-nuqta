@@ -34,13 +34,31 @@
     }
     return lexiconPromise;
   }
+  function arabicTokenVariants(token){
+    const variants=new Set([token]);
+    const add=value=>{if(value&&value.length>=3)variants.add(value);};
+    for(const prefix of ["وال","فال","بال","كال","ولل","لل","و","ف","ب","ك","ل"]){
+      if(token.startsWith(prefix)&&token.length-prefix.length>=3)add(token.slice(prefix.length));
+    }
+    for(const value of [...variants]){
+      if(value.startsWith("ال")&&value.length>=5)add(value.slice(2));
+      for(const suffix of ["كما","هما","هم","هن","كم","كن","نا","ها","هم","ه","ي","ك"]){
+        if(value.endsWith(suffix)&&value.length-suffix.length>=3)add(value.slice(0,-suffix.length));
+      }
+    }
+    return [...variants];
+  }
   function matchesAlias(text,alias){
     const term=normalize(alias);
     if(!term || term.length<2) return false;
     if(term.includes(" ")) return (" "+text+" ").includes(" "+term+" ");
     const tokens=text.split(" ");
-    return tokens.some(token=>token===term || (term.length>=5 && token.startsWith(term)) ||
-      (/^[\u0600-\u06ff]+$/u.test(term) && term.length>=3 && token.startsWith(term)));
+    const arabic=/^[\u0600-\u06ff]+$/u.test(term);
+    return tokens.some(token=>{
+      const candidates=arabic?arabicTokenVariants(token):[token];
+      return candidates.some(candidate=>candidate===term ||
+        (!arabic&&term.length>=5&&candidate.startsWith(term)));
+    });
   }
   async function analyze(description,selectedCategories=[]){
     const data=await loadLexicon();
