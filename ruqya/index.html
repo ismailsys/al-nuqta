@@ -49,8 +49,6 @@ select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
 .btn{border:1px solid var(--line);background:var(--panel2);color:var(--accent2);border-radius:999px;padding:10px 15px;cursor:pointer;font:13px "DM Sans";transition:.2s}
 .btn.primary{background:var(--accent);color:#17130e;border-color:var(--accent);font-weight:600}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.toneToggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
-.toneToggle input{accent-color:var(--accent);width:16px;height:16px}
 .playerStatus{font-size:12px;color:var(--muted);margin-top:10px;min-height:20px}
 .verses{display:grid;gap:12px;margin-top:16px}
 .verse{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;transition:border-color .2s}
@@ -125,7 +123,6 @@ body[data-theme="pain"]{--bg:#f4f0eb;--panel:#fbf9f6;--panel2:#eee8e0;--accent:#
 .playerOptions{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-top:17px}
 .playerOptions>label:first-child{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
 select{background:#fff;border-color:var(--line);color:var(--text)}
-.toneToggle{background:transparent;border-color:var(--line);border-radius:999px;padding:7px 12px}
 .playerStatus{color:var(--muted);margin-top:14px;font-size:12px}
 .verse{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 4px 18px #514b3f07}
 .verse.playing{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow)}
@@ -186,7 +183,6 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <div class="playerOptions">
 <label>التكرار
 <select id="repeatCount" aria-label="عدد مرات التكرار"><option value="1">مرة واحدة</option><option value="3" selected>3 مرات</option><option value="7">7 مرات</option><option value="10">10 مرات</option><option value="20">20 مرة</option></select></label>
-<label class="toneToggle"><input type="checkbox" id="tone528" checked> نغمة 528 Hz</label>
 </div>
 <div class="playerStatus" id="playerStatus">اضغط على ابدأ للاستماع إلى المسار كاملاً.</div>
 </div>
@@ -230,43 +226,12 @@ const paths={
 };
 const choices=[...document.querySelectorAll(".choice")],path=document.getElementById("path"),versesBox=document.getElementById("verses"),playAll=document.getElementById("playAll"),stopAll=document.getElementById("stopAll"),repeatSelect=document.getElementById("repeatCount"),statusEl=document.getElementById("playerStatus");
 let activeButton=null,currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTotal=3,playingCard=null,stopRequested=false,currentIds=[];
-let toneContext=null,toneOscillator=null,toneGain=null;
-const toneToggle=document.getElementById("tone528");
-function start528Tone(){
- if(!toneToggle.checked)return;
- try{
-  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
-  if(!AudioContextClass){setStatus("المتصفح لا يدعم تشغيل طبقة 528 Hz.");return;}
-  if(!toneContext)toneContext=new AudioContextClass();
-  if(toneOscillator){toneContext.resume().catch(()=>{});return;}
-  toneOscillator=toneContext.createOscillator();
-  toneGain=toneContext.createGain();
-  toneOscillator.type="sine";
-  toneOscillator.frequency.setValueAtTime(528,toneContext.currentTime);
-  toneGain.gain.setValueAtTime(0.0025,toneContext.currentTime);
-  toneOscillator.connect(toneGain);
-  toneGain.connect(toneContext.destination);
-  toneOscillator.onended=()=>{try{toneOscillator?.disconnect();toneGain?.disconnect();}catch(e){}};
-  toneOscillator.start();
-  toneContext.resume().catch(()=>{});
- }catch(e){setStatus("تعذر تشغيل طبقة 528 Hz في هذا المتصفح.");}
-}
-function stop528Tone(){
- if(!toneContext||!toneOscillator)return;
- const oscillator=toneOscillator,gain=toneGain;
- toneOscillator=null;toneGain=null;
- try{
-  gain.gain.setTargetAtTime(0,toneContext.currentTime,0.025);
-  oscillator.onended=()=>{try{oscillator.disconnect();gain.disconnect();}catch(e){}};
-  oscillator.stop(toneContext.currentTime+0.1);
- }catch(e){}
-}
 function setStatus(s){statusEl.textContent=s}
-function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=null;stop528Tone();playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
+function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
 function audioUrl(id){return "https://everyayah.com/data/Alafasy_128kbps/"+id+".mp3";}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
- stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;start528Tone();
+ stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;
  playAll.textContent="التلاوة جارية";playNext();
 }
 function playNext(){
@@ -280,7 +245,7 @@ function playNext(){
  currentAudio=new Audio(audioUrl(item.src));
  currentAudio.addEventListener("ended",()=>{playIndex++;playNext();},{once:true});
  currentAudio.addEventListener("error",()=>{setStatus("تعذر تحميل المقطع الصوتي. تحقق من الاتصال ثم أعد المحاولة.");playIndex++;playNext();},{once:true});
- currentAudio.play().catch(()=>{stop528Tone();setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");playAll.textContent="▶ إعادة المحاولة";});
+ currentAudio.play().catch(()=>{setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");playAll.textContent="▶ إعادة المحاولة";});
 }
 function renderVerse(id){
  const v=verses[id],card=document.createElement("article");card.className="verse";card.dataset.verse=id;
@@ -292,9 +257,7 @@ function renderVerse(id){
  const meaning=document.createElement("div");meaning.className="meaning";meaning.textContent=v.meaning;
  card.append(head,text,meaning);
  if(v.concept){const c=document.createElement("div");c.className="concept";c.textContent="محور التدبر: "+v.concept+" · إلهام موضوعي لا نسبة نصية إلى ابن عربي";card.append(c);}
- const actions=document.createElement("div");actions.className="actions";
- const source=document.createElement("a");source.className="sourceLink";source.textContent="مراجعة النص القرآني ↗";source.href=v.source;source.target="_blank";source.rel="noopener noreferrer";
- actions.append(source);card.append(actions);return card;
+ return card;
 }
 function renderPath(key){
  const p=paths[key];document.body.dataset.theme=p.theme;document.getElementById("pathTitle").textContent=p.title;document.getElementById("pathText").textContent=p.text;
@@ -341,7 +304,11 @@ function composeNeed(){
  if(!all.length&&typed)all=["calm"];
  if(!all.length){voiceStatus.textContent="Décrivez votre besoin ou sélectionnez au moins une catégorie.";return;}
  const ids=[...new Set([...foundationIds,...all.flatMap(key=>categoryInfo[key].ids)])]
-  .sort((a,b)=>Number(verses[a].audio[0])-Number(verses[b].audio[0]));
+  .sort((a,b)=>{
+   const parse=id=>{const n=Number(verses[id].audio[0]);return {surah:Math.floor(n/1000),ayah:n%1000};};
+   const A=parse(a),B=parse(b);
+   return A.surah-B.surah||A.ayah-B.ayah;
+  });
  currentIds=ids;
  document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
@@ -398,7 +365,7 @@ stopRecordButton.addEventListener("click",()=>{
 playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
 stopAll.addEventListener("click",stopPlayback);
 repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
-toneToggle.addEventListener("change",()=>{if(toneToggle.checked&&currentAudio&&!currentAudio.paused){start528Tone();setStatus("طبقة 528 Hz مفعّلة مع التلاوة.");}else{stop528Tone();if(!toneToggle.checked)setStatus("تم إيقاف طبقة 528 Hz؛ تستمر التلاوة بشكل طبيعي.");}});
+
 
 </script>
 </body>
