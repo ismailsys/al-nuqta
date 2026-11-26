@@ -515,12 +515,12 @@ function detectCategories(text){
 const topicButtons=[...document.querySelectorAll(".topicTag")];
 let selectedTopics=new Set();
 function baseDescription(){
- return needText.value.replace(/\\n?الموضوعات المختارة:.*$/s,"").trim();
+ return needText.value.replace(/\n?الموضوعات المختارة:.*$/s,"").trim();
 }
 function updateTopicDescription(){
  const base=baseDescription();
  const labels=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.label);
- needText.value=base+(labels.length?(base?"\\n":"")+"الموضوعات المختارة: "+labels.join("، "):"");
+ needText.value=base+(labels.length?(base?"\n":"")+"الموضوعات المختارة: "+labels.join("، "):"");
  topicButtons.forEach(button=>{
   const active=selectedTopics.has(button.dataset.label);
   button.classList.toggle("active",active);
@@ -561,6 +561,11 @@ function composeNeed(){
 }
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
 document.getElementById("backToNeed").addEventListener("click",()=>{stopPlayback();document.body.dataset.page="input";window.scrollTo({top:0,behavior:"smooth"});});
+needText.addEventListener("focus",()=>{
+ const base=baseDescription();
+ if(needText.value!==base)needText.value=base;
+});
+needText.addEventListener("blur",updateTopicDescription);
 needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.textContent="راجع النص، ثم اضغط على «إنشاء مساري القرآني».";});
 function finishRecording(){
  if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
