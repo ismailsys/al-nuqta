@@ -932,21 +932,28 @@ async function searchQuranCorpus(terms){
  const found=new Map();
  const requests=terms.map(async entry=>{
   const term=entry.term;
+  if(!term)return;
   const url="https://api.quran.com/api/v4/search?q="+encodeURIComponent(term)+"&size=50&language=ar";
   const response=await fetch(url,{headers:{Accept:"application/json"}});
-  if(!response.ok)throw new Error("Quran search HTTP "+response.status);
+  if(!response.ok)throw new Error("Quran search HTTP "+response.status+" for "+term);
   const payload=await response.json();
-  const results=payload.search?.results||payload.results||[];
+  // Quran.com legacy v4 and newer search responses use different envelopes.
+  const results=payload.search?.results
+   ||payload.result?.verses
+   ||payload.results
+   ||payload.verses
+   ||[];
   results.forEach((item,index)=>{
-   const key=item.verse_key||item.verseKey;
-   const textValue=item.text_uthmani||item.text||item.verse?.text_uthmani||item.verse?.text;
-   if(!key||!textValue)return;
+   const key=item.verse_key||item.verseKey||item.key||item.verse?.verse_key||item.verse?.key;
+   const textValue=item.text_uthmani||item.text||item.arabic||item.name
+    ||item.verse?.text_uthmani||item.verse?.text||item.verse?.arabic;
+   if(typeof key!=="string"||!/^\\d+:\\d+$/.test(key)||!textValue)return;
    const [surah,ayah]=key.split(":").map(Number);
    if(!surah||!ayah)return;
    const id="live_"+surah+"_"+ayah;
    const normalizedVerse=normalizeQuranText(textValue);
    const normalizedTerm=normalizeQuranText(term);
-   const verseTokens=normalizedVerse.replace(/[^\u0600-\u06FF\s]/g," ").split(/\s+/).filter(Boolean);
+   const verseTokens=normalizedVerse.replace(/[^\\u0600-\\u06FF\\s]/g," ").split(/\\s+/).filter(Boolean);
    const lexical=normalizedVerse.includes(normalizedTerm);
    const direct=entry.domain==="user_words"&&verseTokens.includes(normalizedTerm);
    const previous=found.get(id)||{
@@ -965,7 +972,14 @@ async function searchQuranCorpus(terms){
   });
  });
  const settled=await Promise.allSettled(requests);
- if(!settled.some(r=>r.status==="fulfilled")&&settled.length)throw new Error("All Quran searches failed");
+ const fulfilled=settled.filter(result=>result.status==="fulfilled").length;
+ if(!fulfilled&&settled.length){
+  const firstError=settled.find(result=>result.status==="rejected")?.reason;
+  throw firstError||new Error("All Quran searches failed");
+ }
+ if(!found.size&&fulfilled){
+  console.warn("SAKINA: Quran API responded but no verse records were recognized.",settled.length);
+ }
  return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,25).map(item=>{
   const related=[...new Set(item.hits.map(h=>h.label))];
   const direct=item.directTerms.length>0;
