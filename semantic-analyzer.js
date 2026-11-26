@@ -108,10 +108,12 @@
         }
       }
     }
-    const arabicWords=(description.match(/[\u0600-\u06FF]{3,}/g)||[]);
+    const arabicStopWords=new Set(["عندي","عندي","عندي","اريد","أريد","عندما","هناك","هذا","هذه","ذلك","التي","الذي","الذين","اللواتي","على","الى","إلى","من","عن","مع","بعد","قبل","كان","كانت","يكون","تكون","ليس","لدي","لديك","كلما","بسبب","جدا","كثير","كثيرة","شيء","اشعر","أشعر","احس","أحس","حالتي","مشكلتي","مشاكل","مشكلة"]);
+    const arabicWords=(description.match(/[\u0600-\u06FF]{3,}/g)||[])
+      .filter(word=>!arabicStopWords.has(word)&&normalize(word).length>=3);
     for(const word of arabicWords){
       if(!terms.some(t=>normalize(t.term)===normalize(word))){
-        terms.unshift({term:word,conceptId:null,conceptIds:[],domain:"user_words",label:"لفظ من وصفك",priority:1.2});
+        terms.unshift({term:word,conceptId:null,conceptIds:[],domain:"user_words",label:"لفظ عربي من وصفك",priority:1.2});
       }
     }
     return {
