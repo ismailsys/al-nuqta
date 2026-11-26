@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p app/al-nuqta && tar -xzf al-nuqta-source.gz -C app/al-nuqta && cd app/al-nuqta && npm install --no-audit --no-fund && npm run build"
+    "build": "cat source-*.part | base64 -d | tar -xz && cd al-nuqta && npm install --no-audit --no-fund && npm run build"
   }
 }
