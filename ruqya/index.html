@@ -315,7 +315,7 @@ body[data-page="result"] #path{margin-top:20px}
 
 /* Refined SAKINA palette: calm green with restrained gold details */
 :root{--accent:#879b87;--accent2:#596f5b;--glow:#c5a66a30}
-body{background:radial-gradient(ellipse at 50% -18%,#e4e9df 0%,#f3f0e9 62%)}
+
 .needCard{border:1px solid #c9b88f;box-shadow:0 14px 38px #514b3f10, inset 0 0 0 1px #ffffffa8}
 .needCard #needText{border:1px solid #c9b88f;box-shadow:inset 0 1px 5px #6e624014}
 .needCard #needText:focus{border-color:#a88b50;box-shadow:0 0 0 3px #c9a66b25}
@@ -413,7 +413,7 @@ body{background:radial-gradient(ellipse at 50% -18%,#e4e9df 0%,#f3f0e9 62%)}
 <textarea id="needText" rows="4" placeholder="اكتب ما يشغلك هنا، أو اضغط على الميكروفون للتحدث..."></textarea>
 <div class="composerToolbar">
  <button class="btn primary" id="startRecording" type="button"><span class="micIcon">🎙</span><span>ابدأ التحدث</span></button>
- <label class="languageSelect"><span>اللغة</span><select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select></label>
+ 
 </div>
 </div>
 <audio id="recordedAudio" controls hidden></audio>
@@ -675,7 +675,7 @@ recordButton.addEventListener("click",async()=>{
   recordButton.classList.remove("primary");
   const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(SpeechRecognition){
-   recognition=new SpeechRecognition();recognition.lang=document.getElementById("voiceLanguage").value;recognition.continuous=true;recognition.interimResults=true;
+   recognition=new SpeechRecognition();recognition.lang="ar-MA";recognition.continuous=true;recognition.interimResults=true;
    let finalText="";
    recognition.onresult=event=>{
     let interim="";
