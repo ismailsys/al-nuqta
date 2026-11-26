@@ -1,81 +1,828 @@
 <!doctype html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#11100f"><meta name="description" content="AL-NUQTA — un espace de recueillement, de respiration et de récitation.">
-<title>AL-NUQTA — Le point de retour</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f3f0e9">
+<meta name="description" content="سكينة — مساحة هادئة للتلاوة والذكر والتدبر.">
+<title>SAKINA | سكينة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#11100f;--panel:#1b1917;--line:#393229;--gold:#c9a66b;--gold2:#e4c895;--muted:#aa9e8d;--white:#f4eee5;--green:#8eaa91}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#392d1e 0,#191512 44%,var(--bg) 78%);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh}button{font:inherit;cursor:pointer}.shell{max-width:1040px;margin:auto;padding:24px 22px 64px}.top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;padding:8px 0 18px}.brand{font:600 19px 'Playfair Display',serif;letter-spacing:.24em;color:var(--gold2)}.brand small{display:block;font:10px 'DM Sans';letter-spacing:.2em;color:var(--muted);margin-top:4px}.top-actions{display:flex;gap:9px}.quiet-btn,.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:30px;padding:9px 13px;font-size:12px}.quiet-btn:hover,.ghost:hover{border-color:var(--gold);color:var(--gold2)}main{padding-top:38px}.screen{display:none;animation:appear .45s ease}.screen.active{display:block}@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.eyebrow{text-transform:uppercase;letter-spacing:.22em;color:var(--gold);font-size:10px;font-weight:700}.hero{text-align:center;max-width:700px;margin:28px auto 40px}.hero h1{font:400 clamp(34px,6vw,58px)/1.12 'Playfair Display',serif;margin:14px 0}.hero p{color:var(--muted);line-height:1.8;font-size:14px}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;max-width:780px;margin:30px auto}.choice{background:linear-gradient(145deg,#211e1a,#171513);border:1px solid var(--line);border-radius:15px;padding:22px 16px;text-align:left;color:var(--white);min-height:130px;transition:.2s}.choice:hover,.choice.selected{border-color:var(--gold);background:#282117;transform:translateY(-2px)}.choice .symbol{font:28px 'Amiri';color:var(--gold2)}.choice strong{display:block;margin:8px 0 4px;font-size:14px}.choice span:last-child{font-size:11px;color:var(--muted)}.actions{text-align:center;margin:28px 0}.primary{border:0;border-radius:30px;padding:13px 25px;background:linear-gradient(110deg,#b18b50,#e0c18b);color:#17130e;font-weight:700;box-shadow:0 8px 24px #0005}.primary:disabled{opacity:.35;cursor:not-allowed}.subtle{font-size:11px;color:var(--muted);text-align:center;margin-top:16px}.panel{background:linear-gradient(145deg,#201d19,#171513);border:1px solid var(--line);border-radius:18px;padding:24px;margin:16px 0}.panel h2{font:400 25px 'Playfair Display';margin:7px 0 12px}.panel p{color:var(--muted);line-height:1.75;font-size:13px}.verse{font:28px/1.8 'Amiri',serif;direction:rtl;text-align:center;color:var(--gold2);padding:14px 0}.translation{text-align:center;color:var(--muted);font-size:12px;line-height:1.6}.verse-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.verse-card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#141210}.verse-card .ref{color:var(--gold);font-size:10px;letter-spacing:.1em}.verse-card .verse{font-size:23px}.steps{display:flex;gap:8px;justify-content:center;margin:22px 0}.step{border:1px solid var(--line);padding:8px 12px;border-radius:30px;font-size:10px;color:var(--muted)}.step.current{border-color:var(--gold);color:var(--gold2)}.sanctuary{text-align:center;position:relative;overflow:hidden}.sanctuary h2{font:400 30px 'Playfair Display';margin:10px 0}.orb-wrap{width:min(68vw,330px);height:min(68vw,330px);margin:20px auto;position:relative;display:grid;place-items:center}.orb{width:58%;height:58%;border-radius:50%;border:1px solid #d0ad70a8;box-shadow:0 0 45px #c9a66b20,inset 0 0 36px #c9a66b20;display:grid;place-items:center;transition:transform 4s ease-in-out,box-shadow 4s}.orb.inhale{transform:scale(1.18);box-shadow:0 0 75px #c9a66b55,inset 0 0 45px #c9a66b33}.orb.exhale{transform:scale(.88)}.orb-text{font:25px 'Amiri';color:var(--gold2)}#vortex{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.breath-label{font:20px 'Playfair Display';color:var(--gold2);min-height:30px}.timer{font:13px 'DM Sans';color:var(--muted);letter-spacing:.14em;margin:10px}.progress{height:3px;background:#ffffff16;border-radius:5px;max-width:430px;margin:16px auto;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}.session-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px}.modal-back{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-back.open{display:flex}.modal{max-width:600px;width:100%;max-height:85vh;overflow:auto;background:#1d1a16;border:1px solid var(--gold);border-radius:18px;padding:26px}.modal h2{font:26px 'Playfair Display'}.modal p,.modal li{color:var(--muted);font-size:13px;line-height:1.8}.modal .close{float:right}.analyzer{display:grid;grid-template-columns:1fr 1fr;gap:18px}.analyzer input{width:100%;background:#11100f;border:1px solid var(--line);border-radius:10px;color:var(--white);padding:12px;font:22px 'Amiri';text-align:right}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.stat{background:#141210;border:1px solid var(--line);border-radius:10px;padding:12px}.stat b{display:block;color:var(--gold2);font-size:18px}.stat small{color:var(--muted);font-size:10px}.end{text-align:center;padding:45px 0}.end .mark{font:70px 'Amiri';color:var(--gold2)}.footer{text-align:center;color:#746b5e;font-size:10px;margin-top:45px}.sleep body{background:#090807}.sleep .top,.sleep .footer,.sleep .top-actions{opacity:.16}.sleep .panel{background:#100f0e}.sleep .eyebrow{opacity:.55}@media(max-width:650px){.shell{padding:16px 14px 44px}.choices{grid-template-columns:1fr}.choice{min-height:0;display:flex;align-items:center;gap:14px;padding:14px}.choice .symbol{font-size:25px}.choice strong{margin:0 0 3px}.verse-list,.analyzer{grid-template-columns:1fr}.top{align-items:flex-start}.brand{font-size:16px}.quiet-btn{padding:8px 10px}.hero{margin:18px auto 28px}.panel{padding:18px}.steps{flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root{color-scheme:dark;--bg:#111a27;--panel:#1b2636;--panel2:#222f42;--accent:#c9a66b;--accent2:#e5d0a0;--text:#f3eee4;--muted:#b7bdc7;--line:#354254;--glow:#c9a66b22}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -15%,var(--glow) 0%,var(--bg) 58%);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh;transition:background .55s ease,color .35s ease}
+body[data-theme="anxiety"]{--bg:#211b16;--panel:#2a211a;--panel2:#35291e;--accent:#d6a65d;--accent2:#f0d5a0;--line:#51402d;--glow:#d6a65d28}
+body[data-theme="fear"]{--bg:#111b30;--panel:#1a2942;--panel2:#223655;--accent:#8ca9d5;--accent2:#d7e4fb;--line:#354b6c;--glow:#7195d42b}
+body[data-theme="sadness"]{--bg:#211b2a;--panel:#2b2337;--panel2:#382b45;--accent:#b69ac7;--accent2:#eadcf2;--line:#4b3b5b;--glow:#b69ac72a}
+body[data-theme="distress"]{--bg:#14231f;--panel:#1d302a;--panel2:#263d35;--accent:#8db9a2;--accent2:#d7eee0;--line:#385448;--glow:#8db9a22a}
+body[data-theme="sleep"]{--bg:#101a2a;--panel:#182438;--panel2:#202e43;--accent:#d4b47a;--accent2:#f1dfb9;--line:#34445c;--glow:#d4b47a24}
+body[data-theme="pain"]{--bg:#241e18;--panel:#30271f;--panel2:#3b3025;--accent:#c6a17c;--accent2:#f0ddc8;--line:#554434;--glow:#c6a17c24}
+.wrap{width:min(1020px,92%);margin:auto;padding:30px 0 70px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:18px}
+.brand{letter-spacing:.18em;color:var(--accent);font-size:12px}.back{color:var(--muted);text-decoration:none;font-size:13px}
+.hero{text-align:center;padding:46px 0 30px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:.12em}
+.hero h1{font:700 clamp(34px,6vw,52px) Amiri,serif;margin:12px 0 6px}
+.hero p{color:var(--muted);line-height:1.95;margin:0 auto;max-width:680px;font-size:14px}
+.section{margin:22px 0 0}.section h2{font:700 25px Amiri,serif;margin:0 0 6px}
+.hint{color:var(--muted);font-size:13px;line-height:1.8;margin:0 0 16px}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+#needText{width:100%;min-height:112px;resize:vertical;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);padding:14px;font:15px/1.8 "DM Sans",sans-serif;outline:none}
+#needText:focus{border-color:var(--accent)}
+.voiceTools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.voiceStatus{font-size:12px;color:var(--muted);line-height:1.8;margin:9px 0}
+#recordedAudio{width:100%;margin-top:10px}
+.buildBtn{margin-top:8px}
+@media(max-width:650px){.voiceTools>*{flex:1}}
+.choice{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);color:var(--text);border-radius:14px;padding:17px 12px;font:20px Amiri;cursor:pointer;transition:.25s}
+.choice small{display:block;color:var(--muted);font:12px "DM Sans";margin-top:5px}
+.choice:hover,.choice.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow),0 10px 30px #0002;transform:translateY(-1px)}
+.path{display:none;margin-top:22px;padding:clamp(16px,3vw,24px);border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel),#11111122)}
+.path.show{display:block}.path h3{font:700 26px Amiri;color:var(--accent2);margin:0 0 6px}
+.path p{font-size:13px;color:var(--muted);line-height:1.95;margin:0}
+.pathMeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pill{border:1px solid var(--line);border-radius:99px;padding:6px 11px;color:var(--accent2);font-size:12px}
+.player{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#090d142b}
+.player h4{font:700 21px Amiri;margin:0 0 10px;color:var(--accent2)}
+.playerControls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:9px 12px;font:13px "DM Sans"}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--accent2);border-radius:999px;padding:10px 15px;cursor:pointer;font:13px "DM Sans";transition:.2s}
+.btn.primary{background:var(--accent);color:#17130e;border-color:var(--accent);font-weight:600}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.playerStatus{font-size:12px;color:var(--muted);margin-top:10px;min-height:20px}
+.verses{display:grid;gap:12px;margin-top:16px}
+.verse{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;transition:border-color .2s}
+.verse.playing{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow)}
+.audio-wave{display:none;align-items:center;gap:3px;height:20px;margin-inline-start:auto;color:var(--accent2)}
+.verse.playing .audio-wave{display:inline-flex}
+.audio-wave i{display:block;width:3px;height:5px;border-radius:3px;background:currentColor;animation:audioPulse .8s ease-in-out infinite alternate}
+.audio-wave i:nth-child(2){animation-delay:.15s}
+.audio-wave i:nth-child(3){animation-delay:.3s}
+.audio-wave i:nth-child(4){animation-delay:.45s}
+@keyframes audioPulse{from{height:4px;opacity:.55}to{height:18px;opacity:1}}
+.versehead{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--accent);font-size:12px}
+.tag{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:30px}
+.arabic{font:26px/2.15 Amiri;text-align:center;margin:18px 0;color:#fbf5e9}
+.meaning{font-size:13px;color:var(--muted);line-height:1.9;border-top:1px solid var(--line);padding-top:12px}
+.concept{margin-top:10px;padding:10px 12px;border-right:2px solid var(--accent);background:#00000018;color:var(--accent2);font-size:12px;line-height:1.8}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.method{margin-top:24px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--muted);font-size:12px;line-height:2}
+.method h3{font:700 21px Amiri;color:var(--accent2);margin:0 0 6px}
+.note{margin-top:16px;padding:16px 18px;border-right:2px solid var(--accent);background:#00000020;color:var(--muted);font-size:12px;line-height:2}
+.note strong{color:var(--accent2)}.footer{text-align:center;color:#8e8a83;font-size:11px;margin-top:26px;line-height:1.9}
+@media(max-width:650px){.choices{grid-template-columns:repeat(2,1fr)}.hero{padding-top:34px}.verse{padding:15px}.arabic{font-size:23px}.playerControls{align-items:stretch}.playerControls>*{flex:1}}
+
+/* SAKINA — soft, calm visual system */
+:root{color-scheme:light;--bg:#f3f0e9;--panel:#fbfaf7;--panel2:#f0ede5;--accent:#9b8664;--accent2:#6d604e;--text:#373a35;--muted:#777970;--line:#e4dfd4;--glow:#c6b99a20}
+body{background:radial-gradient(ellipse at 50% -18%,#e9e3d6 0%,var(--bg) 62%);color:var(--text)}
+body[data-theme="anxiety"]{--bg:#f4f0e8;--panel:#fbf8f1;--panel2:#eee8dc;--accent:#a58b65;--accent2:#716044;--line:#e6ddcd;--glow:#c9b18b25}
+body[data-theme="fear"]{--bg:#eff2f5;--panel:#f9fafb;--panel2:#e9eef3;--accent:#8296aa;--accent2:#526779;--line:#dce4eb;--glow:#9bb0c425}
+body[data-theme="sadness"]{--bg:#f3eff4;--panel:#fbf9fc;--panel2:#eee8f1;--accent:#a38da9;--accent2:#705d78;--line:#e4dce8;--glow:#b9a4c125}
+body[data-theme="distress"]{--bg:#eef3ef;--panel:#f9fbf8;--panel2:#e7efe8;--accent:#829c88;--accent2:#536e5a;--line:#dce7de;--glow:#9db9a225}
+body[data-theme="sleep"]{--bg:#eff1f2;--panel:#fafbfb;--panel2:#e8edef;--accent:#8b9da5;--accent2:#596f79;--line:#dce4e7;--glow:#9db2bc25}
+body[data-theme="pain"]{--bg:#f4f0eb;--panel:#fbf9f6;--panel2:#eee8e0;--accent:#a38b75;--accent2:#725b48;--line:#e6ddd2;--glow:#c2a98f25}
+.wrap{width:min(980px,92%);padding:26px 0 64px}
+.top{border-bottom-color:var(--line);padding-bottom:15px}
+.brand{font-weight:600;letter-spacing:.14em;color:var(--accent)}
+.brand span{letter-spacing:0;font:16px Amiri,serif;margin-right:5px;color:var(--accent2)}
+.back{color:var(--muted)}
+.hero{padding:42px 0 27px}
+.hero h1{color:#3c403b;font-size:clamp(32px,5vw,46px);font-weight:400}
+.hero p{max-width:620px;color:var(--muted)}
+.section{margin-top:16px}
+.section h2{font-size:24px;color:#4a4d46;font-weight:400}
+.hint{color:var(--muted)}
+.choices{gap:12px}
+.needFirst{margin-top:12px}
+.needCard{padding:clamp(18px,3vw,30px);border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fffefa,#f4f1e9);box-shadow:0 14px 38px #514b3f10}
+.needKicker{font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:8px}
+.needCard h2{font-size:29px;margin:0 0 4px;color:#454a43}
+.needCard .hint{margin-bottom:14px}
+.needCard .voiceTools{margin:0 0 12px}
+.needCard #startRecording{min-height:48px;min-width:190px;font-size:14px}
+
+.needCard #needText{min-height:130px;background:#fff;border-color:#ded9ce;font-size:15px}
+.needCard #needText::placeholder{color:#99978e}
+.needCard #recordedAudio{margin-top:12px}
+.needCard .voiceStatus{margin:10px 0 0}
+.composeArea{text-align:center;margin:18px 0 4px}
+.composeArea .buildBtn{min-width:min(320px,100%);padding:14px 26px;font-size:15px}
+.composeHint{font-size:11px;color:var(--muted);margin:8px 0}
+.section h2{margin-bottom:6px}
+@media(max-width:650px){.needCard{padding:17px;border-radius:18px}.needCard h2{font-size:25px}.needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}.needCard #startRecording{grid-column:1/-1;width:100%}.needCard #voiceLanguage{width:100%}.composeArea .buildBtn{width:100%}}
+
+.choice{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:16px;padding:16px 12px;box-shadow:0 3px 14px #625b4d08}
+.choice small{color:var(--muted)}
+.choice:hover,.choice.active{border-color:var(--accent);background:#fff;box-shadow:0 5px 18px #625b4d12;transform:translateY(-1px)}
+.path{margin-top:24px;padding:clamp(16px,3vw,28px);border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.48);box-shadow:0 12px 36px #514b3f08}
+.path h3{font-size:27px;color:var(--accent2);font-weight:400}
+.path p{color:var(--muted)}
+.pathMeta{justify-content:center;margin:14px 0 20px}
+.pill{border-color:var(--line);color:var(--accent2);background:#ffffff70}
+.player{width:min(620px,100%);margin:20px auto 26px;padding:25px 22px 19px;text-align:center;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#fffefa,#f7f5ef);box-shadow:0 12px 32px #514b3f0d}
+.playerEyebrow{font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.player h4{font:400 27px Amiri,serif;color:#4c514a;margin:5px 0 0}
+.playerIntro{font-size:12px!important;margin:0 0 18px!important;color:var(--muted)!important}
+.playerControls{justify-content:center;gap:12px}
+.btn{border-color:var(--line);background:#f5f3ed;color:#6b655a;padding:11px 20px}
+.btn.primary{background:#8f9e91;color:white;border-color:#8f9e91;min-width:170px}
+.btn:hover{filter:brightness(.98);transform:translateY(-1px)}
+.playerOptions{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-top:17px}
+.playerOptions>label:first-child{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
+select{background:#fff;border-color:var(--line);color:var(--text)}
+.playerStatus{color:var(--muted);margin-top:14px;font-size:12px}
+.verse{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 4px 18px #514b3f07}
+.verse.playing{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow)}
+.versehead{color:var(--accent)}
+.tag{border-color:var(--line);color:var(--muted)}
+.arabic{color:#41463f;font-size:28px;line-height:2.25}
+.meaning{border-color:var(--line);color:var(--muted)}
+.concept{border-right-color:var(--accent);background:#f3f0e966;color:var(--accent2)}
+.actions{justify-content:flex-start;margin-top:10px}
+.sourceLink{font-size:11px;color:var(--accent2);text-decoration:none;border-bottom:1px solid #c9c0b0;padding-bottom:2px}
+.method{background:#f9f8f4;border-color:var(--line);border-radius:18px;color:var(--muted)}
+.method h3{font-weight:400;color:var(--accent2)}
+.note{border-right-color:var(--accent);background:#eeece5;color:var(--muted);border-radius:10px}
+.note strong{color:var(--accent2)}
+.footer{color:#929188}
+@media(max-width:650px){.hero{padding-top:32px}.player{padding:22px 15px}.playerControls>*{flex:initial}.playerOptions{gap:10px}.arabic{font-size:24px}}
+
+/* SAKINA refresh — warm ivory, botanical green and soft champagne */
+:root{--bg:#f2f0e8;--panel:#fffefa;--panel2:#e9eee7;--accent:#718879;--accent2:#465f50;--text:#303a33;--muted:#777f76;--line:#dce3d9;--glow:#a8bba533}
+body{background:radial-gradient(ellipse at 50% -20%,#e3eadf 0%,#f4f2eb 56%,#eeece3 100%);color:var(--text)}
+.wrap{width:min(900px,92%);padding-top:30px}
+.top{border-bottom:1px solid #d9e1d7}
+.brand{color:#66816d;letter-spacing:.16em}.brand span{color:#9a8258}
+.hero{padding:58px 0 34px}.hero .eyebrow{color:#8e7955;letter-spacing:.2em}
+.hero h1{color:#35483b;font-size:clamp(36px,6vw,54px);letter-spacing:.01em}
+.hero p{color:#788077;max-width:560px;font-size:14px;line-height:2}
+.needCard{position:relative;overflow:hidden;border:1px solid #dce5da;border-radius:28px;background:linear-gradient(145deg,#fffefa 0%,#f4f6ef 58%,#edf2e9 100%);box-shadow:0 22px 60px #425b4712;padding:clamp(22px,4vw,38px)}
+.needCard:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,#d8e5d7a0 0%,#d8e5d700 72%);top:-90px;left:-70px;pointer-events:none}
+.needKicker{color:#9a8054;letter-spacing:.18em;font-size:10px}
+.needCard h2{color:#3f5947;font-size:clamp(27px,4vw,34px);margin:0 0 8px}
+.needCard .hint{color:#7d857b;font-size:13px}
+.needCard #needText{background:#fffefa;border:1px solid #dce4d9;border-radius:18px;color:#354238;min-height:150px;padding:18px;font:16px/2 "DM Sans",sans-serif;box-shadow:inset 0 2px 8px #3d564508}
+.needCard #needText:focus{border-color:#8ba38e;box-shadow:0 0 0 3px #a8bba533}
+.needCard #needText::placeholder{color:#a2a79e}
+.voiceTools{gap:10px}
+.btn{border:1px solid #d8e1d6;background:#f4f6f0;color:#526b58;border-radius:999px;padding:12px 20px;font-size:13px;transition:all .2s ease}
+.btn.primary{background:linear-gradient(135deg,#718d78,#597761);border-color:#718d78;color:#fff;box-shadow:0 8px 20px #607c681f}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.02);box-shadow:0 9px 22px #4c6a5418}
+.btn:disabled{box-shadow:none}
+select{background:#fffefa;border:1px solid #dce4d9;color:#526456;border-radius:12px;padding:11px 13px}
+.voiceStatus{color:#81897f;line-height:1.9}
+.composeArea{margin:18px 0 8px}.composeArea .buildBtn{min-width:min(360px,100%);padding:15px 28px;font-size:15px}
+.composeHint{color:#899087;line-height:1.8}
+.path{border:1px solid #dce4d9;background:#ffffffa8;border-radius:26px;box-shadow:0 16px 45px #425b470b;padding:clamp(18px,4vw,32px)}
+.path h3{color:#526d59}.path p{color:#788077;line-height:2}
+.pathMeta .pill{background:#f4f6f0;border-color:#dce4d9;color:#627665}
+.player{border:1px solid #dce4d9;border-radius:24px;background:linear-gradient(145deg,#fffefa,#f1f5ef);box-shadow:0 14px 34px #425b470c}
+.playerEyebrow{color:#9a8054}.player h4{color:#435c49}
+.playerIntro,.playerStatus{color:#7d857b}
+.verse{border:1px solid #dfe6dc;border-radius:20px;background:#fffefa;box-shadow:0 6px 22px #425b4708}
+.verse.playing{border-color:#8da792;box-shadow:0 0 0 3px #a8bba533}
+.versehead{color:#718a76}.tag{border-color:#dfe6dc;background:#f5f7f2;color:#778579}
+.arabic{color:#35473b}.meaning{border-color:#e5e9e1;color:#737d73}
+.concept{background:#f2f5ef;color:#617765;border-right-color:#829b85;border-radius:8px}
+.method,.note{background:#f7f8f3;border-color:#dfe6dc;color:#7a8379}.note{border-right-color:#829b85}
+.footer{color:#959b91}
+@media(max-width:650px){.hero{padding:38px 0 26px}.needCard{border-radius:21px;padding:19px}.needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}.needCard #startRecording{grid-column:1/-1;width:100%}.needCard #voiceLanguage{width:100%}.composeArea .buildBtn{width:100%}}
+
+
+/* SAKINA dark premium experience */
+:root{
+ --bg:#101a1b;--panel:#1a2827;--panel2:#223331;
+ --accent:#b7a078;--accent2:#e0cfaa;--text:#f1eee6;
+ --muted:#a5afa7;--line:#354642;--glow:#9ab39a22
+}
+html{background:#101a1b}
+body{
+ color:var(--text);
+ background:
+  radial-gradient(ellipse at 50% -18%,#344a40 0%,transparent 48%),
+  radial-gradient(ellipse at 100% 65%,#263b36 0%,transparent 38%),
+  linear-gradient(155deg,#111c1d 0%,#172321 52%,#10191b 100%);
+ background-attachment:fixed
+}
+.wrap{width:min(880px,92%);padding:26px 0 52px}
+.top{border-bottom-color:#35443e}
+.brand{color:#c5ad7e}.brand span{color:#e0cfaa}
+.back{color:#aeb8ae}
+.hero{padding:48px 0 28px}
+.hero .eyebrow{color:#b9a47a}
+.hero h1{color:#f1eee6;font-size:clamp(34px,5.5vw,48px)}
+.hero p{color:#aab4aa;font-size:13px;line-height:1.9}
+.needCard{
+ border:1px solid #3b5048;border-radius:24px;
+ background:linear-gradient(145deg,rgba(35,53,47,.97),rgba(25,39,37,.98));
+ box-shadow:0 24px 70px #0005, inset 0 1px #ffffff0a;
+ padding:clamp(20px,4vw,34px)
+}
+.needCard:before{background:radial-gradient(circle,#b9a77a20 0%,transparent 72%)}
+.needKicker{color:#c4ad7d}
+.needCard h2{color:#f1eee6;font-size:clamp(25px,4vw,31px);line-height:1.6}
+.needCard .hint{color:#aab5aa;font-size:12px}
+.needCard #needText{
+ background:#121e1d;border:1px solid #3b5048;color:#f2efe7;
+ border-radius:15px;min-height:126px;padding:16px;
+ font:15px/1.9 "DM Sans",sans-serif;box-shadow:inset 0 2px 10px #0003
+}
+.needCard #needText:focus{border-color:#b7a078;box-shadow:0 0 0 3px #b7a07822}
+.needCard #needText::placeholder{color:#7f9085}
+.voiceTools{gap:9px}
+.btn{
+ border:1px solid #46584e;background:#263832;color:#e0cfaa;
+ border-radius:13px;padding:12px 18px;font-size:13px
+}
+.btn.primary{
+ background:linear-gradient(135deg,#b8a178,#927c56);border-color:#b8a178;
+ color:#17201b;font-weight:600;box-shadow:0 8px 24px #0003
+}
+.btn:hover{filter:brightness(1.08);box-shadow:0 10px 26px #0003}
+select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:11px;padding:11px 12px}
+.voiceStatus{color:#96a49a;font-size:11px}
+.composeArea{margin:16px 0 6px}
+.composeArea .buildBtn{min-width:min(330px,100%);padding:14px 24px}
+.composeHint{color:#829187;font-size:11px}
+.path{
+ border:1px solid #354940;background:linear-gradient(145deg,#1c2b28ed,#172321f2);
+ border-radius:22px;box-shadow:0 20px 55px #0003;padding:clamp(16px,3vw,28px)
+}
+.path h3{color:#e0cfaa;font-weight:400}
+.path p{color:#aab4aa;line-height:1.9}
+.pathMeta .pill{background:#22342e;border-color:#405449;color:#d5c39c}
+.player{
+ border:1px solid #405248;border-radius:19px;
+ background:linear-gradient(145deg,#263831,#1d2c28);
+ box-shadow:0 14px 35px #0003
+}
+.playerEyebrow{color:#c1a779}
+.player h4{color:#f0eadc}
+.playerIntro,.playerStatus{color:#aab5aa}
+.verse{
+ border:1px solid #354940;border-radius:17px;background:#1b2926;
+ box-shadow:0 8px 22px #0002
+}
+.verse.playing{border-color:#b7a078;box-shadow:0 0 0 2px #b7a07824}
+.versehead{color:#c6b184}
+.tag{border-color:#405148;background:#23332e;color:#b4beb3}
+.arabic{color:#f3eee3}
+.meaning{border-color:#354940;color:#aeb8ad}
+.concept{background:#22332e;color:#d4c5a3;border-right-color:#b7a078}
+.method,.note{background:#1b2926;border-color:#354940;color:#aab4aa}
+.note{border-right-color:#b7a078}
+.footer{color:#7f8d83}
+@media(max-width:650px){
+ .hero{padding:36px 0 22px}
+ .needCard{border-radius:19px;padding:18px}
+ .needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}
+ .needCard #startRecording{grid-column:1/-1;width:100%}
+ .needCard #voiceLanguage{width:100%}
+ .composeArea .buildBtn{width:100%}
+}
+
+
+/* Compact recording controls */
+.needCard .voiceTools{display:flex;align-items:center;gap:10px}
+.needCard #startRecording{min-width:190px}
+.needCard #voiceLanguage{min-width:150px}
+.needCard .voiceStatus:empty{display:none}
+@media(max-width:650px){
+ .needCard .voiceTools{display:grid;grid-template-columns:1fr auto}
+ .needCard #startRecording{min-width:0;width:100%}
+ .needCard #voiceLanguage{min-width:0;width:100%}
+}
+
+
+/* Two-step experience: request screen and generated ruqya screen */
+body[data-page="result"] .hero,body[data-page="result"] #customNeed,body[data-page="result"] .composeArea{display:none!important}
+body[data-page="input"] #path{display:none!important}
+body[data-page="result"] #path{margin-top:20px}
+.resultTop{display:flex;justify-content:flex-start;margin-bottom:16px}
+.backBtn{border-color:var(--accent);color:var(--accent2)}
+@media(max-width:650px){.resultTop .backBtn{width:100%}.playerOptions{gap:14px}}
+
+
+.topicPicker{margin:16px 0 12px}
+.topicLabel{font-size:12px;color:var(--muted);margin-bottom:9px}
+.topicTags{display:flex;flex-wrap:wrap;gap:8px}
+.topicTag{border:1px solid #ded9ce;background:#fff;color:#69685f;border-radius:999px;padding:8px 13px;font:13px "DM Sans",sans-serif;cursor:pointer;transition:all .18s}
+.topicTag:hover{border-color:var(--accent);color:var(--accent2)}
+.topicTag.active{background:#e9e5da;border-color:var(--accent);color:#4e554b;box-shadow:0 0 0 1px var(--glow)}
+.topicHint{font-size:11px;color:var(--muted);margin:8px 0 0}
+@media(max-width:650px){.topicTags{gap:7px}.topicTag{font-size:12px;padding:8px 11px}}
+
+
+/* Refined SAKINA palette: calm green with restrained gold details */
+:root{--accent:#879b87;--accent2:#596f5b;--glow:#c5a66a30}
+
+.needCard{border:1px solid #c9b88f;box-shadow:0 14px 38px #514b3f10, inset 0 0 0 1px #ffffffa8}
+.needCard #needText{border:1px solid #c9b88f;box-shadow:inset 0 1px 5px #6e624014}
+.needCard #needText:focus{border-color:#a88b50;box-shadow:0 0 0 3px #c9a66b25}
+.topicTag.active{background:#e7ede5;border-color:#9b8a61;color:#526b55;box-shadow:0 0 0 1px #c9a66b40}
+.player{border-color:#c9b88f;background:linear-gradient(145deg,#fffefa,#f0f3ec);box-shadow:0 12px 32px #514b3f0d, inset 0 0 0 1px #ffffffa8}
+.verse{border-color:#d8d1c1;background:linear-gradient(145deg,#fffefa,#f8f7f1);transition:border-color .25s,box-shadow .25s,transform .25s}
+.verse.playing{border-color:#b89a5b;box-shadow:0 0 0 1px #c9a66b55,0 10px 28px #b69a6020;background:linear-gradient(145deg,#fffefa,#f1f4ec);transform:translateY(-2px)}
+.verse.playing .versehead{color:#7e956f}
+.verse.playing .arabic{color:#435d49}
+.playButton{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-width:190px;position:relative;overflow:hidden;transition:background .25s,border-color .25s,box-shadow .25s,transform .2s}
+.playButton.is-playing{background:#617d68!important;border-color:#b99a5c!important;color:#fff!important;box-shadow:0 0 0 3px #c9a66b2b,0 0 24px #a58a4d38;animation:playGlow 2s ease-in-out infinite}
+.playButton.is-playing:after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid #e4cc91;pointer-events:none}
+.playIcon{font-size:12px}
+.soundBars{display:inline-flex;align-items:center;gap:3px;height:19px}
+.soundBars i{display:block;width:3px;height:5px;border-radius:3px;background:#f4dfae;animation:buttonSound .65s ease-in-out infinite alternate}
+.soundBars i:nth-child(2){animation-delay:.14s}
+.soundBars i:nth-child(3){animation-delay:.28s}
+.soundBars i:nth-child(4){animation-delay:.42s}
+@keyframes buttonSound{from{height:4px;opacity:.65}to{height:18px;opacity:1}}
+@keyframes playGlow{0%,100%{box-shadow:0 0 0 2px #c9a66b22,0 0 12px #a58a4d22}50%{box-shadow:0 0 0 4px #c9a66b38,0 0 25px #a58a4d45}}
+.backBtn{border-color:#c9b88f}
+.path{border-color:#d5c7a7}
+@media(prefers-reduced-motion:reduce){.playButton.is-playing{animation:none}.soundBars i{animation:none;height:10px}}
+
+
+/* Unified writing and voice composer */
+.needCard{padding:clamp(17px,2.6vw,25px);border:1px solid #c9b88f;background:linear-gradient(145deg,#fffefa,#f1f4ec);box-shadow:0 14px 38px #514b3f10,inset 0 0 0 1px #ffffffa8}
+.needCard h2{font-size:clamp(23px,3vw,28px);line-height:1.45}
+.needCard .hint{margin-bottom:11px;font-size:12px}
+.topicPicker{margin:10px 0 12px}
+.topicLabel{margin-bottom:7px}
+.topicTags{gap:6px}
+.topicTag{padding:6px 11px;font-size:12px}
+.topicHint{margin-top:6px}
+.composerField{border:1px solid #c9b88f;border-radius:16px;background:#fff;overflow:hidden;box-shadow:inset 0 1px 5px #6e624014}
+.composerField:focus-within{border-color:#a88b50;box-shadow:0 0 0 3px #c9a66b25}
+.needCard .composerField #needText{display:block;width:100%;min-height:88px;height:100px;resize:vertical;border:0;border-radius:0;background:transparent;padding:13px 15px 8px;box-shadow:none;font-size:14px}
+.needCard .composerField #needText:focus{outline:none;border:0;box-shadow:none}
+.composerToolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-top:1px solid #eee9dc;background:linear-gradient(90deg,#fbfaf6,#f4f5ef)}
+.composerToolbar .btn{min-height:39px;padding:8px 15px;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:12px}
+.composerToolbar #startRecording{background:#718a73;border-color:#b99b62;color:white}
+.composerToolbar #startRecording.recording{background:#a46f5e;border-color:#c9a66b;box-shadow:0 0 0 3px #c9a66b24}
+.micIcon{font-size:15px}
+.languageSelect{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px}
+.languageSelect select{padding:7px 10px;border-radius:9px;font-size:12px;max-width:130px}
+.needCard #recordedAudio{width:100%;margin-top:10px}
+.needCard .voiceStatus{margin:7px 0 0;font-size:11px}
+.needCard .composeArea{margin:12px 0 0}
+.needCard .composeArea .buildBtn{width:100%;min-width:0;padding:13px 20px;border-radius:13px;background:linear-gradient(110deg,#718a73,#82967b);border:1px solid #b99b62;color:#fff;font-size:14px;box-shadow:0 5px 14px #6e826b25}
+.needCard .composeHint{margin:6px 0 0;font-size:10px}
+@media(max-width:650px){
+ .needCard{padding:14px;border-radius:18px}
+ .needCard h2{font-size:22px;margin-bottom:3px}
+ .needCard .hint{font-size:11px;line-height:1.6;margin-bottom:8px}
+ .topicPicker{margin:8px 0 9px}
+ .topicTags{gap:5px}
+ .topicTag{font-size:11px;padding:6px 9px}
+ .topicHint{font-size:10px}
+ .needCard .composerField #needText{height:86px;min-height:76px;padding:10px 12px}
+ .composerToolbar{padding:7px;gap:7px}
+ .composerToolbar .btn{min-height:37px;padding:7px 10px}
+ .languageSelect{gap:5px}
+ .languageSelect select{max-width:112px;padding:7px 8px}
+ .needCard .composeArea{margin-top:9px}
+ .needCard .composeArea .buildBtn{padding:12px}
+ .needCard #recordedAudio{max-height:38px}
+}
+
+
+/* Compact, balanced SAKINA composer refinement */
+.needCard{
+ padding:clamp(18px,2.5vw,28px);
+ border:1px solid #c9b88f;
+ border-radius:22px;
+ background:linear-gradient(145deg,#fffefa,#f7f6f0);
+ box-shadow:0 10px 28px #514b3f0b,inset 0 0 0 1px #ffffffa8;
+}
+.needCard .needKicker{font-size:10px;letter-spacing:.16em;margin-bottom:5px}
+.needCard h2{font-size:clamp(23px,2.8vw,27px);line-height:1.45;margin-bottom:3px}
+.needCard .hint{font-size:12px;line-height:1.7;margin-bottom:12px}
+.topicPicker{margin:10px 0 12px}
+.topicLabel{font-size:12px;margin-bottom:8px;color:#777970}
+.topicTags{display:flex;flex-wrap:wrap;gap:7px}
+.topicTag{background:#f8f7f2;border:1px solid #e5dfd1;color:#66685f;padding:7px 12px;font-size:12px;transition:background .2s,border-color .2s,transform .2s}
+.topicTag:hover{background:#f1f3ed;border-color:#b9a77d}
+.topicTag.active{background:#e9efe7;border-color:#b49a62;color:#526c55;box-shadow:inset 0 0 0 1px #c9a66b30}
+.topicHint{font-size:10px;margin-top:7px;color:#8a897f}
+.composerField{
+ border:1px solid #d7c9a8;
+ border-radius:16px;
+ background:#fff;
+ overflow:hidden;
+ box-shadow:0 3px 12px #514b3f08;
+ transition:border-color .2s,box-shadow .2s;
+}
+.composerField:focus-within{border-color:#a88b50;box-shadow:0 0 0 3px #c9a66b20}
+.needCard .composerField #needText{
+ display:block;width:100%;height:88px!important;min-height:88px!important;
+ resize:vertical;border:0!important;border-radius:0;background:transparent;
+ padding:13px 15px 8px;box-shadow:none!important;font-size:14px;line-height:1.8;
+}
+.needCard .composerField #needText::placeholder{color:#aaa79d}
+.composerToolbar{
+ display:flex;align-items:center;justify-content:flex-start;
+ padding:7px 9px;border-top:1px solid #eee9dc;background:#faf9f5;
+ min-height:52px;
+}
+.composerToolbar #startRecording{
+ min-width:148px;min-height:38px;padding:8px 15px;
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ border:1px solid #b99b62;border-radius:11px;
+ background:#718a73;color:#fff;font-size:12px;
+ box-shadow:0 3px 8px #718a731c;
+}
+.composerToolbar #startRecording:hover{background:#637e66}
+.composerToolbar #startRecording.recording{background:#a46f5e;border-color:#c9a66b;box-shadow:0 0 0 3px #c9a66b22}
+.micIcon{font-size:15px}
+.needCard #recordedAudio{display:block;width:100%;margin-top:10px}
+.needCard .voiceStatus{font-size:11px;margin:7px 2px 0;line-height:1.6}
+.needCard .composeArea{margin:13px auto 0;text-align:center}
+.needCard .composeArea .buildBtn{
+ width:min(360px,100%);min-width:0;padding:13px 22px;border-radius:13px;
+ background:linear-gradient(110deg,#718a73,#82967b);
+ border:1px solid #b99b62;color:#fff;font-size:14px;
+ box-shadow:0 5px 14px #6e826b20;
+}
+.needCard .composeArea .buildBtn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.needCard .composeHint{font-size:10px;margin:7px 0 0;color:#898a80}
+@media(max-width:650px){
+ .needCard{padding:15px;border-radius:18px}
+ .needCard h2{font-size:22px}
+ .needCard .hint{font-size:11px;margin-bottom:9px}
+ .topicPicker{margin:8px 0 10px}
+ .topicTags{gap:6px}
+ .topicTag{font-size:11px;padding:6px 10px}
+ .needCard .composerField #needText{height:78px!important;min-height:78px!important;padding:10px 12px}
+ .composerToolbar{min-height:46px;padding:6px 8px}
+ .composerToolbar #startRecording{min-height:35px;min-width:132px;padding:7px 12px}
+ .needCard .composeArea{margin-top:10px}
+ .needCard .composeArea .buildBtn{width:100%;padding:12px}
+}
+
+
+/* Restore the original deep SAKINA night palette */
+:root{
+ color-scheme:dark;
+ --bg:#0d241b;--panel:#173328;--panel2:#204333;
+ --accent:#c9a66b;--accent2:#e5d0a0;--text:#f3eee4;
+ --muted:#b8c5ba;--line:#355545;--glow:#c9a66b22;
+}
+body{background:radial-gradient(ellipse at 50% -15%,var(--glow) 0%,var(--bg) 58%);color:var(--text)}
+body[data-theme="anxiety"]{--bg:#17271d;--panel:#213a2a;--panel2:#2a4834;--accent:#c9a66b;--accent2:#e9d6ad;--line:#405a43;--glow:#c9a66b24}
+body[data-theme="fear"]{--bg:#0d241b;--panel:#173328;--panel2:#204333;--accent:#c9a66b;--accent2:#e5d0a0;--line:#355545;--glow:#c9a66b22}
+body[data-theme="sadness"]{--bg:#18271f;--panel:#22382c;--panel2:#2b4535;--accent:#bda879;--accent2:#e5d8b8;--line:#405744;--glow:#bda87924}
+body[data-theme="distress"]{--bg:#10271e;--panel:#1b382b;--panel2:#254635;--accent:#a8b98a;--accent2:#e0e8cc;--line:#3b5946;--glow:#a8b98a24}
+body[data-theme="sleep"]{--bg:#10251d;--panel:#19362a;--panel2:#224333;--accent:#c9a66b;--accent2:#e9d9b8;--line:#385744;--glow:#c9a66b22}
+body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#c6a17c;--accent2:#f0ddc8;--line:#55583c;--glow:#c6a17c24}
+.needCard{background:linear-gradient(145deg,var(--panel),var(--bg));border-color:#9c8050;box-shadow:0 14px 38px #0004,inset 0 0 0 1px #ffffff08}
+.needCard h2,.needCard .hint{color:var(--text)}
+.topicLabel,.topicHint{color:var(--muted)}
+.topicTag{background:var(--panel2);border-color:var(--line);color:var(--text)}
+.topicTag:hover{background:var(--panel);border-color:var(--accent)}
+.topicTag.active{background:#263a30;border-color:var(--accent);color:#dce9d9;box-shadow:inset 0 0 0 1px #c9a66b30}
+.composerField{background:var(--panel);border-color:#9c8050;box-shadow:0 3px 12px #0003}
+.needCard .composerField #needText{color:var(--text);background:transparent}
+.needCard .composerField #needText::placeholder{color:#aab1b9}
+.composerToolbar{background:var(--panel2);border-top-color:var(--line)}
+.composerToolbar #startRecording{background:#526f5a;border-color:var(--accent);color:#fff}
+.needCard .composeArea .buildBtn{background:linear-gradient(110deg,#526f5a,#6c866c);border-color:var(--accent);color:#fff}
+.needCard .composeHint{color:var(--muted)}
+.path{background:linear-gradient(145deg,var(--panel),#111a27aa);border-color:var(--line)}
+.player{background:linear-gradient(145deg,var(--panel),var(--panel2));border-color:var(--line)}
+.player h4,.path h3{color:var(--accent2)}
+.verse{background:var(--panel);border-color:var(--line)}
+.verse.playing{background:var(--panel2);border-color:var(--accent);box-shadow:0 0 0 1px var(--glow),0 10px 28px #0003}
+.arabic{color:var(--text)}
+.meaning,.path p{color:var(--muted)}
+.pill,.tag{background:var(--panel2);border-color:var(--line);color:var(--accent2)}
+.btn{background:var(--panel2);border-color:var(--line);color:var(--text)}
+.btn.primary{background:#526f5a;border-color:var(--accent);color:#fff}
+
+
+/* Icon-only microphone control */
+.composerToolbar{justify-content:flex-start}
+.composerToolbar #startRecording.micOnly{
+ width:46px;height:46px;min-width:46px;min-height:46px;
+ padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+ background:#526f5a;border:1px solid var(--accent);color:#fff;
+ box-shadow:0 4px 12px #0003;transition:transform .2s,box-shadow .2s,background .2s;
+}
+.composerToolbar #startRecording.micOnly:hover{transform:translateY(-2px);box-shadow:0 6px 16px #0004}
+.composerToolbar #startRecording.micOnly.recording{background:#9b654f;border-color:var(--accent);box-shadow:0 0 0 4px #c9a66b25}
+.composerToolbar #startRecording .micIcon{font-size:19px;line-height:1}
+@media(max-width:650px){.composerToolbar #startRecording.micOnly{width:44px;height:44px;min-width:44px;min-height:44px}}
+
 </style>
 </head>
-<body>
-<div class="shell">
-<header class="top"><div class="brand">AL-NUQTA<small>LE POINT DE RETOUR</small></div><div class="top-actions"><button class="quiet-btn" id="approachBtn">Notre approche</button><button class="quiet-btn" id="sleepBtn">Mode sommeil</button></div></header>
-<main>
-<section class="screen active" id="checkin">
-<div class="hero"><div class="eyebrow">Un instant pour revenir à soi</div><h1>Où se pose ton cœur aujourd’hui&nbsp;?</h1><p>Choisis simplement ce qui décrit le mieux ton état intérieur. Il n’y a rien à réussir, rien à prouver. Prends le temps qu’il te faut.</p></div>
-<div class="choices">
-<button class="choice" data-mood="calme"><span class="symbol">سَكِينَة</span><span><strong>Je cherche l’apaisement</strong><span>Retrouver un peu de calme et de présence.</span></span></button>
-<button class="choice" data-mood="clarte"><span class="symbol">نُور</span><span><strong>J’ai besoin de clarté</strong><span>Faire de la place dans mes pensées.</span></span></button>
-<button class="choice" data-mood="confiance"><span class="symbol">تَوَكُّل</span><span><strong>Je cherche la confiance</strong><span>Avancer avec patience et espérance.</span></span></button>
+<body data-theme="sleep">
+<div class="wrap">
+<header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
+<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>رقية بطريقة مناسبة لك</h1><p>مساحة هادئة لك. اكتب ما يشغلك أو سجّل صوتك، وسنقترح عليك آيات مناسبة لما عبّرت عنه.</p></section>
+<section class="section needFirst" id="customNeed">
+<div class="needCard">
+<div class="needKicker">مساحتك الخاصة</div>
+<h2>ما الذي يشغل بالك، أو ما الشعور الذي تمرّ به؟</h2>
+<p class="hint">تحدث مباشرة أو اكتب ما يشغلك. يمكنك استخدام العربية أو الدارجة أو الفرنسية.</p>
+<div class="topicPicker" aria-label="موضوعات متكررة">
+ <div class="topicLabel">أو اختر ما يعبّر عنك</div>
+ <div class="topicTags">
+  <button class="topicTag" type="button" data-category="protection" data-label="الحماية والحسد" aria-pressed="false">الحماية والحسد</button>
+  <button class="topicTag" type="button" data-category="marriage" data-label="صعوبات الزواج والأسرة" aria-pressed="false">صعوبات الزواج والأسرة</button>
+  <button class="topicTag" type="button" data-category="rizq" data-label="الرزق والعمل" aria-pressed="false">الرزق والعمل</button>
+  <button class="topicTag" type="button" data-category="children" data-label="الأبناء والذرية" aria-pressed="false">الأبناء والذرية</button>
+  <button class="topicTag" type="button" data-category="calm" data-label="صعوبات النوم" aria-pressed="false">صعوبات النوم</button>
+  <button class="topicTag" type="button" data-category="calm" data-label="القلق والضيق النفسي" aria-pressed="false">القلق والضيق النفسي</button>
+  <button class="topicTag" type="button" data-category="calm" data-label="الحزن أو الاكتئاب" aria-pressed="false">الحزن أو الاكتئاب</button>
+  <button class="topicTag" type="button" data-category="healing" data-label="المرض وطلب العافية" aria-pressed="false">المرض وطلب العافية</button>
+ </div>
+ <p class="topicHint">يمكنك اختيار أكثر من موضوع، وستُضاف اختياراتك إلى وصفك.</p>
 </div>
-<div class="actions"><button class="primary" id="startBtn" disabled>Commencer le cheminement</button><div class="subtle">Une expérience de recueillement libre et personnelle.</div></div>
-</section>
-<section class="screen" id="protocol">
-<div class="eyebrow">02 · Le cheminement</div><div class="hero"><h1>Une intention, un souffle, un retour.</h1><p id="moodIntro">Un temps simple, à ton rythme.</p></div>
-<div class="steps"><span class="step current">01 · Intention</span><span class="step">02 · Présence</span><span class="step">03 · Silence</span></div>
-<div class="panel"><div class="eyebrow">Récitation proposée</div><h2 id="protocolTitle">Se souvenir et s’apaiser</h2><div id="verseList" class="verse-list"></div></div>
-<div class="panel"><div class="eyebrow">Une respiration douce</div><p>Inspire tranquillement pendant 4 secondes, puis expire pendant 6 secondes. Ne force jamais le souffle. Tu peux respirer naturellement à tout moment.</p></div>
-<div class="actions"><button class="primary" id="enterBtn">Entrer dans le sanctuaire</button><button class="ghost" id="backBtn">Retour</button></div>
-</section>
-<section class="screen" id="sanctuary">
-<div class="sanctuary"><div class="eyebrow">03 · Le sanctuaire</div><h2>Reviens au point.</h2><p class="translation">Laisse le rythme se poser. Tu peux réciter intérieurement ou rester dans le silence.</p>
-<div class="orb-wrap"><canvas id="vortex"></canvas><div class="orb" id="orb"><span class="orb-text" id="orbText">نُقْطَة</span></div></div>
-<div class="breath-label" id="breathLabel">Quand tu es prêt</div><div class="timer" id="timer">05:00</div><div class="progress"><span id="progress"></span></div><div class="translation" id="phaseLabel">Un espace sans attente.</div>
-<div class="session-controls"><button class="primary" id="sessionBtn">Lancer les 5 minutes</button><button class="ghost" id="pauseBtn" disabled>Pause</button><button class="ghost" id="micBtn">Activer l’écoute locale</button><button class="ghost" id="leaveBtn">Terminer</button></div>
-<div class="subtle" id="micStatus">Le microphone est facultatif et reste traité localement dans ton navigateur.</div></div>
-</section>
-<section class="screen" id="end">
-<div class="end"><div class="eyebrow">04 · Le retour</div><div class="mark">نقطة</div><h1 style="font:400 38px 'Playfair Display'">Garde ce qui t’est utile.</h1><p class="translation" style="max-width:480px;margin:16px auto 28px">Tu peux reprendre ta journée sans chercher à retenir une sensation particulière. La constance douce vaut mieux que la performance.</p><button class="primary" id="againBtn">Recommencer</button></div>
-</section>
-<section class="panel" id="analyzerPanel"><div class="eyebrow">Outil contemplatif</div><h2>Explorer les lettres arabes</h2><p>Une lecture pédagogique des valeurs Abjad et des signes vocaliques. Les associations symboliques proposées ne sont ni une science ni une interprétation religieuse faisant autorité.</p><div class="analyzer"><div><label for="arabicInput" class="translation">Écris un mot ou une courte expression</label><input id="arabicInput" dir="rtl" value="الله" maxlength="60"><div class="stats" id="letterStats"></div></div><div><div class="eyebrow">Repères</div><p id="letterSummary">Les lettres reconnues apparaîtront ici.</p><div class="translation">Hurûf Nûrâniyya : ا ل م ص ر ك ه ي ع ط س ح ق ن</div></div></div></section>
-</main>
-<div class="footer">AL-NUQTA · Un espace de recueillement, sans promesse ni injonction.</div>
+<div class="composerField">
+<textarea id="needText" rows="4" placeholder="اكتب ما يشغلك هنا، أو اضغط على الميكروفون للتحدث..."></textarea>
+<div class="composerToolbar">
+ <button class="btn primary micOnly" id="startRecording" type="button" aria-label="ابدأ التحدث" title="ابدأ التحدث"><span class="micIcon" aria-hidden="true">🎙</span></button>
+ 
 </div>
-<div class="modal-back" id="modal"><div class="modal"><button class="quiet-btn close" id="closeModal">Fermer</button><div class="eyebrow">Notre approche</div><h2>Une pratique libre et consciente</h2><p>AL-NUQTA propose un cadre de recueillement inspiré de la récitation, de la respiration douce et du silence. L’application ne remplace ni un avis religieux, ni un accompagnement professionnel, ni une pratique personnelle encadrée.</p><ul><li>Les textes coraniques sont présentés comme supports de récitation et de méditation.</li><li>Les valeurs Abjad sont des conventions historiques de numération des lettres.</li><li>Les regroupements symboliques sont des pistes contemplatives, sans fondement scientifique établi.</li><li>Le microphone est facultatif ; aucun enregistrement n’est transmis ni sauvegardé.</li></ul></div></div>
+</div>
+<audio id="recordedAudio" controls hidden></audio>
+<p class="voiceStatus" id="voiceStatus" aria-live="polite"></p>
+<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">آيات مختارة ومرتبة حسب المصحف.</p></div>
+</div>
+</section>
+<section class="path" id="path" aria-live="polite">
+<div class="resultTop"><button class="btn backBtn" id="backToNeed" type="button">← العودة إلى الصفحة الأولى</button></div>
+<h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
+<div class="pathMeta" id="pathMeta"></div>
+<div class="player">
+<div class="playerEyebrow">لحظة تلاوة</div>
+<h4>استمع بهدوء</h4>
+<p class="playerIntro">تلاوة متتابعة للمسار المختار</p>
+<div class="playerControls">
+<button class="btn primary playButton" id="playAll" disabled><span class="playIcon">▶</span> ابدأ التلاوة</button>
+<button class="btn" id="stopAll">إيقاف</button>
+</div>
+<div class="playerOptions">
+<label>التكرار
+<select id="repeatCount" aria-label="عدد مرات التكرار"><option value="1">مرة واحدة</option><option value="3" selected>3 مرات</option><option value="7">7 مرات</option><option value="10">10 مرات</option><option value="20">20 مرة</option></select></label>
+</div>
+<div class="playerStatus" id="playerStatus">اضغط على ابدأ للاستماع إلى المسار كاملاً.</div>
+</div>
+<div class="verses" id="verses"></div>
+</section>
+
+<div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Aziz Alili (Hafs). المحاور التأملية مستلهمة من موضوعات في فكر ابن عربي، ولا تمثل تفسيراً منسوباً إليه أو وصفة مخصوصة.</div>
+</div>
 <script>
-const corpus={
-calme:{title:"Se souvenir et s’apaiser",intro:"Prends ce temps comme une pause, sans chercher à forcer le calme.",verses:[["الرعد · ٢٨","أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ","C’est par le rappel de Dieu que les cœurs trouvent l’apaisement."],["الشرح · ٥–٦","فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا","Avec la difficulté vient certes une facilité."]]},
-clarte:{title:"Demander l’ouverture",intro:"Tu peux déposer tes pensées et revenir doucement à l’essentiel.",verses:[["طه · ٢٥–٢٨","رَبِّ اشْرَحْ لِي صَدْرِي ۝ وَيَسِّرْ لِي أَمْرِي ۝ وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي ۝ يَفْقَهُوا قَوْلِي","Seigneur, ouvre-moi la poitrine, facilite ma tâche et dénoue ma langue."],["الفاتحة · ٥","إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ","C’est Toi que nous adorons et c’est de Toi que nous implorons le secours."]]},
-confiance:{title:"Avancer avec confiance",intro:"Accueille ce qui est là, puis avance un pas après l’autre.",verses:[["آل عمران · ١٥٩","فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ","Lorsque tu as pris ta décision, place ta confiance en Dieu."],["الطلاق · ٣","وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ","Quiconque place sa confiance en Dieu, Il lui suffit."]]}
+const verses={
+ fatiha:{ref:"الفاتحة · ١–٧",title:"سورة الفاتحة",text:"بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",meaning:"سورة الفاتحة من أعظم سور القرآن، وثبتت الرقية بها في السنة. تُقرأ هنا ضمن الأساس القرآني.",audio:["001001","001002","001003","001004","001005","001006","001007"],kind:"أساس نبوي",source:"https://quran.com/1"},
+ kursi:{ref:"البقرة · ٢٥٥",title:"آية الكرسي",text:"اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",meaning:"من الأذكار المعروفة قبل النوم؛ وتذكّر الآية بقيومية الله وعلمه وحفظه.",audio:["002255"],kind:"أساس نبوي",source:"https://quran.com/2/255"},
+ baqara285:{ref:"البقرة · ٢٨٥",title:"آخر آيتين من سورة البقرة",text:"ءَامَنَ ٱلرَّسُولُ بِمَآ أُنزِلَ إِلَيْهِ مِن رَّبِّهِۦ وَٱلْمُؤْمِنُونَ ۚ كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَـٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ لَا نُفَرِّقُ بَيْنَ أَحَدٍۢ مِّن رُّسُلِهِۦ ۚ وَقَالُواْ سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ ٱلْمَصِيرُ ٢٨٥",meaning:"ورد في السنة فضل قراءة آخر آيتين من سورة البقرة في الليل.",audio:["002285"],kind:"أساس نبوي",source:"https://quran.com/2/285"},
+ baqara286:{ref:"البقرة · ٢٨٦",title:"آخر آيتين من سورة البقرة",text:"لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا ٱكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَآ إِن نَّسِينَآ أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَآ إِصْرٗا كَمَا حَمَلْتَهُۥ عَلَى ٱلَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِۦ ۖ وَٱعْفُ عَنَّا وَٱغْفِرْ لَنَا وَٱرْحَمْنَآ ۚ أَنتَ مَوْلَىٰنَا فَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَـٰفِرِينَ ٢٨٦",meaning:"تتضمن الآية دعاءً بالمغفرة والرحمة ورفع الحرج.",audio:["002286"],kind:"أساس نبوي",source:"https://quran.com/2/286"},
+ ikhlas:{ref:"الإخلاص · ١–٤",title:"سورة الإخلاص",text:"قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",meaning:"إفراد الله بالقصد والتوحيد.",audio:["112001","112002","112003","112004"],kind:"القلائد الثلاث",source:"https://quran.com/112"},
+ falaq:{ref:"الفلق · ١–٥",title:"سورة الفلق",text:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",meaning:"سورة استعاذة والتجاء إلى الله من الشرور.",audio:["113001","113002","113003","113004","113005"],kind:"القلائد الثلاث",source:"https://quran.com/113"},
+ nas:{ref:"الناس · ١–٦",title:"سورة الناس",text:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",meaning:"سورة استعاذة بالله من الوسواس.",audio:["114001","114002","114003","114004","114005","114006"],kind:"القلائد الثلاث",source:"https://quran.com/114"},
+ ra3d:{ref:"الرعد · ٢٨",title:"طمأنينة القلب",text:"الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",concept:"القلب والذكر — حضور القلب بذكر الله، وهو محور تأملي حاضر في الكتابات الصوفية.",meaning:"تربط الآية طمأنينة القلب بذكر الله.",audio:["013028"],kind:"آية مساندة",source:"https://quran.com/13/28"},
+ sharh:{ref:"الشرح · ٥–٦",title:"مع العسر يسر",text:"فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",concept:"الرجاء واتساع المعنى — تأمل في اليسر بعد العسر.",meaning:"تفتح الآيتان باب الرجاء وتذكّران بمعية اليسر للعسر.",audio:["094005","094006"],kind:"آية مساندة",source:"https://quran.com/94/5-6"},
+ isra:{ref:"الإسراء · ٨٢",title:"الشفاء والرحمة",text:"وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ وَلَا يَزِيدُ الظَّالِمِينَ إِلَّا خَسَارًا",concept:"الرحمة والشفاء — التأمل في الرحمة الإلهية ومعنى الشفاء.",meaning:"تصف الآية القرآن بأنه شفاء ورحمة للمؤمنين.",audio:["017082"],kind:"آية مساندة",source:"https://quran.com/17/82"},
+ anam60:{ref:"الأنعام · ٦٠",title:"النوم والتسليم",text:"وَهُوَ ٱلَّذِى يَتَوَفَّىٰكُم بِٱلَّيۡلِ وَيَعْلَمُ مَا جَرَحۡتُم بِٱلنَّهَارِ ثُمَّ يَبْعَثُكُمۡ فِيهِ لِيُقۡضَىٰٓ أَجَلٞ مُّسَمًّۭى ۖ ثُمَّ إِلَيْهِ مَرْجِعُكُمۡ ثُمَّ يُنَبِّئُكُم بِمَا كُنتُمۡ تَعْمَلُونَ ٦٠",meaning:"تصف الآية النوم واليقظة في سياق سلطان الله وعلمه؛ وتفتح باب التأمل في التسليم.",audio:["006060"],kind:"إضافة للتدبر",concept:"التسليم — تفويض الأمر إلى الله",source:"https://quran.com/6/60"},
+ zumar42:{ref:"الزمر · ٤٢",title:"النفس والمنام",text:"ٱللَّهُ يَتَوَفَّى ٱلْأَنفُسَ حِينَ مَوْتِهَا وَٱلَّتِى لَمْ تَمُتْ فِى مَنَامِهَا ۖ فَيُمْسِكُ ٱلَّتِى قَضَىٰ عَلَيْهَا ٱلْمَوْتَ وَيُرْسِلُ ٱلْأُخْرَىٰٓ إِلَىٰٓ أَجَلٍۢ مُّسَمًّى ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ ٤٢",meaning:"تربط الآية النوم بآية من آيات الله وتدعو إلى التفكر.",audio:["039042"],kind:"إضافة للتدبر",concept:"النفس — التأمل في حقيقة النفس والمنام",source:"https://quran.com/39/42"},
+ naba9:{ref:"النبأ · ٩",title:"النوم راحة",text:"وَجَعَلْنَا نَوْمَكُمْ سُبَاتًۭا ٩",meaning:"تذكر الآية أن النوم جُعل للإنسان سكوناً وراحة.",audio:["078009"],kind:"إضافة للتدبر",concept:"الراحة — السكون والهدوء",source:"https://quran.com/78/9"},
+ furqan47:{ref:"الفرقان · ٤٧",title:"الليل لباساً والنوم سباتاً",text:"وَهُوَ ٱلَّذِى جَعَلَ لَكُمُ ٱلَّيْلَ لِبَاسًۭا وَٱلنَّوْمَ سُبَاتًۭا وَجَعَلَ ٱلنَّهَارَ نُشُورًۭا ٤٧",meaning:"تجمع الآية بين ستر الليل وراحة النوم واليقظة في النهار.",audio:["025047"],kind:"إضافة للتدبر",concept:"الستر — الليل لباس وسكن",source:"https://quran.com/25/47"},
+ rum23:{ref:"الروم · ٢٣",title:"النوم من آيات الله",text:"وَمِنْ ءَايَـٰتِهِۦ مَنَامُكُم بِٱلَّيْلِ وَٱلنَّهَارِ وَٱبْتِغَآؤُكُم مِّن فَضْلِهِۦٓ ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍ يَسْمَعُونَ ٢٣",meaning:"تدعو الآية إلى النظر في النوم بوصفه آية من آيات الله.",audio:["030023"],kind:"إضافة للتدبر",concept:"التفكر — رؤية النوم كآية",source:"https://quran.com/30/23"}
+,
+ rum21:{ref:"الروم · ٢١",title:"المودة والرحمة",text:"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",concept:"السكن والمودة — تأمل في الرحمة والعلاقة بوصفها مجالاً للسكن.",meaning:"تتحدث الآية عن السكن والمودة والرحمة بين الزوجين.",audio:["030021"],kind:"آية للتدبر",source:"https://quran.com/30/21"},
+ furqan74:{ref:"الفرقان · ٧٤",title:"دعاء للأسرة والذرية",text:"وَالَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",meaning:"دعاء قرآني بصلاح الأسرة والذرية وقرة العين.",audio:["025074"],kind:"دعاء قرآني",source:"https://quran.com/25/74"},
+ hud6:{ref:"هود · ٦",title:"الرزق بيد الله",text:"وَمَا مِن دَابَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا وَيَعْلَمُ مُسْتَقَرَّهَا وَمُسْتَوْدَعَهَا ۚ كُلٌّ فِي كِتَابٍ مُّبِينٍ",concept:"التوكل والرزق — الثقة بالله مع الأخذ بالأسباب.",meaning:"تذكير بأن الله تكفّل بأرزاق خلقه وعلمه محيط بأحوالهم.",audio:["011006"],kind:"آية للتدبر",source:"https://quran.com/11/6"},
+ talaq2:{ref:"الطلاق · ٢",title:"التقوى والمخرج",text:"فَإِذَا بَلَغْنَ أَجَلَهُنَّ فَأَمْسِكُوهُنَّ بِمَعْرُوفٍ أَوْ فَارِقُوهُنَّ بِمَعْرُوفٍ وَأَشْهِدُوا ذَوَيْ عَدْلٍ مِّنكُمْ وَأَقِيمُوا الشَّهَادَةَ لِلَّهِ ۚ ذَٰلِكُمْ يُوعَظُ بِهِ مَن كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ ۚ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا",meaning:"تختم الآية بذكر التقوى وما يجعل الله معها من مخرج.",audio:["065002"],kind:"آية للتدبر",source:"https://quran.com/65/2"},
+ talaq3:{ref:"الطلاق · ٣",title:"التوكل والرزق",text:"وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ ۚ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا",concept:"التوكل — الجمع بين بذل السبب وتفويض النتيجة إلى الله.",meaning:"تجمع الآية بين التوكل على الله والرزق من حيث لا يحتسب الإنسان.",audio:["065003"],kind:"آية للتدبر",source:"https://quran.com/65/3"},
+ aliImran38:{ref:"آل عمران · ٣٨",title:"دعاء زكريا بالذرية",text:"هُنَالِكَ دَعَا زَكَرِيَّا رَبَّهُ ۖ قَالَ رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً ۖ إِنَّكَ سَمِيعُ الدُّعَاءِ",concept:"الدعاء والافتقار — التوجه إلى الله بطلب الذرية الطيبة.",meaning:"دعاء نبي الله زكريا عليه السلام بطلب الذرية الطيبة.",audio:["003038"],kind:"دعاء قرآني",source:"https://quran.com/3/38"}
 };
-let mood=null,remaining=300,elapsed=0,running=false,paused=false,tick=null,breathTick=null,phase="ready",micStream=null,audioCtx=null,analyser=null,raf=null;
-const $=id=>document.getElementById(id);
-function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));if(id==="sanctuary")drawVortex()}
-document.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");mood=b.dataset.mood;$("startBtn").disabled=false}));
-$("startBtn").onclick=()=>{const data=corpus[mood];$("moodIntro").textContent=data.intro;$("protocolTitle").textContent=data.title;$("verseList").innerHTML=data.verses.map(v=>'<article class="verse-card"><div class="ref">'+v[0]+'</div><div class="verse">'+v[1]+'</div><div class="translation">'+v[2]+'</div></article>').join("");show("protocol")};
-$("backBtn").onclick=()=>show("checkin");$("enterBtn").onclick=()=>{remaining=300;elapsed=0;updateTimer();show("sanctuary")};
-$("leaveBtn").onclick=()=>finish();$("againBtn").onclick=()=>{stopSession();mood=null;document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));$("startBtn").disabled=true;show("checkin")};
-function updateTimer(){$("timer").textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0");$("progress").style.width=(elapsed/300*100)+"%"}
-function breath(){const inhale=phase!=="inhale";phase=inhale?"inhale":"exhale";$("breathLabel").textContent=inhale?"Inspire · 4 secondes":"Expire · 6 secondes";$("phaseLabel").textContent=inhale?"Accueille doucement l’air.":"Relâche sans forcer."; $("orb").classList.toggle("inhale",inhale);$("orb").classList.toggle("exhale",!inhale);$("orbText").textContent=inhale?"هُدوء":"سَكِينَة";breathTick=setTimeout(breath,inhale?4000:6000)}
-function startSession(){if(running)return;running=true;paused=false;$("sessionBtn").textContent="Session en cours";$("sessionBtn").disabled=true;$("pauseBtn").disabled=false;breath();tick=setInterval(()=>{remaining--;elapsed++;updateTimer();if(remaining<=0)finish()},1000)}
-function pauseSession(){if(!running)return;running=false;paused=true;clearInterval(tick);clearTimeout(breathTick);$("sessionBtn").disabled=false;$("sessionBtn").textContent="Reprendre";$("pauseBtn").textContent="En pause";$("orb").classList.remove("inhale","exhale");$("breathLabel").textContent="Prends ton temps"}
-function stopSession(){running=false;clearInterval(tick);clearTimeout(breathTick);if(raf)cancelAnimationFrame(raf);if(micStream)micStream.getTracks().forEach(t=>t.stop());if(audioCtx)audioCtx.close().catch(()=>{});micStream=null;audioCtx=null;analyser=null}
-function finish(){stopSession();show("end")}
-$("sessionBtn").onclick=startSession;$("pauseBtn").onclick=()=>{if(running){pauseSession();$("pauseBtn").textContent="Continuer";$("pauseBtn").onclick=()=>{startSession();$("pauseBtn").textContent="Pause";$("pauseBtn").onclick=pauseSession}}else if(paused){startSession();$("pauseBtn").textContent="Pause"}};
-$("approachBtn").onclick=()=>$("modal").classList.add("open");$("closeModal").onclick=()=>$("modal").classList.remove("open");$("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("open")};
-$("sleepBtn").onclick=()=>{document.documentElement.classList.toggle("sleep");$("sleepBtn").textContent=document.documentElement.classList.contains("sleep")?"Quitter sommeil":"Mode sommeil"};
-async function enableMic(){try{if(!navigator.mediaDevices?.getUserMedia)throw new Error("Microphone non disponible");micStream=await navigator.mediaDevices.getUserMedia({audio:true});audioCtx=new(window.AudioContext||window.webkitAudioContext)();analyser=audioCtx.createAnalyser();audioCtx.createMediaStreamSource(micStream).connect(analyser);$("micStatus").textContent="Écoute locale active. Aucun son n’est enregistré ou envoyé."; $("micBtn").textContent="Désactiver l’écoute";micStream.getTracks().forEach(t=>t.addEventListener("ended",()=>{$("micStatus").textContent="Écoute arrêtée."}));}catch(e){$("micStatus").textContent="Microphone indisponible ou autorisation refusée. La session fonctionne sans lui."}}
-$("micBtn").onclick=()=>{if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;if(audioCtx)audioCtx.close();audioCtx=null;analyser=null;$("micBtn").textContent="Activer l’écoute locale";$("micStatus").textContent="Écoute locale désactivée."}else enableMic()};
-const letters={ا:1,أ:1,إ:1,آ:1,ب:2,ج:3,د:4,ه:5,ة:5,و:6,ز:7,ح:8,ط:9,ي:10,ى:10,ك:20,ل:30,م:40,ن:50,س:60,ع:70,ف:80,ص:90,ق:100,ر:200,ش:300,ت:400,ث:500,خ:600,ذ:700,ض:800,ظ:900,غ:1000};
-const luminous=new Set("المصركه ي ع ط س ح ق ن".replace(/\s/g,"").split(""));
-const elements={ا:"Air",ب:"Terre",ج:"Feu",د:"Terre",ه:"Air",و:"Eau",ز:"Air",ح:"Eau",ط:"Feu",ي:"Eau",ك:"Air",ل:"Air",م:"Eau",ن:"Eau",س:"Air",ع:"Feu",ف:"Air",ص:"Terre",ق:"Feu",ر:"Feu",ش:"Feu",ت:"Terre",ث:"Air",خ:"Feu",ذ:"Air",ض:"Terre",ظ:"Feu",غ:"Feu"};
-function analyze(){const raw=$("arabicInput").value;let sum=0,count=0,nur=0,counts={Feu:0,Air:0,Eau:0,Terre:0};for(const ch of raw){if(letters[ch]){sum+=letters[ch];count++;if(luminous.has(ch))nur++;if(elements[ch])counts[elements[ch]]++}}const marks=(raw.match(/[ًٌٍَُِّْٰ]/g)||[]).length;$("letterStats").innerHTML='<div class="stat"><b>'+sum+'</b><small>Valeur Abjad</small></div><div class="stat"><b>'+count+'</b><small>Lettres reconnues</small></div><div class="stat"><b>'+nur+'</b><small>Hurûf Nûrâniyya présents</small></div><div class="stat"><b>'+marks+'</b><small>Signes vocaliques</small></div>';$("letterSummary").textContent="Répartition symbolique indicative : Feu "+counts.Feu+", Air "+counts.Air+", Eau "+counts.Eau+", Terre "+counts.Terre+". Les catégories sont des conventions contemplatives de cette application, pas des propriétés objectives des lettres."}
-$("arabicInput").addEventListener("input",analyze);analyze();
-let canvas=$("vortex"),ctx=canvas.getContext("2d"),angle=0;
-function drawVortex(){const dpr=window.devicePixelRatio||1,w=canvas.clientWidth,h=canvas.clientHeight;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);function frame(){if(!$("sanctuary").classList.contains("active"))return;ctx.clearRect(0,0,w,h);const cx=w/2,cy=h/2;for(let ring=0;ring<5;ring++){ctx.beginPath();for(let i=0;i<=220;i++){const t=i/220*Math.PI*2;const r=25+ring*15+Math.sin(t*3+angle+ring)*5;const x=cx+Math.cos(t+angle*.15)*r,y=cy+Math.sin(t+angle*.15)*r; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.strokeStyle="rgba(201,166,107,"+(0.08+ring*.025)+")";ctx.lineWidth=1;ctx.stroke()}angle+=.003;raf=requestAnimationFrame(frame)}if(raf)cancelAnimationFrame(raf);frame()}
-window.addEventListener("resize",()=>{if($("sanctuary").classList.contains("active"))drawVortex()});
+const paths={
+ anxiety:{title:"مسار الذكر وطمأنينة القلب",text:"نبدأ بمعنى الذكر بوصفه عودة واعية إلى الله وحضوراً للقلب. هذا اختيار للتدبر، لا وعد بنتيجة محددة.",ids:["fatiha","ra3d","sharh"],names:["السَّلَام","اللَّطِيف"],theme:"anxiety"},
+ fear:{title:"مسار الاستعاذة والتوكل",text:"نستحضر معنى الالتجاء إلى الله والثقة بحفظه، دون افتراض أن الشعور بالخوف يدل على سبب غيبي.",ids:["kursi","falaq","nas"],names:["الْحَفِيظ","السَّلَام"],theme:"fear"},
+ sadness:{title:"مسار الرجاء والرحمة",text:"نتأمل في الرحمة واليسر، ونفسح مكاناً للرجاء مع الاعتراف بالمشاعر كما هي.",ids:["fatiha","isra","sharh"],names:["الرَّحْمَٰن","الرَّحِيم"],theme:"sadness"},
+ distress:{title:"مسار السعة والفرج",text:"نستحضر أن العسر لا ينفصل عن وعد اليسر، ونتأمل في معنى الاستعانة والهداية.",ids:["fatiha","ra3d","sharh"],names:["الْفَتَّاح","اللَّطِيف"],theme:"distress"},
+ sleep:{title:"مسار السكينة والنوم",text:"نجمع بين آيات من الأذكار المعروفة، وآيات تتناول النوم والليل والنفس والراحة. الإضافات مستوحاة من معانٍ تأملية قريبة من موضوعات تناولها ابن عربي، وليست وصفة مخصوصة منسوبة إليه.",ids:["fatiha","kursi","baqara285","baqara286","anam60","ra3d","isra","furqan47","rum23","zumar42","naba9","ikhlas","falaq","nas"],names:["السَّلَام","الْحَفِيظ","اللَّطِيف","الْحَيُّ الْقَيُّوم"],theme:"sleep"},
+ pain:{title:"مسار الدعاء والرحمة",text:"نقرأ بنية الدعاء والرجاء، مع التأكيد أن التلاوة لا تستبدل التقييم الطبي أو العلاج عند الحاجة.",ids:["fatiha","isra","ikhlas"],names:["الرَّحْمَٰن","اللَّطِيف"],theme:"pain"}
+};
+const choices=[...document.querySelectorAll(".choice")],path=document.getElementById("path"),versesBox=document.getElementById("verses"),playAll=document.getElementById("playAll"),stopAll=document.getElementById("stopAll"),repeatSelect=document.getElementById("repeatCount"),statusEl=document.getElementById("playerStatus");
+let activeButton=null,currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTotal=3,playingCard=null,stopRequested=false,currentIds=[];
+function setStatus(s){statusEl.textContent=s}
+function setPlayButton(active,label){
+ playAll.classList.toggle("is-playing",active);
+ playAll.setAttribute("aria-label",label);
+ playAll.innerHTML=active
+  ? '<span class="soundBars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>التلاوة جارية</span>'
+  : '<span class="playIcon" aria-hidden="true">▶</span><span>'+label+'</span>';
+}
+let audioContext=null,frequencyOscillator=null,frequencyGain=null;
+function stopFrequency(){
+ if(frequencyOscillator){try{frequencyOscillator.stop();}catch(e){}try{frequencyOscillator.disconnect();}catch(e){}frequencyOscillator=null;}
+ if(frequencyGain){try{frequencyGain.disconnect();}catch(e){}frequencyGain=null;}
+}
+function startFrequency(){
+ if(!audioContext||frequencyOscillator)return;
+ try{
+  frequencyOscillator=audioContext.createOscillator();
+  frequencyGain=audioContext.createGain();
+  frequencyOscillator.type="sine";
+  frequencyOscillator.frequency.value=528;
+  frequencyGain.gain.value=0.006;
+  frequencyOscillator.connect(frequencyGain);
+  frequencyGain.connect(audioContext.destination);
+  frequencyOscillator.start();
+ }catch(error){stopFrequency();}
+}
+function connectAudioFrequency(audio){
+ const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+ if(!AudioContextClass)return;
+ try{
+  if(!audioContext)audioContext=new AudioContextClass();
+  // Keep the Quran MP3 on native playback. Routing cross-origin MP3s
+  // through MediaElementAudioSource can mute them when CORS is unavailable.
+  startFrequency();
+ }catch(error){stopFrequency();}
+}
+function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}stopFrequency();currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;setPlayButton(false,"ابدأ التلاوة");setStatus("تم إيقاف التلاوة.");}
+function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
+function audioUrl(id){return "https://everyayah.com/data/aziz_alili_128kbps/"+id+".mp3";}
+function playQueue(queue,startIndex=0,repeat=1,card=null){
+ stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;
+ setPlayButton(true,"التلاوة جارية");playNext();
+}
+function playNext(){
+ if(stopRequested)return;
+ if(playIndex>=playlist.length){if(pass<repeatTotal){pass++;playIndex=0;}else{playingCard?.classList.remove("playing");playingCard=null;currentAudio=null;setPlayButton(false,"إعادة التلاوة");setStatus("اكتملت التلاوة.");return;}}
+ const item=playlist[playIndex];const v=verses[item.id];
+ if(playingCard)playingCard.classList.remove("playing");
+ const card=[...document.querySelectorAll(".verse")].find(el=>el.dataset.verse===item.id);
+ playingCard=card||null;playingCard?.classList.add("playing");
+ setStatus("الآن: "+v.ref+" · التكرار "+pass+" من "+repeatTotal);
+ currentAudio=new Audio(audioUrl(item.src));
+ connectAudioFrequency(currentAudio);
+ currentAudio.addEventListener("ended",()=>{stopFrequency();playIndex++;playNext();},{once:true});
+ currentAudio.addEventListener("error",()=>{stopFrequency();setStatus("تعذر تحميل المقطع الصوتي. تحقق من الاتصال ثم أعد المحاولة.");playIndex++;playNext();},{once:true});
+ const audioToPlay=currentAudio;
+ const resume=audioContext&&audioContext.state==="suspended"?audioContext.resume():Promise.resolve();
+ resume.then(()=>audioToPlay.play()).catch(()=>{if(audioToPlay===currentAudio){stopFrequency();setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");setPlayButton(false,"إعادة المحاولة");}});
+}
+function renderVerse(id){
+ const v=verses[id],card=document.createElement("article");card.className="verse";card.dataset.verse=id;
+ const head=document.createElement("div");head.className="versehead";
+ const ref=document.createElement("span");ref.textContent=v.ref;
+ const tag=document.createElement("span");tag.className="tag";tag.textContent=v.kind;
+ const wave=document.createElement("span");wave.className="audio-wave";wave.setAttribute("aria-label","التلاوة جارية");wave.innerHTML="<i></i><i></i><i></i><i></i>";
+ head.append(ref,tag,wave);
+ const text=document.createElement("div");text.className="arabic";text.textContent=v.text;
+ const meaning=document.createElement("div");meaning.className="meaning";meaning.textContent=v.meaning;
+ card.append(head,text,meaning);
+ if(v.concept){const c=document.createElement("div");c.className="concept";c.textContent="محور التدبر: "+v.concept+" · إلهام موضوعي لا نسبة نصية إلى ابن عربي";card.append(c);}
+ return card;
+}
+function renderPath(key){
+ const p=paths[key];document.body.dataset.theme=p.theme;document.getElementById("pathTitle").textContent=p.title;document.getElementById("pathText").textContent=p.text;
+ const meta=document.getElementById("pathMeta");meta.innerHTML="";
+ const labels=key==="sleep"?["الأساس النبوي","آيات النوم والليل","التسليم والنفس","الراحة والتفكر"]:["المعنى القرآني","الحاجة الروحية","أسماء للتأمل"];
+ labels.forEach(t=>{const el=document.createElement("span");el.className="pill";el.textContent=t;meta.append(el);});
+ const names=document.createElement("span");names.className="pill";names.textContent="أسماء للتأمل: "+p.names.join(" · ");meta.append(names);
+ versesBox.innerHTML="";p.ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
+ playlist=buildPlaylist(p.ids);stopPlayback();setStatus("عدد المقاطع الصوتية في هذا المسار: "+playlist.length);
+}
+
+const categoryInfo={
+ protection:{label:"الحماية والتحصين",ids:["kursi","ikhlas","falaq","nas","ra3d"]},
+ marriage:{label:"الزواج والأسرة",ids:["rum21","furqan74","sharh"]},
+ rizq:{label:"الرزق والعمل",ids:["hud6","talaq2","talaq3","sharh"]},
+ children:{label:"الأبناء والذرية",ids:["aliImran38","furqan74","ra3d"]},
+ calm:{label:"السكينة وراحة النفس",ids:["ra3d","sharh","isra","zumar42","anam60"]},
+ healing:{label:"الشفاء والعافية",ids:["isra","ikhlas","sharh"]}
+};
+const foundationIds=["kursi","baqara285","baqara286","ikhlas","falaq","nas"];
+const voiceStatus=document.getElementById("voiceStatus"),needText=document.getElementById("needText"),recordButton=document.getElementById("startRecording"),recordedAudio=document.getElementById("recordedAudio");
+let mediaRecorder=null,recordedChunks=[],recordedStream=null,recognition=null,recordedUrl=null;
+function normalizeNeed(value){
+ return (value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u064b-\u065f\u0670]/g,"").replace(/ـ/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه");
+}
+const keywordRules=[
+ {key:"protection",words:["عين","عين حاسده","حسد","حاسد","محسود","سحر","مسحور","اذي","شر","تحصين","حمايه","وقايه","حفظ","رقية","رقيا","evil eye","envy","black magic","protection","mauvais oeil","jalousie","proteger"]},
+ {key:"marriage",words:["زواج","اتزوج","الزواج","زوج","زوجي","زوجتي","زوجها","زوجته","ازواج","زوجه","زوجة","خطوبه","خطوبة","ارتباط","موده","مودة","رحمه","رحمة","خلاف زوجي","مشاكل زوجيه","اسره","علاقه زوجيه","mariage","marier","couple","conjoint","relation"]},
+ {key:"rizq",words:["رزق","الرزق","رزاق","يرزق","رزقني","رزقه","رزقها","عمل","وظيفه","شغل","مال","فلوس","فقر","دين","تجاره","تجارة","مشروع","بركه","بركة","سعه","سعة","ضيق المعيشه","travail","emploi","argent","revenu","professionnel","business"]},
+ {key:"children",words:["اطفال","طفل","طفله","طفلة","ابناء","ابني","ابنتي","اولاد","ولد","بنت","ذريه","ذرية","انجاب","انجاب","حمل","تربيه الابناء","صلاح الابناء","enfant","enfants","descendance","enfantement"]},
+ {key:"calm",words:["قلق","خوف","خائف","فزع","هم","غم","حزن","ضيق","كرب","وسواس","نوم","ارق","أرق","توتر","سكينه","سكينة","طمأنينه","طمأنينة","راحه نفسيه","راحة البال","angoisse","anxiete","stress","tristesse","peur","sommeil","calme","serenite"]},
+ {key:"healing",words:["شفاء","اشفي","مرض","مريض","الم","وجع","تعب","صحه","صحة","عافيه","عافية","بلاء","guerison","maladie","douleur","fatigue","sante"]}
+];
+function detectCategories(text){
+ const normalized=normalizeNeed(text),found=[];
+ const containsConcept=(word)=>{
+  const term=normalizeNeed(word);
+  if(term.includes(" "))return normalized.includes(term);
+  return normalized.split(/[^\u0600-\u06FFa-z0-9]+/i).some(token=>token===term||token.startsWith(term)&&term.length>=4);
+ };
+ keywordRules.forEach(rule=>{if(rule.words.some(containsConcept))found.push(rule.key);});
+ return found;
+}
+const topicButtons=[...document.querySelectorAll(".topicTag")];
+let selectedTopics=new Set();
+function baseDescription(){
+ return needText.value.replace(/\n?الموضوعات المختارة:.*$/s,"").trim();
+}
+function updateTopicDescription(){
+ const base=baseDescription();
+ const labels=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.label);
+ needText.value=base+(labels.length?(base?"\n":"")+"الموضوعات المختارة: "+labels.join("، "):"");
+ topicButtons.forEach(button=>{
+  const active=selectedTopics.has(button.dataset.label);
+  button.classList.toggle("active",active);
+  button.setAttribute("aria-pressed",String(active));
+ });
+}
+topicButtons.forEach(button=>button.addEventListener("click",()=>{
+ const label=button.dataset.label;
+ if(selectedTopics.has(label))selectedTopics.delete(label);else selectedTopics.add(label);
+ updateTopicDescription();
+}));
+function composeNeed(){
+ const typed=baseDescription();
+ const detected=detectCategories(typed);
+ const selectedCategories=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.category);
+ let all=[...new Set([...detected,...selectedCategories])];
+ if(!all.length&&typed)all=["calm"];
+ if(!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
+ const ids=[...new Set([...foundationIds,...all.flatMap(key=>categoryInfo[key].ids)])]
+  .sort((a,b)=>{
+   const parse=id=>{const n=Number(verses[id].audio[0]);return {surah:Math.floor(n/1000),ayah:n%1000};};
+   const A=parse(a),B=parse(b);
+   return A.surah-B.surah||A.ayah-B.ayah;
+  });
+ currentIds=ids;
+ document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
+ document.body.dataset.page="result";
+ document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
+ document.getElementById("pathText").textContent="يجمع هذا المسار بين آيات معروفة في التلاوة والرقية، وآيات أخرى للتدبر مرتبطة بموضوعك. جُمعت الآيات دون تكرار ورُتبت حسب ترتيب المصحف.";
+ const meta=document.getElementById("pathMeta");meta.innerHTML="";
+ all.forEach(key=>{const el=document.createElement("span");el.className="pill";el.textContent=categoryInfo[key].label;meta.append(el);});
+ const min=document.createElement("span");min.className="pill";min.textContent=ids.length+" مقطعاً قرآنياً";meta.append(min);
+ versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
+ playlist=buildPlaylist(ids);stopPlayback();playAll.disabled=false;
+ setStatus("تم إعداد المسار · "+ids.length+" مقاطع صوتية.");
+ path.classList.add("show");window.scrollTo({top:0,behavior:"smooth"});
+ voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ");
+}
+document.getElementById("buildNeed").addEventListener("click",composeNeed);
+document.getElementById("backToNeed").addEventListener("click",()=>{stopPlayback();document.body.dataset.page="input";window.scrollTo({top:0,behavior:"smooth"});});
+needText.addEventListener("focus",()=>{
+ const base=baseDescription();
+ if(needText.value!==base)needText.value=base;
+});
+needText.addEventListener("blur",updateTopicDescription);
+needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.textContent="راجع النص، ثم اضغط على «إنشاء مساري القرآني».";});
+function finishRecording(){
+ if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
+ if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
+ recordButton.innerHTML='<span class="micIcon" aria-hidden="true">🎙</span>';recordButton.setAttribute("aria-label","ابدأ التحدث");recordButton.title="ابدأ التحدث";
+ recordButton.classList.remove("recording");recordButton.classList.add("primary");
+}
+recordButton.addEventListener("click",async()=>{
+ if(mediaRecorder&&mediaRecorder.state!=="inactive"){finishRecording();return;}
+ if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){voiceStatus.textContent="التسجيل الصوتي غير متاح في هذا المتصفح. يمكنك كتابة حاجتك بدلاً من ذلك.";return;}
+ try{
+  recordedStream=await navigator.mediaDevices.getUserMedia({audio:true});recordedChunks=[];
+  mediaRecorder=new MediaRecorder(recordedStream);
+  mediaRecorder.ondataavailable=e=>{if(e.data.size)recordedChunks.push(e.data);};
+  mediaRecorder.onstop=()=>{
+   const blob=new Blob(recordedChunks,{type:mediaRecorder.mimeType||"audio/webm"});
+   if(recordedUrl)URL.revokeObjectURL(recordedUrl);
+   recordedUrl=URL.createObjectURL(blob);recordedAudio.src=recordedUrl;recordedAudio.hidden=false;
+   recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
+   recordButton.innerHTML='<span class="micIcon">🎙</span><span>ابدأ التحدث</span>';
+   recordButton.classList.remove("recording");recordButton.classList.add("primary");
+   voiceStatus.textContent="انتهى التسجيل.";
+  };
+  mediaRecorder.start();
+  recordButton.innerHTML='<span class="micIcon" aria-hidden="true">■</span>';recordButton.setAttribute("aria-label","إيقاف التسجيل");recordButton.title="إيقاف التسجيل";recordButton.classList.add("recording");
+  recordButton.classList.remove("primary");
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SpeechRecognition){
+   recognition=new SpeechRecognition();recognition.lang="ar-MA";recognition.continuous=true;recognition.interimResults=true;
+   let finalText="";
+   recognition.onresult=event=>{
+    let interim="";
+    for(let i=event.resultIndex;i<event.results.length;i++){const part=event.results[i][0].transcript;if(event.results[i].isFinal)finalText+=part+" ";else interim+=part;}
+    needText.value=(finalText+interim).trim();
+   };
+   recognition.onerror=()=>{voiceStatus.textContent="تعذرت الكتابة الصوتية التلقائية. يمكنك كتابة حاجتك يدوياً.";};
+   recognition.start();voiceStatus.textContent="جارٍ تسجيل الصوت وتحويله إلى نص…";
+  }else{voiceStatus.textContent="التسجيل جارٍ.";}
+ }catch(error){
+  recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
+  recordButton.innerHTML='<span class="micIcon">🎙</span><span>ابدأ التحدث</span>';recordButton.classList.remove("recording");recordButton.classList.add("primary");
+  voiceStatus.textContent="تعذر الوصول إلى الميكروفون. تحقق من أذونات المتصفح.";
+ }
+});
+playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
+stopAll.addEventListener("click",stopPlayback);
+repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
+
+
 </script>
-</body></html>
+</body>
+</html>
