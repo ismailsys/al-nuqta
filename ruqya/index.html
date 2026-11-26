@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111a27">
-<meta name="description" content="الرقية والتدبر — مساحة للذكر والتلاوة والسكينة.">
-<title>AL-NUQTA | الرقية والتدبر</title>
+<meta name="theme-color" content="#f3f0e9">
+<meta name="description" content="سكينة — مساحة هادئة للتلاوة والذكر والتدبر.">
+<title>SAKINA | سكينة</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -59,12 +59,70 @@ select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
 .note{margin-top:16px;padding:16px 18px;border-right:2px solid var(--accent);background:#00000020;color:var(--muted);font-size:12px;line-height:2}
 .note strong{color:var(--accent2)}.footer{text-align:center;color:#8e8a83;font-size:11px;margin-top:26px;line-height:1.9}
 @media(max-width:650px){.choices{grid-template-columns:repeat(2,1fr)}.hero{padding-top:34px}.verse{padding:15px}.arabic{font-size:23px}.playerControls{align-items:stretch}.playerControls>*{flex:1}}
+
+/* SAKINA — soft, calm visual system */
+:root{color-scheme:light;--bg:#f3f0e9;--panel:#fbfaf7;--panel2:#f0ede5;--accent:#9b8664;--accent2:#6d604e;--text:#373a35;--muted:#777970;--line:#e4dfd4;--glow:#c6b99a20}
+body{background:radial-gradient(ellipse at 50% -18%,#e9e3d6 0%,var(--bg) 62%);color:var(--text)}
+body[data-theme="anxiety"]{--bg:#f4f0e8;--panel:#fbf8f1;--panel2:#eee8dc;--accent:#a58b65;--accent2:#716044;--line:#e6ddcd;--glow:#c9b18b25}
+body[data-theme="fear"]{--bg:#eff2f5;--panel:#f9fafb;--panel2:#e9eef3;--accent:#8296aa;--accent2:#526779;--line:#dce4eb;--glow:#9bb0c425}
+body[data-theme="sadness"]{--bg:#f3eff4;--panel:#fbf9fc;--panel2:#eee8f1;--accent:#a38da9;--accent2:#705d78;--line:#e4dce8;--glow:#b9a4c125}
+body[data-theme="distress"]{--bg:#eef3ef;--panel:#f9fbf8;--panel2:#e7efe8;--accent:#829c88;--accent2:#536e5a;--line:#dce7de;--glow:#9db9a225}
+body[data-theme="sleep"]{--bg:#eff1f2;--panel:#fafbfb;--panel2:#e8edef;--accent:#8b9da5;--accent2:#596f79;--line:#dce4e7;--glow:#9db2bc25}
+body[data-theme="pain"]{--bg:#f4f0eb;--panel:#fbf9f6;--panel2:#eee8e0;--accent:#a38b75;--accent2:#725b48;--line:#e6ddd2;--glow:#c2a98f25}
+.wrap{width:min(980px,92%);padding:26px 0 64px}
+.top{border-bottom-color:var(--line);padding-bottom:15px}
+.brand{font-weight:600;letter-spacing:.14em;color:var(--accent)}
+.brand span{letter-spacing:0;font:16px Amiri,serif;margin-right:5px;color:var(--accent2)}
+.back{color:var(--muted)}
+.hero{padding:42px 0 27px}
+.hero h1{color:#3c403b;font-size:clamp(32px,5vw,46px);font-weight:400}
+.hero p{max-width:620px;color:var(--muted)}
+.section{margin-top:16px}
+.section h2{font-size:24px;color:#4a4d46;font-weight:400}
+.hint{color:var(--muted)}
+.choices{gap:12px}
+.choice{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:16px;padding:16px 12px;box-shadow:0 3px 14px #625b4d08}
+.choice small{color:var(--muted)}
+.choice:hover,.choice.active{border-color:var(--accent);background:#fff;box-shadow:0 5px 18px #625b4d12;transform:translateY(-1px)}
+.path{margin-top:24px;padding:clamp(16px,3vw,28px);border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.48);box-shadow:0 12px 36px #514b3f08}
+.path h3{font-size:27px;color:var(--accent2);font-weight:400}
+.path p{color:var(--muted)}
+.pathMeta{justify-content:center;margin:14px 0 20px}
+.pill{border-color:var(--line);color:var(--accent2);background:#ffffff70}
+.player{width:min(620px,100%);margin:20px auto 26px;padding:25px 22px 19px;text-align:center;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#fffefa,#f7f5ef);box-shadow:0 12px 32px #514b3f0d}
+.playerEyebrow{font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.player h4{font:400 27px Amiri,serif;color:#4c514a;margin:5px 0 0}
+.playerIntro{font-size:12px!important;margin:0 0 18px!important;color:var(--muted)!important}
+.playerControls{justify-content:center;gap:12px}
+.btn{border-color:var(--line);background:#f5f3ed;color:#6b655a;padding:11px 20px}
+.btn.primary{background:#8f9e91;color:white;border-color:#8f9e91;min-width:170px}
+.btn:hover{filter:brightness(.98);transform:translateY(-1px)}
+.playerOptions{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-top:17px}
+.playerOptions>label:first-child{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
+select{background:#fff;border-color:var(--line);color:var(--text)}
+.toneToggle{background:transparent;border-color:var(--line);border-radius:999px;padding:7px 12px}
+.playerStatus{color:var(--muted);margin-top:14px;font-size:12px}
+.verse{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 4px 18px #514b3f07}
+.verse.playing{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow)}
+.versehead{color:var(--accent)}
+.tag{border-color:var(--line);color:var(--muted)}
+.arabic{color:#41463f;font-size:28px;line-height:2.25}
+.meaning{border-color:var(--line);color:var(--muted)}
+.concept{border-right-color:var(--accent);background:#f3f0e966;color:var(--accent2)}
+.actions{justify-content:flex-start;margin-top:10px}
+.sourceLink{font-size:11px;color:var(--accent2);text-decoration:none;border-bottom:1px solid #c9c0b0;padding-bottom:2px}
+.method{background:#f9f8f4;border-color:var(--line);border-radius:18px;color:var(--muted)}
+.method h3{font-weight:400;color:var(--accent2)}
+.note{border-right-color:var(--accent);background:#eeece5;color:var(--muted);border-radius:10px}
+.note strong{color:var(--accent2)}
+.footer{color:#929188}
+@media(max-width:650px){.hero{padding-top:32px}.player{padding:22px 15px}.playerControls>*{flex:initial}.playerOptions{gap:10px}.arabic{font-size:24px}}
 </style>
 </head>
 <body data-theme="sleep">
 <div class="wrap">
-<header class="top"><div class="brand">AL-NUQTA</div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
-<section class="hero"><div class="eyebrow">الرقية · الذكر · التدبر</div><h1>مساحة للسكينة والرجوع إلى القلب</h1><p>اختر الحالة الأقرب إلى شعورك. ستقترح الصفحة آيات للتلاوة والتدبر، مع توضيح سبب اختيارها. الاختيارات موضوعات للتأمل وليست تشخيصاً أو وصفة علاجية.</p></section>
+<header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
+<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>اختر الحالة الأقرب إلى شعورك. ستقترح الصفحة آيات للتلاوة والتدبر، مع توضيح سبب اختيارها. الاختيارات موضوعات للتأمل وليست تشخيصاً أو وصفة علاجية.</p></section>
 <section class="section"><h2>ما الذي يشغل قلبك الآن؟</h2><p class="hint">اختر الحالة الأقرب إليك لعرض مسار قرآني مناسب للتلاوة والتأمل.</p>
 <div class="choices" id="choices">
 <button class="choice" data-key="anxiety">القلق<small>السكينة والذكر</small></button>
@@ -78,15 +136,19 @@ select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
 <h3 id="pathTitle">مسار السكينة والنوم</h3><p id="pathText">نجمع بين آيات من الأذكار المعروفة، وآيات تتناول النوم والليل والنفس والراحة. الإضافات مستوحاة من معانٍ تأملية قريبة من موضوعات تناولها ابن عربي، وليست وصفة مخصوصة منسوبة إليه.</p>
 <div class="pathMeta" id="pathMeta"><span class="pill">الأساس النبوي</span><span class="pill">معنى النوم والليل</span><span class="pill">التسليم والتفكر</span></div>
 <div class="player">
-<h4>مشغل التلاوة المتتابعة</h4>
+<div class="playerEyebrow">لحظة تلاوة</div>
+<h4>استمع بهدوء</h4>
+<p class="playerIntro">تلاوة متتابعة للمسار المختار</p>
 <div class="playerControls">
-<button class="btn primary" id="playAll">▶ قراءة جميع الآيات</button>
+<button class="btn primary" id="playAll">▶ ابدأ التلاوة</button>
 <button class="btn" id="stopAll">إيقاف</button>
-<label style="display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px">التكرار
-<select id="repeatCount" aria-label="عدد مرات التكرار"><option value="1">مرة واحدة</option><option value="3" selected>3 مرات</option><option value="7">7 مرات</option><option value="10">10 مرات</option><option value="20">20 مرة</option></select></label>
-<label class="toneToggle"><input type="checkbox" id="tone528" checked> تشغيل طبقة صوتية 528 Hz</label>
 </div>
-<div class="playerStatus" id="playerStatus">اختر قراءة آية منفردة أو تشغيل القائمة كاملة.</div>
+<div class="playerOptions">
+<label>التكرار
+<select id="repeatCount" aria-label="عدد مرات التكرار"><option value="1">مرة واحدة</option><option value="3" selected>3 مرات</option><option value="7">7 مرات</option><option value="10">10 مرات</option><option value="20">20 مرة</option></select></label>
+<label class="toneToggle"><input type="checkbox" id="tone528" checked> نغمة 528 Hz</label>
+</div>
+<div class="playerStatus" id="playerStatus">اضغط على ابدأ للاستماع إلى المسار كاملاً.</div>
 </div>
 <div class="verses" id="verses"></div>
 </section>
@@ -139,7 +201,7 @@ function start528Tone(){
   toneGain=toneContext.createGain();
   toneOscillator.type="sine";
   toneOscillator.frequency.setValueAtTime(528,toneContext.currentTime);
-  toneGain.gain.setValueAtTime(0.012,toneContext.currentTime);
+  toneGain.gain.setValueAtTime(0.0025,toneContext.currentTime);
   toneOscillator.connect(toneGain);
   toneGain.connect(toneContext.destination);
   toneOscillator.onended=()=>{try{toneOscillator?.disconnect();toneGain?.disconnect();}catch(e){}};
@@ -158,12 +220,12 @@ function stop528Tone(){
  }catch(e){}
 }
 function setStatus(s){statusEl.textContent=s}
-function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=null;stop528Tone();playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ قراءة جميع الآيات";setStatus("تم إيقاف التلاوة.");}
+function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=null;stop528Tone();playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
 function audioUrl(id){return "https://everyayah.com/data/Alafasy_128kbps/"+id+".mp3";}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
  stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;start528Tone();
- playAll.textContent="▶ التلاوة جارية";playNext();
+ playAll.textContent="التلاوة جارية";playNext();
 }
 function playNext(){
  if(stopRequested)return;
@@ -189,12 +251,8 @@ function renderVerse(id){
  card.append(head,text,meaning);
  if(v.concept){const c=document.createElement("div");c.className="concept";c.textContent="محور التدبر: "+v.concept+" · إلهام موضوعي لا نسبة نصية إلى ابن عربي";card.append(c);}
  const actions=document.createElement("div");actions.className="actions";
- const play=document.createElement("button");play.className="btn primary";play.textContent="▶ استمع إلى المقطع";
- const repeat=document.createElement("button");repeat.className="btn";repeat.textContent="↻ كرر المقطع";
- const source=document.createElement("a");source.className="btn";source.textContent="مراجعة النص";source.href=v.source;source.target="_blank";source.rel="noopener noreferrer";
- play.onclick=()=>playQueue(v.audio.map(src=>({src,id})),0,1,card);
- repeat.onclick=()=>playQueue(v.audio.map(src=>({src,id})),0,Number(repeatSelect.value),card);
- actions.append(play,repeat,source);card.append(actions);return card;
+ const source=document.createElement("a");source.className="sourceLink";source.textContent="مراجعة النص القرآني ↗";source.href=v.source;source.target="_blank";source.rel="noopener noreferrer";
+ actions.append(source);card.append(actions);return card;
 }
 function renderPath(key){
  const p=paths[key];document.body.dataset.theme=p.theme;document.getElementById("pathTitle").textContent=p.title;document.getElementById("pathText").textContent=p.text;
