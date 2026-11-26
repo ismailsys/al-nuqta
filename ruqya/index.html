@@ -462,17 +462,17 @@ body[data-page="result"] #path{margin-top:20px}
 /* Restore the original deep SAKINA night palette */
 :root{
  color-scheme:dark;
- --bg:#111a27;--panel:#1b2636;--panel2:#222f42;
+ --bg:#0d241b;--panel:#173328;--panel2:#204333;
  --accent:#c9a66b;--accent2:#e5d0a0;--text:#f3eee4;
- --muted:#b7bdc7;--line:#354254;--glow:#c9a66b22;
+ --muted:#b8c5ba;--line:#355545;--glow:#c9a66b22;
 }
 body{background:radial-gradient(ellipse at 50% -15%,var(--glow) 0%,var(--bg) 58%);color:var(--text)}
-body[data-theme="anxiety"]{--bg:#211b16;--panel:#2a211a;--panel2:#35291e;--accent:#d6a65d;--accent2:#f0d5a0;--line:#51402d;--glow:#d6a65d28}
-body[data-theme="fear"]{--bg:#111b30;--panel:#1a2942;--panel2:#223655;--accent:#8ca9d5;--accent2:#d7e4fb;--line:#354b6c;--glow:#7195d42b}
-body[data-theme="sadness"]{--bg:#211b2a;--panel:#2b2337;--panel2:#382b45;--accent:#b69ac7;--accent2:#eadcf2;--line:#4b3b5b;--glow:#b69ac72a}
-body[data-theme="distress"]{--bg:#14231f;--panel:#1d302a;--panel2:#263d35;--accent:#8db9a2;--accent2:#d7eee0;--line:#385448;--glow:#8db9a22a}
-body[data-theme="sleep"]{--bg:#101a2a;--panel:#182438;--panel2:#202e43;--accent:#d4b47a;--accent2:#f1dfb9;--line:#34445c;--glow:#d4b47a24}
-body[data-theme="pain"]{--bg:#241e18;--panel:#30271f;--panel2:#3b3025;--accent:#c6a17c;--accent2:#f0ddc8;--line:#554434;--glow:#c6a17c24}
+body[data-theme="anxiety"]{--bg:#17271d;--panel:#213a2a;--panel2:#2a4834;--accent:#c9a66b;--accent2:#e9d6ad;--line:#405a43;--glow:#c9a66b24}
+body[data-theme="fear"]{--bg:#0d241b;--panel:#173328;--panel2:#204333;--accent:#c9a66b;--accent2:#e5d0a0;--line:#355545;--glow:#c9a66b22}
+body[data-theme="sadness"]{--bg:#18271f;--panel:#22382c;--panel2:#2b4535;--accent:#bda879;--accent2:#e5d8b8;--line:#405744;--glow:#bda87924}
+body[data-theme="distress"]{--bg:#10271e;--panel:#1b382b;--panel2:#254635;--accent:#a8b98a;--accent2:#e0e8cc;--line:#3b5946;--glow:#a8b98a24}
+body[data-theme="sleep"]{--bg:#10251d;--panel:#19362a;--panel2:#224333;--accent:#c9a66b;--accent2:#e9d9b8;--line:#385744;--glow:#c9a66b22}
+body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#c6a17c;--accent2:#f0ddc8;--line:#55583c;--glow:#c6a17c24}
 .needCard{background:linear-gradient(145deg,var(--panel),var(--bg));border-color:#9c8050;box-shadow:0 14px 38px #0004,inset 0 0 0 1px #ffffff08}
 .needCard h2,.needCard .hint{color:var(--text)}
 .topicLabel,.topicHint{color:var(--muted)}
@@ -612,7 +612,7 @@ function startFrequency(){
   frequencyGain=audioContext.createGain();
   frequencyOscillator.type="sine";
   frequencyOscillator.frequency.value=528;
-  frequencyGain.gain.value=0.018;
+  frequencyGain.gain.value=0.006;
   frequencyOscillator.connect(frequencyGain);
   frequencyGain.connect(audioContext.destination);
   frequencyOscillator.start();
