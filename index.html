@@ -872,7 +872,20 @@ function composeNeed(){
  voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ")+(problemMatches.length?" · اختيار مخصص حسب وصفك":"");
 }
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
-document.getElementById("backToNeed").addEventListener("click",()=>{stopPlayback();document.body.dataset.page="input";window.scrollTo({top:0,behavior:"smooth"});});
+document.getElementById("backToNeed").addEventListener("click",()=>{
+ stopPlayback();
+ currentIds=[];
+ playlist=[];
+ playAll.disabled=true;
+ versesBox.innerHTML="";
+ path.classList.remove("show");
+ needText.value="";
+ selectedTopics.clear();
+ updateTopicDescription();
+ voiceStatus.textContent="اكتب وصفاً جديداً أو اختر موضوعاً آخر.";
+ document.body.dataset.page="input";
+ window.scrollTo({top:0,behavior:"smooth"});
+});
 needText.addEventListener("focus",()=>{
  const base=baseDescription();
  if(needText.value!==base)needText.value=base;
