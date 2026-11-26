@@ -640,8 +640,14 @@ function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause()
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
 // Recitateur : Mishary Rashid Alafasy (128 kbps, verset par verset).
 // Source principale : miroir Maqra vérifié ; secours : EveryAyah.
-function audioUrl(id){return "https://huggingface.co/datasets/maqra-project/mishari-alafasy-128kbps/resolve/main/"+id+".mp3";}
-function fallbackAudioUrl(id){return "https://everyayah.com/data/Alafasy_128kbps/"+id+".mp3";}
+let useFallbackAudio=false;
+// Alafasy 128 kbps. Switch source only after a user-initiated retry.
+function audioUrl(id){
+ const base=useFallbackAudio
+  ?"https://everyayah.com/data/Alafasy_128kbps/"
+  :"https://verse.mp3quran.net/data/Alafasy_128kbps/";
+ return base+id+".mp3";
+}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
  stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;
  setPlayButton(true,"التلاوة جارية");playNext();
@@ -655,26 +661,20 @@ function playNext(){
  playingCard=card||null;playingCard?.classList.add("playing");
  setStatus("الآن: "+v.ref+" · التكرار "+pass+" من "+repeatTotal);
  currentAudio=new Audio(audioUrl(item.src));
+ currentAudio.preload="auto";
  connectAudioFrequency(currentAudio);
+ currentAudio.addEventListener("playing",()=>setStatus("تُتلى الآن: "+v.ref),{once:true});
  currentAudio.addEventListener("ended",()=>{stopFrequency();playIndex++;playNext();},{once:true});
- let fallbackTried=false;
  currentAudio.addEventListener("error",()=>{
-  if(!fallbackTried){
-   fallbackTried=true;
-   setStatus("جارٍ تجربة مصدر صوتي بديل…");
-   currentAudio.src=fallbackAudioUrl(item.src);
-   currentAudio.load();
-   currentAudio.play().catch(()=>{});
-   return;
-  }
   stopFrequency();
   stopRequested=true;
   currentAudio=null;
   playingCard?.classList.remove("playing");
   playingCard=null;
+  useFallbackAudio=!useFallbackAudio;
   setPlayButton(false,"إعادة المحاولة");
-  setStatus("تعذر تحميل التلاوة من المصدرين. تحقق من اتصال الإنترنت ثم أعد المحاولة.");
- },{once:false});
+  setStatus("تعذر تحميل المقطع. اضغط «إعادة المحاولة» لتجربة مصدر صوتي آخر.");
+ },{once:true});
  const audioToPlay=currentAudio;
  // Start HTML audio immediately in the click flow; awaiting AudioContext.resume()
  // first can lose the browser's user-activation permission and block playback.
