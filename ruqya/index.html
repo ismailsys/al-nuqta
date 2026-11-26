@@ -53,6 +53,13 @@ select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
 .verses{display:grid;gap:12px;margin-top:16px}
 .verse{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;transition:border-color .2s}
 .verse.playing{border-color:var(--accent);box-shadow:0 0 0 1px var(--glow)}
+.audio-wave{display:none;align-items:center;gap:3px;height:20px;margin-inline-start:auto;color:var(--accent2)}
+.verse.playing .audio-wave{display:inline-flex}
+.audio-wave i{display:block;width:3px;height:5px;border-radius:3px;background:currentColor;animation:audioPulse .8s ease-in-out infinite alternate}
+.audio-wave i:nth-child(2){animation-delay:.15s}
+.audio-wave i:nth-child(3){animation-delay:.3s}
+.audio-wave i:nth-child(4){animation-delay:.45s}
+@keyframes audioPulse{from{height:4px;opacity:.55}to{height:18px;opacity:1}}
 .versehead{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--accent);font-size:12px}
 .tag{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:30px}
 .arabic{font:26px/2.15 Amiri;text-align:center;margin:18px 0;color:#fbf5e9}
@@ -390,7 +397,8 @@ function renderVerse(id){
  const head=document.createElement("div");head.className="versehead";
  const ref=document.createElement("span");ref.textContent=v.ref;
  const tag=document.createElement("span");tag.className="tag";tag.textContent=v.kind;
- head.append(ref,tag);
+ const wave=document.createElement("span");wave.className="audio-wave";wave.setAttribute("aria-label","التلاوة جارية");wave.innerHTML="<i></i><i></i><i></i><i></i>";
+ head.append(ref,tag,wave);
  const text=document.createElement("div");text.className="arabic";text.textContent=v.text;
  const meaning=document.createElement("div");meaning.className="meaning";meaning.textContent=v.meaning;
  card.append(head,text,meaning);
@@ -422,16 +430,21 @@ function normalizeNeed(value){
  return (value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u064b-\u065f\u0670]/g,"").replace(/ـ/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه");
 }
 const keywordRules=[
- {key:"protection",words:["عين","حسد","حاسد","حمايه","تحصين","حفظ","evil eye","envy","protection","mauvais oeil","jalousie","proteger"]},
- {key:"marriage",words:["زواج","اتزوج","الزواج","زوج","زوجي","زوجتي","علاقه زوجيه","mariage","marier","couple","conjoint"]},
- {key:"rizq",words:["رزق","الرزق","عمل","وظيفه","شغل","مال","فلوس","مشروع","توفيق مهني","travail","emploi","argent","revenu","professionnel"]},
- {key:"children",words:["اطفال","طفل","ابناء","اولاد","ذريه","انجاب","حمل","صلاح الابناء","enfant","enfants","descendance"]},
- {key:"calm",words:["قلق","خوف","حزن","ضيق","وسواس","نوم","توتر","راحه نفسيه","سكينه","angoisse","anxiete","stress","tristesse","peur","sommeil","calme","serenite"]},
- {key:"healing",words:["شفاء","مرض","الم","تعب","صحه","عافيه","guerison","maladie","douleur","fatigue","sante"]}
+ {key:"protection",words:["عين","عين حاسده","حسد","حاسد","محسود","سحر","مسحور","اذي","شر","تحصين","حمايه","وقايه","حفظ","رقية","رقيا","evil eye","envy","black magic","protection","mauvais oeil","jalousie","proteger"]},
+ {key:"marriage",words:["زواج","اتزوج","الزواج","زوج","زوجي","زوجتي","زوجها","زوجته","ازواج","زوجه","زوجة","خطوبه","خطوبة","ارتباط","موده","مودة","رحمه","رحمة","خلاف زوجي","مشاكل زوجيه","اسره","علاقه زوجيه","mariage","marier","couple","conjoint","relation"]},
+ {key:"rizq",words:["رزق","الرزق","رزاق","يرزق","رزقني","رزقه","رزقها","عمل","وظيفه","شغل","مال","فلوس","فقر","دين","تجاره","تجارة","مشروع","بركه","بركة","سعه","سعة","ضيق المعيشه","travail","emploi","argent","revenu","professionnel","business"]},
+ {key:"children",words:["اطفال","طفل","طفله","طفلة","ابناء","ابني","ابنتي","اولاد","ولد","بنت","ذريه","ذرية","انجاب","انجاب","حمل","تربيه الابناء","صلاح الابناء","enfant","enfants","descendance","enfantement"]},
+ {key:"calm",words:["قلق","خوف","خائف","فزع","هم","غم","حزن","ضيق","كرب","وسواس","نوم","ارق","أرق","توتر","سكينه","سكينة","طمأنينه","طمأنينة","راحه نفسيه","راحة البال","angoisse","anxiete","stress","tristesse","peur","sommeil","calme","serenite"]},
+ {key:"healing",words:["شفاء","اشفي","مرض","مريض","الم","وجع","تعب","صحه","صحة","عافيه","عافية","بلاء","guerison","maladie","douleur","fatigue","sante"]}
 ];
 function detectCategories(text){
  const normalized=normalizeNeed(text),found=[];
- keywordRules.forEach(rule=>{if(rule.words.some(word=>normalized.includes(normalizeNeed(word))))found.push(rule.key);});
+ const containsConcept=(word)=>{
+  const term=normalizeNeed(word);
+  if(term.includes(" "))return normalized.includes(term);
+  return normalized.split(/[^\\p{L}\\p{N}]+/u).some(token=>token===term||token.startsWith(term)&&term.length>=4);
+ };
+ keywordRules.forEach(rule=>{if(rule.words.some(containsConcept))found.push(rule.key);});
  return found;
 }
 function composeNeed(){
