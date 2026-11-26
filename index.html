@@ -931,29 +931,34 @@ function normalizeQuranText(value){
 async function searchQuranCorpus(terms){
  const found=new Map();
  const requests=terms.map(async entry=>{
-  const term=entry.term;
+  const term=(entry.term||"").trim();
   if(!term)return;
-  const url="https://api.quran.com/api/v4/search?q="+encodeURIComponent(term)+"&size=50&language=ar";
+  // Current Quran.com public search API (v1). The old /api/v4/search
+  // route is no longer the documented search interface.
+  const params=new URLSearchParams({
+   mode:"advanced",
+   query:term,
+   get_text:"1",
+   size:"50",
+   page:"1"
+  });
+  const url="https://api.quran.com/api/v1/search?"+params.toString();
   const response=await fetch(url,{headers:{Accept:"application/json"}});
   if(!response.ok)throw new Error("Quran search HTTP "+response.status+" for "+term);
   const payload=await response.json();
-  // Quran.com legacy v4 and newer search responses use different envelopes.
-  const results=payload.search?.results
-   ||payload.result?.verses
-   ||payload.results
-   ||payload.verses
-   ||[];
+  const results=payload.result?.verses||payload.verses||payload.search?.results||[];
   results.forEach((item,index)=>{
-   const key=item.verse_key||item.verseKey||item.key||item.verse?.verse_key||item.verse?.key;
-   const textValue=item.text_uthmani||item.text||item.arabic||item.name
-    ||item.verse?.text_uthmani||item.verse?.text||item.verse?.arabic;
-   if(typeof key!=="string"||!/^\\d+:\\d+$/.test(key)||!textValue)return;
+   const key=typeof item.key==="string"?item.key:
+    item.verse_key||item.verse?.verse_key||item.verse?.key;
+   const textValue=item.arabic||item.name||item.text_uthmani||item.text||
+    item.verse?.text_uthmani||item.verse?.text;
+   if(typeof key!=="string"||!/^\d+:\d+$/.test(key)||!textValue)return;
    const [surah,ayah]=key.split(":").map(Number);
    if(!surah||!ayah)return;
    const id="live_"+surah+"_"+ayah;
    const normalizedVerse=normalizeQuranText(textValue);
    const normalizedTerm=normalizeQuranText(term);
-   const verseTokens=normalizedVerse.replace(/[^\\u0600-\\u06FF\\s]/g," ").split(/\\s+/).filter(Boolean);
+   const verseTokens=normalizedVerse.replace(/[^\u0600-\u06FF\s]/g," ").split(/\s+/).filter(Boolean);
    const lexical=normalizedVerse.includes(normalizedTerm);
    const direct=entry.domain==="user_words"&&verseTokens.includes(normalizedTerm);
    const previous=found.get(id)||{
@@ -977,16 +982,14 @@ async function searchQuranCorpus(terms){
   const firstError=settled.find(result=>result.status==="rejected")?.reason;
   throw firstError||new Error("All Quran searches failed");
  }
- if(!found.size&&fulfilled){
-  console.warn("SAKINA: Quran API responded but no verse records were recognized.",settled.length);
- }
  return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,25).map(item=>{
   const related=[...new Set(item.hits.map(h=>h.label))];
   const direct=item.directTerms.length>0;
-  const kind=direct?"مطابقة لفظية مباشرة":item.semanticTerms.length?"ارتباط دلالي":"اقتراح موضوعي";
+  const semantic=item.semanticTerms.length>0;
+  const kind=direct?"مطابقة لفظية مباشرة":semantic?"ارتباط دلالي":"اقتراح موضوعي";
   const reason=direct
    ?"ورد في نص الآية لفظ مطابق لكلمة عربية من وصفك: "+item.directTerms.join("، ")+". وهذا يثبت المطابقة اللفظية فقط، لا أن الآية تتحدث عن الحالة الطبية أو الشخصية نفسها."
-   :item.semanticTerms.length
+   :semantic
     ?"وردت في الآية ألفاظ مرتبطة بموضوع: "+related.join("، ")+" ("+item.semanticTerms.join("، ")+"). هذا ارتباط لغوي محتمل يحتاج إلى قراءة السياق."
     :"اقتُرح هذا الموضع بسبب ارتباط موضوعي محتمل بـ "+related.join("، ")+"؛ ولا توجد مطابقة مباشرة مع وصفك.";
   const surah=Number(item.key.split(":")[0]),ayah=Number(item.key.split(":")[1]);
@@ -996,7 +999,7 @@ async function searchQuranCorpus(terms){
     ref:"الآية "+item.key,key:item.key,text:item.text,meaning:reason,
     concept:related.join(" · "),
     audio:[String(surah).padStart(3,"0")+String(ayah).padStart(3,"0")],
-    kind,matchLevel:direct?"direct":item.semanticTerms.length?"semantic":"thematic",
+    kind,matchLevel:direct?"direct":semantic?"semantic":"thematic",
     source:"https://quran.com/"+item.key
    }
   };
