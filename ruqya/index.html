@@ -148,17 +148,22 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <div class="wrap">
 <header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
 <section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>مساحة شخصية للتلاوة والتدبر. اكتب أو أمْلِ ما يشغلك، ثم اختر الموضوعات التي تريد إضافتها إلى مسارك.</p></section>
-<section class="section needFirst" id="customNeed"><div class="needCard"><div class="needKicker">مساحتك الخاصة</div><h2>ما الذي تحتاج أن تعبّر عنه اليوم؟</h2><p class="hint">تحدث مباشرة أو اكتب ما يشغلك. يمكنك استخدام العربية أو الدارجة أو الفرنسية.</p><div class="voiceTools">
-<select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
+<section class="section needFirst" id="customNeed">
+<div class="needCard">
+<div class="needKicker">مساحتك الخاصة</div>
+<h2>ما الذي تحتاج أن تعبّر عنه اليوم؟</h2>
+<p class="hint">تحدث مباشرة أو اكتب ما يشغلك. يمكنك استخدام العربية أو الدارجة أو الفرنسية.</p>
+<div class="voiceTools">
 <button class="btn primary" id="startRecording" type="button">🎙 ابدأ التحدث</button>
 <button class="btn" id="stopRecording" type="button" disabled>إيقاف التسجيل</button>
+<select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
 </div>
 <textarea id="needText" rows="4" placeholder="ستظهر كلماتك هنا أثناء الإملاء، أو اكتب حاجتك بنفسك..."></textarea>
 <audio id="recordedAudio" controls hidden></audio>
 <p class="voiceStatus" id="voiceStatus" aria-live="polite">يُستخدم الميكروفون للإملاء داخل المتصفح. راجع النص الناتج قبل إنشاء المسار.</p>
-
+</div>
 </section>
-</div></section><section class="section"><h2>اختر ما تحتاجه</h2><p class="hint">اختر موضوعاً أو أكثر، أو اتركها دون اختيار إذا كنت قد وصفت حاجتك أعلاه.</p>
+<section class="section"><h2>اختر ما تحتاجه</h2><p class="hint">اختر موضوعاً أو أكثر، أو اتركها دون اختيار إذا كنت قد وصفت حاجتك أعلاه.</p>
 <div class="choices" id="choices">
 <button class="choice" data-key="protection">الحماية والتحصين<small>العين والحسد والاستعاذة</small></button>
 <button class="choice" data-key="marriage">الزواج والأسرة<small>المودة والرحمة</small></button>
