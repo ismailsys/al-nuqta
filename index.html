@@ -517,6 +517,17 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 .resultConfirm span{display:block;margin-top:5px;color:#d0d9ce;font-size:14px;line-height:1.9}
 @media(max-width:600px){.resultConfirm{padding:17px 12px}.resultConfirm strong{font-size:24px}.resultConfirm span{font-size:13px}}
 
+
+.analysisSummary{margin:14px 0 20px;padding:16px 18px;border:1px solid #d9d3c5;border-radius:16px;background:linear-gradient(145deg,#fffefa,#f3f2eb)}
+.analysisSummary[hidden]{display:none!important}
+.analysisHeading{font:400 20px Amiri,serif;color:#596f5b;margin-bottom:10px}
+.analysisDimensions{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.analysisDimension{border:1px solid #d7dece;background:#edf2e9;color:#526b55;border-radius:999px;padding:6px 10px;font-size:11px}
+.analysisConcepts{display:flex;flex-wrap:wrap;gap:6px}
+.analysisConcept{border:1px solid #e2ddcf;background:#fff;color:#69685f;border-radius:999px;padding:5px 9px;font-size:11px}
+.analysisNote{margin-top:10px;color:#89877e;font-size:11px;line-height:1.8}
+.verse .meaning:before{content:"سبب الاقتراح: ";font-weight:600;color:#6b806d}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -537,20 +548,26 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
   <button class="topicTag" type="button" data-category="children" data-label="الأبناء والذرية" aria-pressed="false">الأبناء والذرية</button>
   <button class="topicTag" type="button" data-category="calm" data-label="السكينة وراحة النفس" aria-pressed="false">السكينة وراحة النفس</button>
  </div>
- <p class="topicHint">يمكنك اختيار أكثر من موضوع، وستُضاف اختياراتك إلى وصفك.</p>
+ <p class="topicHint">هذه اقتراحات سريعة لمن لا يرغب في كتابة التفاصيل. ويمكنك تجاهلها وكتابة وصفك بحرية.</p>
 </div>
 <div class="composerField">
-<textarea id="needText" rows="4" placeholder="اكتب ما يشغلك هنا، أو اضغط على الميكروفون للتحدث..."></textarea>
+<textarea id="needText" rows="4" placeholder="اكتب بحرية كل ما تريد: ما تشعر به، ألم في أي موضع، أو مشكلة شخصية أو عائلية أو مادية..."></textarea>
 
 </div>
 
 <p class="voiceStatus" id="voiceStatus" aria-live="polite"></p>
-<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">آيات مختارة ومرتبة حسب المصحف.</p></div>
+<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">اكتب بحرية؛ سنحلل المحاور التي ذكرتها ونبحث عن الآيات ذات الصلة.</p></div>
 </div>
 </section>
 <section class="path" id="path" aria-live="polite">
 <div class="resultTop"><button class="btn backBtn" id="backToNeed" type="button">← العودة إلى الصفحة الأولى</button></div>
 <div class="resultConfirm" id="resultConfirm" role="status" aria-live="polite"><strong>تم اختيار الآيات المناسبة لحالتك</strong><span id="resultConfirmDetail">اعتماداً على ما كتبته أو اخترته من أعراض ومشاعر.</span></div>
+<div class="analysisSummary" id="analysisSummary" hidden>
+ <div class="analysisHeading">ما الذي فهمناه من وصفك؟</div>
+ <div class="analysisDimensions" id="analysisDimensions"></div>
+ <div class="analysisConcepts" id="analysisConcepts"></div>
+ <div class="analysisNote">هذا فهم لغوي أولي لما كتبته، وليس تشخيصاً أو حكماً على حالتك.</div>
+</div>
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
 <div class="player">
@@ -572,6 +589,7 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 
 <div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Aziz Alili (Hafs). المحاور التأملية مستلهمة من موضوعات في فكر ابن عربي، ولا تمثل تفسيراً منسوباً إليه أو وصفة مخصوصة.</div>
 </div>
+<script src="/semantic-analyzer.js"></script>
 <script>
 const verses={
  fatiha:{ref:"الفاتحة · ١–٧",title:"سورة الفاتحة",text:"بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",meaning:"سورة الفاتحة من أعظم سور القرآن، وثبتت الرقية بها في السنة. تُقرأ هنا ضمن الأساس القرآني.",audio:["001001","001002","001003","001004","001005","001006","001007"],kind:"أساس نبوي",source:"https://quran.com/1"},
@@ -861,17 +879,18 @@ const quranSearchTerms={
  debt:["الرزق","الدين","الإنفاق","التيسير"],
  work:["الرزق","الفضل","السعي","التوكل"]
 };
-function buildQuranSearchTerms(typed,detected,problemMatches,selectedCategories){
- const terms=[];
- problemMatches.forEach(rule=>(quranSearchTerms[rule.key]||[]).forEach(t=>terms.push(t)));
- [...new Set([...detected,...selectedCategories])].forEach(key=>(quranSearchTerms[key]||[]).forEach(t=>terms.push(t)));
- const arabicWords=(typed.match(/[\\u0600-\\u06FF]{3,}/g)||[]).filter(w=>w.length>=3);
- arabicWords.forEach(w=>terms.push(w));
- return [...new Set(terms)].slice(0,7);
+function buildQuranSearchTerms(analysis){
+ return (analysis.searchTerms||[]).slice(0,20);
+}
+function normalizeQuranText(value){
+ return (value||"").toString().normalize("NFD")
+  .replace(/[\u064b-\u065f\u0670]/g,"").replace(/ـ/g,"")
+  .replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه");
 }
 async function searchQuranCorpus(terms){
  const found=new Map();
- const requests=terms.map(async term=>{
+ const requests=terms.map(async entry=>{
+  const term=entry.term;
   const url="https://api.quran.com/api/v4/search?q="+encodeURIComponent(term)+"&size=50&language=ar";
   const response=await fetch(url,{headers:{Accept:"application/json"}});
   if(!response.ok)throw new Error("Quran search HTTP "+response.status);
@@ -884,90 +903,130 @@ async function searchQuranCorpus(terms){
    const [surah,ayah]=key.split(":").map(Number);
    if(!surah||!ayah)return;
    const id="live_"+surah+"_"+ayah;
-   const previous=found.get(id);
-   const score=(previous?.score||0)+(50-index);
-   found.set(id,{id,score,verse:{ref:"الآية "+key,text:textValue,meaning:"عُثر على هذا الموضع عبر البحث في النص القرآني العربي. راجع سياق الآيات قبلها وبعدها لفهم المعنى.",audio:[String(surah).padStart(3,"0")+String(ayah).padStart(3,"0")],kind:"نتيجة بحث قرآني",source:"https://quran.com/"+key}});
+   const normalizedVerse=normalizeQuranText(textValue);
+   const lexical=normalizedVerse.includes(normalizeQuranText(term));
+   const previous=found.get(id)||{
+    id,score:0,key,text:textValue,lexicalTerms:[],hits:[],conceptIds:new Set()
+   };
+   previous.score+=(50-index)+(entry.priority||0)*8+(lexical?25:0);
+   if(lexical&&!previous.lexicalTerms.includes(term))previous.lexicalTerms.push(term);
+   if(!previous.hits.some(h=>h.term===term)){
+    previous.hits.push({term,label:entry.label||"لفظ بحث",conceptId:entry.conceptId,domain:entry.domain});
+   }
+   (entry.conceptIds||[entry.conceptId]).filter(Boolean).forEach(id=>previous.conceptIds.add(id));
+   found.set(id,previous);
   });
  });
- await Promise.all(requests);
- return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,40);
+ const settled=await Promise.allSettled(requests);
+ if(!settled.some(r=>r.status==="fulfilled") && settled.length) throw new Error("All Quran searches failed");
+ return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,35).map(item=>{
+  const related=[...new Set(item.hits.map(h=>h.label))];
+  const reason=item.lexicalTerms.length
+   ?"ورد في النص لفظ بحث قرآني مرتبط: "+item.lexicalTerms.join("، ")+"؛ ويجب فهمه ضمن سياق الآية."
+   :"اقتُرح هذا الموضع لارتباطه بموضوع: "+related.join("، ")+"؛ وليس بالضرورة ذكراً مباشراً للمشكلة التي وصفتها.";
+  const surah=Number(item.key.split(":")[0]),ayah=Number(item.key.split(":")[1]);
+  return {
+   id:item.id,score:item.score,
+   verse:{
+    ref:"الآية "+item.key,
+    text:item.text,
+    meaning:reason,
+    concept:related.join(" · "),
+    audio:[String(surah).padStart(3,"0")+String(ayah).padStart(3,"0")],
+    kind:item.lexicalTerms.length?"مطابقة لفظية":"صلة موضوعية",
+    source:"https://quran.com/"+item.key
+   }
+  };
+ });
 }
-const problemLabels={
- sleep:"صعوبة النوم أو الأرق",
- anxiety:"القلق أو التوتر أو الخوف",
- sadness:"الحزن أو الهم",
- marital_conflict:"الخلافات الزوجية",
- debt:"الديون أو الضيق المالي",
- protection:"طلب الحماية والتحصين",
- healing:"المرض أو طلب الشفاء"
-};
-const categoryLabels={
- protection:"الحماية والتحصين",marriage:"الزواج والأسرة",rizq:"الرزق والعمل",
- children:"الأبناء والذرية",calm:"السكينة وراحة النفس",healing:"الشفاء والعافية"
-};
-function updateResultConfirmation(typed,problemMatches,selectedCategories,detected){
+function renderAnalysisSummary(analysis){
+ const box=document.getElementById("analysisSummary");
+ const dimensions=document.getElementById("analysisDimensions");
+ const concepts=document.getElementById("analysisConcepts");
+ dimensions.replaceChildren();concepts.replaceChildren();
+ if(!analysis.concepts.length){box.hidden=true;return;}
+ analysis.dimensions.forEach(group=>{
+  const chip=document.createElement("span");chip.className="analysisDimension";
+  chip.textContent=group.label;dimensions.append(chip);
+ });
+ analysis.concepts.forEach(concept=>{
+  const chip=document.createElement("span");chip.className="analysisConcept";
+  chip.textContent=concept.label;concepts.append(chip);
+ });
+ box.hidden=false;
+}
+function updateResultConfirmation(analysis,selectedCategories){
  const detail=document.getElementById("resultConfirmDetail");
- const matched=[...new Set(problemMatches.map(rule=>problemLabels[rule.key]||rule.key))];
- const chosen=[...new Set(selectedCategories.map(key=>categoryLabels[key]||key))];
- const categories=[...new Set(detected.map(key=>categoryLabels[key]||key))];
- let description="";
- if(matched.length) description="تم التعرّف في وصفك على: "+matched.join("، ")+".";
- else if(typed&&categories.length) description="الموضوع الأقرب إلى وصفك: "+categories.join("، ")+".";
- else if(chosen.length) description="الموضوع الذي اخترته: "+chosen.join("، ")+".";
- else description="تم تحليل وصفك واستخراج الموضوع الأقرب إليه.";
- detail.textContent="اعتماداً على ما كتبته أو اخترته من أعراض ومشاعر. "+description+" الآيات المقترحة مرتبطة بهذا الموضوع للتدبر والتلاوة.";
+ const labels=analysis.concepts.map(c=>c.label);
+ const chosen=selectedCategories.map(key=>categoryLabels[key]||key);
+ const all=[...new Set([...labels,...chosen])];
+ detail.textContent=all.length
+  ?"تم تحليل وصفك واستخراج عدة محاور محتملة: "+all.join("، ")+"؛ وسيتم البحث عن مواضع قرآنية ذات صلة، مع التمييز بين اللفظ المباشر والارتباط الموضوعي."
+  :"لم يظهر موضوع محدد بوضوح. سيُجرى البحث في الكلمات التي كتبتها دون افتراض تشخيص أو معنى غير مذكور.";
 }
-function composeNeed(){
+async function composeNeed(){
  const typed=baseDescription();
- const detected=detectCategories(typed);
- const problemMatches=detectProblemMatches(typed);
  const selectedCategories=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.category);
- let all=[...new Set([...detected,...selectedCategories])];
- if(!all.length&&typed)all=["calm"];
- if(!typed&&!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
- updateResultConfirmation(typed,problemMatches,selectedCategories,detected);
+ if(!typed&&!selectedCategories.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً من الاقتراحات.";return;}
+ updateResultConfirmation({concepts:[],dimensions:[]},selectedCategories);
  document.body.dataset.page="result";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
- document.getElementById("pathText").textContent="جارٍ البحث في النص القرآني عن مواضع مرتبطة بوصفك. ستُعرض النتائج مع مراجعها، ويُستحسن قراءة سياق كل موضع.";
+ document.getElementById("pathText").textContent="جارٍ فهم وصفك واستخراج محاوره، ثم البحث في النص القرآني عن مواضع مرتبطة بها.";
  const meta=document.getElementById("pathMeta");meta.innerHTML="";
- const searching=document.createElement("span");searching.className="pill";searching.textContent="بحث مباشر في القرآن…";meta.append(searching);
+ const searching=document.createElement("span");searching.className="pill";searching.textContent="تحليل الوصف والبحث في القرآن…";meta.append(searching);
  versesBox.innerHTML="";
  path.classList.add("show");window.scrollTo({top:0,behavior:"smooth"});
  stopPlayback();currentIds=[];playlist=[];playAll.disabled=true;
- voiceStatus.textContent="جارٍ تحليل الوصف والبحث عن الآيات…";
- const terms=buildQuranSearchTerms(typed,detected,problemMatches,selectedCategories);
- searchQuranCorpus(terms).then(matches=>{
+ voiceStatus.textContent="جارٍ تحليل جميع جوانب وصفك…";
+ try{
+  const analysis=await window.SakinaAnalyzer.analyze(typed,selectedCategories);
+  renderAnalysisSummary(analysis);
+  updateResultConfirmation(analysis,selectedCategories);
+  const terms=buildQuranSearchTerms(analysis);
+  if(!terms.length){
+   const empty=document.createElement("p");empty.className="meaning";
+   empty.textContent="لم يتم تحديد كلمات بحث كافية. يمكنك إضافة تفاصيل أكثر أو اختيار أحد المحاور المقترحة.";
+   versesBox.append(empty);
+   meta.replaceChildren();
+   setStatus("أضف بعض التفاصيل لبدء البحث.");
+   voiceStatus.textContent="لم تُستخرج مفاهيم واضحة من الوصف.";
+   return;
+  }
+  const matches=await searchQuranCorpus(terms);
   let ids=[];
   if(matches.length){
    matches.forEach(item=>{verses[item.id]=item.verse;ids.push(item.id);});
-   const info=document.createElement("span");info.className="pill";info.textContent=matches.length+" نتيجة من البحث";meta.replaceChildren(info);
-   const source=document.createElement("span");source.className="pill";source.textContent="النص: Quran.com API";meta.append(source);
+   const info=document.createElement("span");info.className="pill";info.textContent=matches.length+" موضعاً مرشحاً";meta.replaceChildren(info);
+   const source=document.createElement("span");source.className="pill";source.textContent="البحث النصي: Quran.com";meta.append(source);
    matches.forEach(item=>versesBox.appendChild(renderVerse(item.id)));
    playlist=buildPlaylist(ids);currentIds=ids;playAll.disabled=!ids.length;
-   setStatus("تم العثور على "+ids.length+" موضعاً قرآنياً.");
-   voiceStatus.textContent="نتائج بحث نصي بحسب الكلمات والموضوعات المستخرجة من وصفك. ليست حكماً تفسيرياً ولا قائمة حصرية.";
+   setStatus("تم العثور على "+ids.length+" موضعاً قرآنياً مرشحاً.");
+   voiceStatus.textContent="هذه نتائج بحث أولية. صُنّفت بحسب الألفاظ والموضوعات المستخرجة، ويجب قراءة سياق كل آية قبل اعتماد الصلة.";
   }else{
-   const fallbackKeys=new Set(problemMatches.map(rule=>rule.category));
-   const fallbackIds=[...new Set([...problemMatches.flatMap(rule=>rule.ids),...all.filter(key=>!fallbackKeys.has(key)).flatMap(key=>categoryInfo[key]?.ids||[])])];
-   ids=fallbackIds.filter(id=>verses[id]);
-   currentIds=ids;ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
-   playlist=buildPlaylist(ids);playAll.disabled=!ids.length;
-   const info=document.createElement("span");info.className="pill";info.textContent="اختيار موضوعي احتياطي";meta.replaceChildren(info);
-   setStatus("تعذر الحصول على نتائج البحث المباشر؛ عُرضت الاختيارات الموضوعية الموجودة.");
-   voiceStatus.textContent="لم يُرجع البحث المباشر نتائج. هذه قائمة احتياطية من الاختيارات الموضوعية.";
+   const empty=document.createElement("p");empty.className="meaning";
+   empty.textContent="لم يُعثر على نتائج مطابقة عبر البحث الحالي. هذا لا يعني أن القرآن لا يتناول الموضوع؛ جرّب توضيح الوصف أو استخدام كلمات أخرى.";
+   versesBox.append(empty);
+   meta.replaceChildren();
+   setStatus("لا توجد نتائج في البحث الحالي.");
+   voiceStatus.textContent="لم تُرجع خدمة البحث مواضع لهذه الكلمات.";
   }
-  document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
- }).catch(error=>{
-  console.error("SAKINA Quran search error:",error);
-  const fallbackKeys=new Set(problemMatches.map(rule=>rule.category));
-  const ids=[...new Set([...problemMatches.flatMap(rule=>rule.ids),...all.filter(key=>!fallbackKeys.has(key)).flatMap(key=>categoryInfo[key]?.ids||[])])].filter(id=>verses[id]);
-  currentIds=ids;versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
-  playlist=buildPlaylist(ids);playAll.disabled=!ids.length;
-  const info=document.createElement("span");info.className="pill";info.textContent="Mode hors ligne / secours";meta.replaceChildren(info);
-  setStatus("La recherche externe est indisponible. Sélection thématique affichée.");
-  voiceStatus.textContent="La recherche complète n'a pas répondu. Les versets affichés proviennent de la sélection locale.";
- });
+  const domains=analysis.dimensions.map(d=>d.id);
+  document.body.dataset.theme=domains.includes("emotional")?"distress":domains.includes("physical")?"pain":"sleep";
+ }catch(error){
+  console.error("SAKINA analysis/search error:",error);
+  const info=document.createElement("span");info.className="pill";info.textContent="تعذر إكمال البحث";meta.replaceChildren(info);
+  const message=document.createElement("p");message.className="meaning";
+  message.textContent="تعذر الوصول إلى خدمة البحث القرآني حالياً. احتفظ بوصفك وأعد المحاولة بعد قليل.";
+  versesBox.replaceChildren(message);
+  setStatus("تعذر الاتصال بخدمة البحث.");
+  voiceStatus.textContent="تعذر إكمال البحث. تحقق من الاتصال ثم أعد المحاولة.";
+ }
 }
+const problemLabels={
+ sleep:"صعوبة النوم أو الأرق",anxiety:"القلق أو التوتر أو الخوف",sadness:"الحزن أو الهم",
+ marital_conflict:"الخلافات الزوجية",debt:"الديون أو الضيق المالي",protection:"طلب الحماية والتحصين",healing:"المرض أو طلب الشفاء"
+};
+const categoryLabels={protection:"الحماية والتحصين",marriage:"الزواج والأسرة",rizq:"الرزق والعمل",children:"الأبناء والذرية",calm:"السكينة وراحة النفس",healing:"الشفاء والعافية"};
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
 document.getElementById("backToNeed").addEventListener("click",()=>{
  stopPlayback();
@@ -976,6 +1035,7 @@ document.getElementById("backToNeed").addEventListener("click",()=>{
  playAll.disabled=true;
  versesBox.innerHTML="";
  path.classList.remove("show");
+ document.getElementById("analysisSummary").hidden=true;
  needText.value="";
  selectedTopics.clear();
  updateTopicDescription();
