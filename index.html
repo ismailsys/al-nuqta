@@ -840,6 +840,51 @@ topicButtons.forEach(button=>button.addEventListener("click",()=>{
  if(selectedTopics.has(label))selectedTopics.delete(label);else selectedTopics.add(label);
  updateTopicDescription();
 }));
+const quranSearchTerms={
+ protection:["الاستعاذة","الحفظ","شر","حسد","وسواس"],
+ marriage:["الزواج","المودة","الرحمة","السكينة","الأسرة"],
+ rizq:["الرزق","الفضل","التوكل","السعي","الإنفاق"],
+ children:["الذرية","الأبناء","الدعاء","الأسرة"],
+ calm:["الطمأنينة","الصبر","الذكر","التوكل","اليسر"],
+ healing:["الشفاء","الرحمة","المرض","الدعاء"],
+ sleep:["النوم","الليل","السكينة","الذكر"],
+ anxiety:["الخوف","الطمأنينة","التوكل","الصبر","الذكر"],
+ sadness:["الحزن","الرحمة","الرجاء","الصبر"],
+ marital_conflict:["المودة","الرحمة","الإصلاح","المعروف"],
+ debt:["الرزق","الدين","الإنفاق","التيسير"],
+ work:["الرزق","الفضل","السعي","التوكل"]
+};
+function buildQuranSearchTerms(typed,detected,problemMatches,selectedCategories){
+ const terms=[];
+ problemMatches.forEach(rule=>(quranSearchTerms[rule.key]||[]).forEach(t=>terms.push(t)));
+ [...new Set([...detected,...selectedCategories])].forEach(key=>(quranSearchTerms[key]||[]).forEach(t=>terms.push(t)));
+ const arabicWords=(typed.match(/[\\u0600-\\u06FF]{3,}/g)||[]).filter(w=>w.length>=3);
+ arabicWords.forEach(w=>terms.push(w));
+ return [...new Set(terms)].slice(0,7);
+}
+async function searchQuranCorpus(terms){
+ const found=new Map();
+ const requests=terms.map(async term=>{
+  const url="https://api.quran.com/api/v4/search?q="+encodeURIComponent(term)+"&size=50&language=ar";
+  const response=await fetch(url,{headers:{Accept:"application/json"}});
+  if(!response.ok)throw new Error("Quran search HTTP "+response.status);
+  const payload=await response.json();
+  const results=payload.search?.results||payload.results||[];
+  results.forEach((item,index)=>{
+   const key=item.verse_key||item.verseKey;
+   const textValue=item.text_uthmani||item.text||item.verse?.text_uthmani||item.verse?.text;
+   if(!key||!textValue)return;
+   const [surah,ayah]=key.split(":").map(Number);
+   if(!surah||!ayah)return;
+   const id="live_"+surah+"_"+ayah;
+   const previous=found.get(id);
+   const score=(previous?.score||0)+(50-index);
+   found.set(id,{id,score,verse:{ref:"الآية "+key,text:textValue,meaning:"عُثر على هذا الموضع عبر البحث في النص القرآني العربي. راجع سياق الآيات قبلها وبعدها لفهم المعنى.",audio:[String(surah).padStart(3,"0")+String(ayah).padStart(3,"0")],kind:"نتيجة بحث قرآني",source:"https://quran.com/"+key}});
+  });
+ });
+ await Promise.all(requests);
+ return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,40);
+}
 function composeNeed(){
  const typed=baseDescription();
  const detected=detectCategories(typed);
@@ -847,29 +892,48 @@ function composeNeed(){
  const selectedCategories=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.category);
  let all=[...new Set([...detected,...selectedCategories])];
  if(!all.length&&typed)all=["calm"];
- if(!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
- const targetedKeys=new Set(problemMatches.map(rule=>rule.category));
- const targetedIds=problemMatches.flatMap(rule=>rule.ids);
- const fallbackIds=all.filter(key=>!targetedKeys.has(key)).flatMap(key=>categoryInfo[key].ids);
- const ids=[...new Set([...targetedIds,...fallbackIds])]
-  .sort((a,b)=>{
-   const parse=id=>{const n=Number(verses[id].audio[0]);return {surah:Math.floor(n/1000),ayah:n%1000};};
-   const A=parse(a),B=parse(b);
-   return A.surah-B.surah||A.ayah-B.ayah;
-  });
- currentIds=ids;
- document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
+ if(!typed&&!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
  document.body.dataset.page="result";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
- document.getElementById("pathText").textContent=problemMatches.length?"اختيرت آيات مرتبطة بما وصفته، مع مراعاة المعنى والسياق. هذا اختيار للتلاوة والتدبر وليس تشخيصاً أو وصفة شرعية مخصوصة أو ضماناً لنتيجة.":"اختيرت آيات بحسب الموضوعات التي ذكرتها. هذا ترتيب للتلاوة والتدبر وليس وصفة شرعية مخصوصة أو ضماناً لنتيجة.";
+ document.getElementById("pathText").textContent="جارٍ البحث في النص القرآني عن مواضع مرتبطة بوصفك. ستُعرض النتائج مع مراجعها، ويُستحسن قراءة سياق كل موضع.";
  const meta=document.getElementById("pathMeta");meta.innerHTML="";
- all.forEach(key=>{const el=document.createElement("span");el.className="pill";el.textContent=categoryInfo[key].label;meta.append(el);});
- const min=document.createElement("span");min.className="pill";min.textContent=ids.length+" مقطعاً قرآنياً";meta.append(min);
- versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
- playlist=buildPlaylist(ids);stopPlayback();playAll.disabled=false;
- setStatus("تم إعداد المسار · "+ids.length+" مقاطع صوتية.");
+ const searching=document.createElement("span");searching.className="pill";searching.textContent="بحث مباشر في القرآن…";meta.append(searching);
+ versesBox.innerHTML="";
  path.classList.add("show");window.scrollTo({top:0,behavior:"smooth"});
- voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ")+(problemMatches.length?" · اختيار مخصص حسب وصفك":"");
+ stopPlayback();currentIds=[];playlist=[];playAll.disabled=true;
+ voiceStatus.textContent="جارٍ تحليل الوصف والبحث عن الآيات…";
+ const terms=buildQuranSearchTerms(typed,detected,problemMatches,selectedCategories);
+ searchQuranCorpus(terms).then(matches=>{
+  let ids=[];
+  if(matches.length){
+   matches.forEach(item=>{verses[item.id]=item.verse;ids.push(item.id);});
+   const info=document.createElement("span");info.className="pill";info.textContent=matches.length+" نتيجة من البحث";meta.replaceChildren(info);
+   const source=document.createElement("span");source.className="pill";source.textContent="النص: Quran.com API";meta.append(source);
+   matches.forEach(item=>versesBox.appendChild(renderVerse(item.id)));
+   playlist=buildPlaylist(ids);currentIds=ids;playAll.disabled=!ids.length;
+   setStatus("تم العثور على "+ids.length+" موضعاً قرآنياً.");
+   voiceStatus.textContent="نتائج بحث نصي بحسب الكلمات والموضوعات المستخرجة من وصفك. ليست حكماً تفسيرياً ولا قائمة حصرية.";
+  }else{
+   const fallbackKeys=new Set(problemMatches.map(rule=>rule.category));
+   const fallbackIds=[...new Set([...problemMatches.flatMap(rule=>rule.ids),...all.filter(key=>!fallbackKeys.has(key)).flatMap(key=>categoryInfo[key]?.ids||[])])];
+   ids=fallbackIds.filter(id=>verses[id]);
+   currentIds=ids;ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
+   playlist=buildPlaylist(ids);playAll.disabled=!ids.length;
+   const info=document.createElement("span");info.className="pill";info.textContent="اختيار موضوعي احتياطي";meta.replaceChildren(info);
+   setStatus("تعذر الحصول على نتائج البحث المباشر؛ عُرضت الاختيارات الموضوعية الموجودة.");
+   voiceStatus.textContent="لم يُرجع البحث المباشر نتائج. هذه قائمة احتياطية من الاختيارات الموضوعية.";
+  }
+  document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
+ }).catch(error=>{
+  console.error("SAKINA Quran search error:",error);
+  const fallbackKeys=new Set(problemMatches.map(rule=>rule.category));
+  const ids=[...new Set([...problemMatches.flatMap(rule=>rule.ids),...all.filter(key=>!fallbackKeys.has(key)).flatMap(key=>categoryInfo[key]?.ids||[])])].filter(id=>verses[id]);
+  currentIds=ids;versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
+  playlist=buildPlaylist(ids);playAll.disabled=!ids.length;
+  const info=document.createElement("span");info.className="pill";info.textContent="Mode hors ligne / secours";meta.replaceChildren(info);
+  setStatus("La recherche externe est indisponible. Sélection thématique affichée.");
+  voiceStatus.textContent="La recherche complète n'a pas répondu. Les versets affichés proviennent de la sélection locale.";
+ });
 }
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
 document.getElementById("backToNeed").addEventListener("click",()=>{
