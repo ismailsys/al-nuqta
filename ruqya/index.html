@@ -296,6 +296,7 @@ select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:1
 
 /* Two-step experience: request screen and generated ruqya screen */
 body[data-page="result"] .hero,body[data-page="result"] #customNeed,body[data-page="result"] .composeArea{display:none!important}
+body[data-page="input"] #path{display:none!important}
 body[data-page="result"] #path{margin-top:20px}
 .resultTop{display:flex;justify-content:flex-start;margin-bottom:16px}
 .backBtn{border-color:var(--accent);color:var(--accent2)}
@@ -389,6 +390,19 @@ function stopFrequency(){
  if(frequencyOscillator){try{frequencyOscillator.stop();}catch(e){}try{frequencyOscillator.disconnect();}catch(e){}frequencyOscillator=null;}
  if(frequencyGain){try{frequencyGain.disconnect();}catch(e){}frequencyGain=null;}
 }
+function startFrequency(){
+ if(!audioContext||!document.getElementById("frequency528")?.checked||frequencyOscillator)return;
+ try{
+  frequencyOscillator=audioContext.createOscillator();
+  frequencyGain=audioContext.createGain();
+  frequencyOscillator.type="sine";
+  frequencyOscillator.frequency.value=528;
+  frequencyGain.gain.value=0.018;
+  frequencyOscillator.connect(frequencyGain);
+  frequencyGain.connect(audioContext.destination);
+  frequencyOscillator.start();
+ }catch(error){stopFrequency();}
+}
 function connectAudioFrequency(audio){
  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
  if(!AudioContextClass)return;
@@ -396,16 +410,7 @@ function connectAudioFrequency(audio){
   if(!audioContext)audioContext=new AudioContextClass();
   const source=audioContext.createMediaElementSource(audio);
   source.connect(audioContext.destination);
-  if(document.getElementById("frequency528")?.checked){
-   frequencyOscillator=audioContext.createOscillator();
-   frequencyGain=audioContext.createGain();
-   frequencyOscillator.type="sine";
-   frequencyOscillator.frequency.value=528;
-   frequencyGain.gain.value=0.018;
-   frequencyOscillator.connect(frequencyGain);
-   frequencyGain.connect(audioContext.destination);
-   frequencyOscillator.start();
-  }
+  startFrequency();
  }catch(error){stopFrequency();}
 }
 function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}stopFrequency();currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
@@ -560,6 +565,7 @@ recordButton.addEventListener("click",async()=>{
 });
 playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
 stopAll.addEventListener("click",stopPlayback);
+document.getElementById("frequency528").addEventListener("change",event=>{if(event.target.checked){if(audioContext?.state==="suspended")audioContext.resume();startFrequency();}else stopFrequency();});
 repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
 
 
