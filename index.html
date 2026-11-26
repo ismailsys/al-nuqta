@@ -799,6 +799,27 @@ function detectCategories(text){
  keywordRules.forEach(rule=>{if(rule.words.some(containsConcept))found.push(rule.key);});
  return found;
 }
+const problemRules=[
+ {key:"sleep",category:"calm",words:["ارق","اريد ان انام","لا استطيع النوم","صعوبة النوم","نوم متقطع","insomnie","difficulte a dormir","difficultes a dormir","je dors mal","trouble du sommeil"],ids:["kursi","baqara285","baqara286","anam60","furqan47","rum23","zumar42","naba9","ra3d","ikhlas","falaq","nas"]},
+ {key:"anxiety",category:"calm",words:["قلق","قلقان","قلقه","توتر","ضغط نفسي","خوف","فزع","هلع","panique","angoisse","anxiete","anxieux","anxieuse","stress","stresse","inquiet","inquiete"],ids:["fatiha","ra3d","baqara153","taha25","sharh","tawba40","yunus62","zumar53"]},
+ {key:"sadness",category:"calm",words:["حزن","حزين","حزينه","مكتئب","مكتئبه","غم","هم","فقدان","tristesse","triste","chagrin","deuil","solitude","mal etre"],ids:["fatiha","sharh","duha5","zumar53","tawba40","ra3d","baqara156"]},
+ {key:"marital_conflict",category:"marriage",words:["مشاكل زوجيه","خلاف زوجي","خلافات زوجيه","مشاكل مع زوجي","مشاكل مع زوجتي","انفصال","طلاق","نزاع زوجي","dispute conjugale","conflit de couple","probleme de couple","problemes de couple","separation","divorce"],ids:["rum21","baqara187","nisa19","nisa35","furqan74"]},
+ {key:"marriage",category:"marriage",words:["اريد الزواج","تيسير الزواج","تأخر الزواج","تاخر الزواج","الزواج","خطوبه","خطوبة","mariage","me marier","fiancailles","fiance","fiancee"],ids:["rum21","furqan74","nisa19","nahl72"]},
+ {key:"children",category:"children",words:["اريد طفل","اريد اطفال","تأخر الانجاب","تاخر الانجاب","العقم","الحمل","الذرية","الذريه","صلاح الابناء","تربية الابناء","avoir un enfant","avoir des enfants","infertilite","fertilite","conception","grossesse","enceinte"],ids:["aliImran38","ibrahim40","saffat100","baqara128","maryam5","anbiya89","furqan74"]},
+ {key:"work",category:"rizq",words:["عمل","وظيفه","شغل","بطاله","عاطل عن العمل","البحث عن عمل","رزق","ضيق الرزق","chomage","emploi","travail","trouver un emploi","trouver du travail","salaire","carriere","recherche d emploi"],ids:["hud6","talaq2","talaq3","yunus31","rad26","isra30","saba39","dhariyat58"]},
+ {key:"debt",category:"rizq",words:["دين","ديون","مديون","مديونية","قرض","ضائقه ماليه","ضائقة مالية","مشاكل ماليه","dettes","dette","endette","difficulte financiere","difficultes financieres","probleme financier","problemes financiers"],ids:["hud6","talaq2","talaq3","rad26","saba39","dhariyat58"]},
+ {key:"protection",category:"protection",words:["عين","عين حاسده","حسد","حاسد","سحر","مسحور","رقية","رقيا","مauvais oeil","mauvais oeil","envie","envoutement","sorcellerie","malefice"],ids:["fatiha","kursi","baqara285","baqara286","ikhlas","falaq","nas","musaAraf","musaYunus","musaTaha"]},
+ {key:"healing",category:"healing",words:["مرض","مريض","مريضه","شفاء","وجع","الم","ألم","صحه","عافيه","guerison","maladie","malade","douleur","retablissement","soin"],ids:["fatiha","isra","shura80","yunus57","fussilat44","anbiya83","baqara153","sharh"]}
+];
+function detectProblemMatches(text){
+ const normalized=normalizeNeed(text);
+ const containsConcept=(word)=>{
+  const term=normalizeNeed(word);
+  if(term.includes(" "))return normalized.includes(term);
+  return normalized.split(/[^\u0600-\u06FFa-z0-9]+/i).some(token=>token===term||token.startsWith(term)&&term.length>=4);
+ };
+ return problemRules.filter(rule=>rule.words.some(containsConcept));
+}
 const topicButtons=[...document.querySelectorAll(".topicTag")];
 let selectedTopics=new Set();
 function baseDescription(){
@@ -822,11 +843,15 @@ topicButtons.forEach(button=>button.addEventListener("click",()=>{
 function composeNeed(){
  const typed=baseDescription();
  const detected=detectCategories(typed);
+ const problemMatches=detectProblemMatches(typed);
  const selectedCategories=topicButtons.filter(button=>selectedTopics.has(button.dataset.label)).map(button=>button.dataset.category);
  let all=[...new Set([...detected,...selectedCategories])];
  if(!all.length&&typed)all=["calm"];
  if(!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
- const ids=[...new Set(all.flatMap(key=>categoryInfo[key].ids))]
+ const targetedKeys=new Set(problemMatches.map(rule=>rule.category));
+ const targetedIds=problemMatches.flatMap(rule=>rule.ids);
+ const fallbackIds=all.filter(key=>!targetedKeys.has(key)).flatMap(key=>categoryInfo[key].ids);
+ const ids=[...new Set([...targetedIds,...fallbackIds])]
   .sort((a,b)=>{
    const parse=id=>{const n=Number(verses[id].audio[0]);return {surah:Math.floor(n/1000),ayah:n%1000};};
    const A=parse(a),B=parse(b);
@@ -836,7 +861,7 @@ function composeNeed(){
  document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
  document.body.dataset.page="result";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
- document.getElementById("pathText").textContent="اختيرت هذه الآيات بحسب المعنى المباشر لكل موضوع، مع تجنب إضافة مجموعة موحدة إلى جميع المسارات. هذا ترتيب للتلاوة والتدبر، وليس وصفة شرعية مخصوصة أو ضماناً لنتيجة.";
+ document.getElementById("pathText").textContent=problemMatches.length?"اختيرت آيات مرتبطة بما وصفته، مع مراعاة المعنى والسياق. هذا اختيار للتلاوة والتدبر وليس تشخيصاً أو وصفة شرعية مخصوصة أو ضماناً لنتيجة.":"اختيرت آيات بحسب الموضوعات التي ذكرتها. هذا ترتيب للتلاوة والتدبر وليس وصفة شرعية مخصوصة أو ضماناً لنتيجة.";
  const meta=document.getElementById("pathMeta");meta.innerHTML="";
  all.forEach(key=>{const el=document.createElement("span");el.className="pill";el.textContent=categoryInfo[key].label;meta.append(el);});
  const min=document.createElement("span");min.className="pill";min.textContent=ids.length+" مقطعاً قرآنياً";meta.append(min);
@@ -844,7 +869,7 @@ function composeNeed(){
  playlist=buildPlaylist(ids);stopPlayback();playAll.disabled=false;
  setStatus("تم إعداد المسار · "+ids.length+" مقاطع صوتية.");
  path.classList.add("show");window.scrollTo({top:0,behavior:"smooth"});
- voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ");
+ voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ")+(problemMatches.length?" · اختيار مخصص حسب وصفك":"");
 }
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
 document.getElementById("backToNeed").addEventListener("click",()=>{stopPlayback();document.body.dataset.page="input";window.scrollTo({top:0,behavior:"smooth"});});
