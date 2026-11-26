@@ -1,7 +1,8 @@
 {
-  "name": "al-nuqta-cloudflare-build",
+  "name": "al-nuqta-deploy",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p app && gzip -dc al-nuqta-source.gz > /tmp/al-nuqta-source.zip && unzip -q /tmp/al-nuqta-source.zip -d app && cd app/al-nuqta && npm install && npm run build"
+    "build": "unzip -q al-nuqta-source.gz -d app && cd app/al-nuqta && npm install && npm run build"
   }
 }
