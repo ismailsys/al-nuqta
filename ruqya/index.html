@@ -189,7 +189,7 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <div class="verses" id="verses"></div>
 </section>
 
-<div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Mishary Alafasy. المحاور التأملية مستلهمة من موضوعات في فكر ابن عربي، ولا تمثل تفسيراً منسوباً إليه أو وصفة مخصوصة.</div>
+<div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Ali Al-Hudhaify (Hafs). المحاور التأملية مستلهمة من موضوعات في فكر ابن عربي، ولا تمثل تفسيراً منسوباً إليه أو وصفة مخصوصة.</div>
 </div>
 <script>
 const verses={
@@ -229,14 +229,14 @@ let activeButton=null,currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTot
 function setStatus(s){statusEl.textContent=s}
 function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
-function audioUrl(id){return "https://everyayah.com/data/Alafasy_128kbps/"+id+".mp3";}
+function audioUrl(id){return "https://everyayah.com/data/Hudhaify_128kbps/"+id+".mp3";}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
  stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;
  playAll.textContent="التلاوة جارية";playNext();
 }
 function playNext(){
  if(stopRequested)return;
- if(playIndex>=playlist.length){if(pass<repeatTotal){pass++;playIndex=0;}else{playingCard?.classList.remove("playing");playingCard=null;currentAudio=null;stop528Tone();playAll.textContent="▶ قراءة جميع الآيات";setStatus("اكتملت التلاوة.");return;}}
+ if(playIndex>=playlist.length){if(pass<repeatTotal){pass++;playIndex=0;}else{playingCard?.classList.remove("playing");playingCard=null;currentAudio=null;playAll.textContent="▶ قراءة جميع الآيات";setStatus("اكتملت التلاوة.");return;}}
  const item=playlist[playIndex];const v=verses[item.id];
  if(playingCard)playingCard.classList.remove("playing");
  const card=[...document.querySelectorAll(".verse")].find(el=>el.dataset.verse===item.id);
