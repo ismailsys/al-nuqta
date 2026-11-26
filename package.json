@@ -1,8 +1,8 @@
 {
-  "name": "al-nuqta-deploy",
+  "name": "al-nuqta",
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "cat source-*.part | base64 -d | tar -xz && cd al-nuqta && npm install --no-audit --no-fund && npm run build"
+    "build": "mkdir -p dist && cp index.html dist/index.html"
   }
 }
