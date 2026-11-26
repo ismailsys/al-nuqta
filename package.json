@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p app && gzip -dc al-nuqta-source.gz > /tmp/al-nuqta-source.zip && unzip -q /tmp/al-nuqta-source.zip -d app && cd app/al-nuqta && npm install && npm run build"
+    "build": "python3 -c 'import gzip,zipfile,io; zipfile.ZipFile(io.BytesIO(gzip.decompress(open(\"al-nuqta-source.gz\",\"rb\").read()))).extractall(\"app\")' && cd app/al-nuqta && npm install && npm run build"
   }
 }
