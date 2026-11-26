@@ -181,6 +181,99 @@ select{background:#fffefa;border:1px solid #dce4d9;color:#526456;border-radius:1
 .footer{color:#959b91}
 @media(max-width:650px){.hero{padding:38px 0 26px}.needCard{border-radius:21px;padding:19px}.needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}.needCard #startRecording{grid-column:1/-1;width:100%}.needCard #voiceLanguage{width:100%}.composeArea .buildBtn{width:100%}}
 
+
+/* SAKINA dark premium experience */
+:root{
+ --bg:#101a1b;--panel:#1a2827;--panel2:#223331;
+ --accent:#b7a078;--accent2:#e0cfaa;--text:#f1eee6;
+ --muted:#a5afa7;--line:#354642;--glow:#9ab39a22
+}
+html{background:#101a1b}
+body{
+ color:var(--text);
+ background:
+  radial-gradient(ellipse at 50% -18%,#344a40 0%,transparent 48%),
+  radial-gradient(ellipse at 100% 65%,#263b36 0%,transparent 38%),
+  linear-gradient(155deg,#111c1d 0%,#172321 52%,#10191b 100%);
+ background-attachment:fixed
+}
+.wrap{width:min(880px,92%);padding:26px 0 52px}
+.top{border-bottom-color:#35443e}
+.brand{color:#c5ad7e}.brand span{color:#e0cfaa}
+.back{color:#aeb8ae}
+.hero{padding:48px 0 28px}
+.hero .eyebrow{color:#b9a47a}
+.hero h1{color:#f1eee6;font-size:clamp(34px,5.5vw,48px)}
+.hero p{color:#aab4aa;font-size:13px;line-height:1.9}
+.needCard{
+ border:1px solid #3b5048;border-radius:24px;
+ background:linear-gradient(145deg,rgba(35,53,47,.97),rgba(25,39,37,.98));
+ box-shadow:0 24px 70px #0005, inset 0 1px #ffffff0a;
+ padding:clamp(20px,4vw,34px)
+}
+.needCard:before{background:radial-gradient(circle,#b9a77a20 0%,transparent 72%)}
+.needKicker{color:#c4ad7d}
+.needCard h2{color:#f1eee6;font-size:clamp(25px,4vw,31px);line-height:1.6}
+.needCard .hint{color:#aab5aa;font-size:12px}
+.needCard #needText{
+ background:#121e1d;border:1px solid #3b5048;color:#f2efe7;
+ border-radius:15px;min-height:126px;padding:16px;
+ font:15px/1.9 "DM Sans",sans-serif;box-shadow:inset 0 2px 10px #0003
+}
+.needCard #needText:focus{border-color:#b7a078;box-shadow:0 0 0 3px #b7a07822}
+.needCard #needText::placeholder{color:#7f9085}
+.voiceTools{gap:9px}
+.btn{
+ border:1px solid #46584e;background:#263832;color:#e0cfaa;
+ border-radius:13px;padding:12px 18px;font-size:13px
+}
+.btn.primary{
+ background:linear-gradient(135deg,#b8a178,#927c56);border-color:#b8a178;
+ color:#17201b;font-weight:600;box-shadow:0 8px 24px #0003
+}
+.btn:hover{filter:brightness(1.08);box-shadow:0 10px 26px #0003}
+select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:11px;padding:11px 12px}
+.voiceStatus{color:#96a49a;font-size:11px}
+.composeArea{margin:16px 0 6px}
+.composeArea .buildBtn{min-width:min(330px,100%);padding:14px 24px}
+.composeHint{color:#829187;font-size:11px}
+.path{
+ border:1px solid #354940;background:linear-gradient(145deg,#1c2b28ed,#172321f2);
+ border-radius:22px;box-shadow:0 20px 55px #0003;padding:clamp(16px,3vw,28px)
+}
+.path h3{color:#e0cfaa;font-weight:400}
+.path p{color:#aab4aa;line-height:1.9}
+.pathMeta .pill{background:#22342e;border-color:#405449;color:#d5c39c}
+.player{
+ border:1px solid #405248;border-radius:19px;
+ background:linear-gradient(145deg,#263831,#1d2c28);
+ box-shadow:0 14px 35px #0003
+}
+.playerEyebrow{color:#c1a779}
+.player h4{color:#f0eadc}
+.playerIntro,.playerStatus{color:#aab5aa}
+.verse{
+ border:1px solid #354940;border-radius:17px;background:#1b2926;
+ box-shadow:0 8px 22px #0002
+}
+.verse.playing{border-color:#b7a078;box-shadow:0 0 0 2px #b7a07824}
+.versehead{color:#c6b184}
+.tag{border-color:#405148;background:#23332e;color:#b4beb3}
+.arabic{color:#f3eee3}
+.meaning{border-color:#354940;color:#aeb8ad}
+.concept{background:#22332e;color:#d4c5a3;border-right-color:#b7a078}
+.method,.note{background:#1b2926;border-color:#354940;color:#aab4aa}
+.note{border-right-color:#b7a078}
+.footer{color:#7f8d83}
+@media(max-width:650px){
+ .hero{padding:36px 0 22px}
+ .needCard{border-radius:19px;padding:18px}
+ .needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}
+ .needCard #startRecording{grid-column:1/-1;width:100%}
+ .needCard #voiceLanguage{width:100%}
+ .composeArea .buildBtn{width:100%}
+}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -199,11 +292,11 @@ select{background:#fffefa;border:1px solid #dce4d9;color:#526456;border-radius:1
 </div>
 <textarea id="needText" rows="4" placeholder="ستظهر كلماتك هنا أثناء الإملاء، أو اكتب حاجتك بنفسك..."></textarea>
 <audio id="recordedAudio" controls hidden></audio>
-<p class="voiceStatus" id="voiceStatus" aria-live="polite">يُستخدم الميكروفون للإملاء داخل المتصفح. راجع النص الناتج قبل إنشاء المسار.</p>
+<p class="voiceStatus" id="voiceStatus" aria-live="polite">يمكنك التحدث أو الكتابة بالعربية أو الدارجة أو الفرنسية.</p>
 </div>
 </section>
 
-<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">إنشاء مساري القرآني</button><p class="composeHint">ستُجمع الآيات المناسبة، وتُزال المكررات، ويُحترم ترتيب المصحف.</p></div><section class="path" id="path" aria-live="polite">
+<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">إنشاء مساري القرآني</button><p class="composeHint">آيات مختارة ومرتبة حسب المصحف.</p></div><section class="path" id="path" aria-live="polite">
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
 <div class="player">
