@@ -617,6 +617,7 @@ function handlePlayAllClick(event){
  }
 }
 playAll.addEventListener("click",handlePlayAllClick);
+stopAll.addEventListener("click",(event)=>{event.preventDefault();stopPlayback();});
 function setStatus(s){statusEl.textContent=s}
 function setPlayButton(active,label){
  playAll.classList.toggle("is-playing",active);
@@ -861,7 +862,7 @@ recordButton.addEventListener("click",async()=>{
  }
 });
 
-stopAll.addEventListener("click",stopPlayback);
+
 repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
 
 
