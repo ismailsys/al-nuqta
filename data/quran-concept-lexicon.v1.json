@@ -103,26 +103,43 @@
           "stress",
           "inquiétude",
           "angoissé",
-          "oppression"
+          "oppression",
+          "inquiet",
+          "inquiète",
+          "préoccupé",
+          "préoccupée",
+          "souci",
+          "soucis",
+          "je m'inquiète"
         ],
         "ar": [
           "قلق",
           "ضيق",
           "كرب",
           "هم",
-          "غم"
+          "غم",
+          "قلقان",
+          "قلقة",
+          "مهموم",
+          "مهمومة"
         ],
         "ary": [
           "القلق",
           "التوتر",
           "مقلق",
-          "مضايقني الحال"
+          "مضايقني الحال",
+          "كنفكر بزاف",
+          "مقلقة",
+          "مهموم"
         ],
         "en": [
           "anxiety",
           "distress",
           "worry",
-          "stress"
+          "stress",
+          "worried",
+          "worrying",
+          "concerned"
         ]
       },
       "explicit_quranic_term": null,
@@ -147,6 +164,54 @@
       ],
       "medical_safety_note": true,
       "label_ar": "القلق والضيق"
+    },
+    {
+      "id": "arms_hands",
+      "domain": "physical",
+      "label_fr": "Bras et mains",
+      "label_ar": "الذراعان واليدان",
+      "aliases": {
+        "fr": [
+          "bras",
+          "main",
+          "mains",
+          "douleur au bras",
+          "douleur à la main"
+        ],
+        "ar": [
+          "ذراع",
+          "يد",
+          "اليد",
+          "اليدين"
+        ],
+        "ary": [
+          "يدي كتوجعني",
+          "دراعي كيوجعني"
+        ],
+        "en": [
+          "arm",
+          "arms",
+          "hand",
+          "hands"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "يد",
+        "ذراع",
+        "ضر",
+        "مرض"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
     },
     {
       "id": "back_bones",
@@ -257,6 +322,51 @@
         "spiritual_reflection"
       ],
       "medical_safety_note": false
+    },
+    {
+      "id": "ears",
+      "domain": "physical",
+      "label_fr": "Oreilles et audition",
+      "label_ar": "الأذنان والسمع",
+      "aliases": {
+        "fr": [
+          "oreille",
+          "oreilles",
+          "douleur à l'oreille",
+          "audition"
+        ],
+        "ar": [
+          "أذن",
+          "الأذن",
+          "أذنين",
+          "سمع"
+        ],
+        "ary": [
+          "ودني كتوجعني",
+          "السمع"
+        ],
+        "en": [
+          "ear",
+          "ears",
+          "hearing"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "أذن",
+        "سمع",
+        "ضر"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
     },
     {
       "id": "eye_pain",
@@ -422,7 +532,9 @@
           "épuisement",
           "épuisé",
           "fatigué",
-          "manque d'énergie"
+          "manque d'énergie",
+          "fatiguée",
+          "épuisée"
         ],
         "ar": [
           "تعب",
@@ -449,7 +561,8 @@
         "ضعف"
       ],
       "candidate_notes_fr": [
-        "Écarter les occurrences dont le contexte ne concerne pas l'expérience de l'effort ou de la fatigue."
+        "Écarter les occurrences dont le contexte ne concerne pas l'expérience de l'effort ou de la fatigue.",
+        "Vérifier si le passage décrit réellement la fatigue."
       ],
       "suggested_relationships": [
         "direct_lexical",
@@ -461,54 +574,6 @@
       "label_ar": "التعب"
     },
     {
-      "id": "fatigue_exhaustion",
-      "domain": "physical",
-      "label_fr": "Fatigue et épuisement",
-      "label_ar": "التعب والإرهاق",
-      "aliases": {
-        "fr": [
-          "fatigue",
-          "fatigué",
-          "fatiguée",
-          "épuisement",
-          "épuisé",
-          "épuisée",
-          "manque d'énergie"
-        ],
-        "ar": [
-          "تعب",
-          "إرهاق",
-          "إعياء",
-          "نصب"
-        ],
-        "ary": [
-          "عييت",
-          "عندي العيا",
-          "مرهق"
-        ],
-        "en": [
-          "fatigue",
-          "exhaustion",
-          "tiredness"
-        ]
-      },
-      "explicit_quranic_term": null,
-      "search_candidates_ar": [
-        "نصب",
-        "لغوب",
-        "ضعف"
-      ],
-      "candidate_notes_fr": [
-        "Vérifier si le passage décrit réellement la fatigue."
-      ],
-      "suggested_relationships": [
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
-    },
-    {
       "id": "fear",
       "domain": "emotional",
       "label_fr": "Peur et crainte",
@@ -518,23 +583,34 @@
           "effrayé",
           "crainte",
           "terreur",
-          "j'ai peur"
+          "j'ai peur",
+          "effroi",
+          "inquiétude face à",
+          "peur de"
         ],
         "ar": [
           "خوف",
           "خشية",
           "فزع",
-          "رهبة"
+          "رهبة",
+          "خائف",
+          "خائفة",
+          "وجل"
         ],
         "ary": [
           "الخوف",
           "خايف",
-          "كنخاف"
+          "كنخاف",
+          "خايفة",
+          "مخلوع"
         ],
         "en": [
           "fear",
           "fright",
-          "dread"
+          "dread",
+          "scared",
+          "afraid",
+          "fearful"
         ]
       },
       "explicit_quranic_term": "خوف est un candidat lexical à analyser dans chaque contexte.",
@@ -661,56 +737,6 @@
       ],
       "medical_safety_note": false,
       "label_ar": "الابتلاء والمشقة"
-    },
-    {
-      "id": "headache",
-      "domain": "physical",
-      "label_fr": "Maux de tête et migraines",
-      "label_ar": "الصداع وآلام الرأس",
-      "aliases": {
-        "fr": [
-          "mal de tête",
-          "maux de tête",
-          "migraine",
-          "migraines",
-          "céphalée",
-          "céphalées",
-          "douleur à la tête"
-        ],
-        "ar": [
-          "صداع",
-          "صداع نصفي",
-          "ألم الرأس",
-          "وجع الرأس"
-        ],
-        "ary": [
-          "صداع",
-          "راسي كيوجعني",
-          "عندي ألم فراسي"
-        ],
-        "en": [
-          "headache",
-          "migraine",
-          "head pain"
-        ]
-      },
-      "explicit_quranic_term": null,
-      "search_candidates_ar": [
-        "ضر",
-        "ضراء",
-        "مرض",
-        "نصب",
-        "شفاء"
-      ],
-      "candidate_notes_fr": [
-        "Le terme moderne migraine ne doit pas être présenté comme un terme coranique explicite."
-      ],
-      "suggested_relationships": [
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
     },
     {
       "id": "healing",
@@ -870,7 +896,8 @@
           "malade",
           "être malade",
           "problème de santé",
-          "souffrance"
+          "souffrance",
+          "souffrance physique"
         ],
         "ar": [
           "مرض",
@@ -899,7 +926,8 @@
       ],
       "candidate_notes_fr": [
         "Séparer les occurrences physiques des emplois figurés, notamment la maladie du cœur.",
-        "La présence du mot ne suffit pas : vérifier le sujet et le contexte."
+        "La présence du mot ne suffit pas : vérifier le sujet et le contexte.",
+        "Distinguer les emplois physiques et métaphoriques de مرض."
       ],
       "suggested_relationships": [
         "direct_lexical",
@@ -909,53 +937,6 @@
       ],
       "medical_safety_note": true,
       "label_ar": "المرض"
-    },
-    {
-      "id": "illness_general",
-      "domain": "physical",
-      "label_fr": "Maladie et santé",
-      "label_ar": "المرض والعافية",
-      "aliases": {
-        "fr": [
-          "maladie",
-          "malade",
-          "problème de santé",
-          "souffrance physique",
-          "être malade"
-        ],
-        "ar": [
-          "مرض",
-          "مريض",
-          "المرض",
-          "السقم"
-        ],
-        "ary": [
-          "مريض",
-          "المرض",
-          "عندي مرض"
-        ],
-        "en": [
-          "illness",
-          "sickness",
-          "disease"
-        ]
-      },
-      "explicit_quranic_term": null,
-      "search_candidates_ar": [
-        "مرض",
-        "مريض",
-        "شفاء",
-        "ضر"
-      ],
-      "candidate_notes_fr": [
-        "Distinguer les emplois physiques et métaphoriques de مرض."
-      ],
-      "suggested_relationships": [
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
     },
     {
       "id": "injustice_conflict",
@@ -1010,6 +991,146 @@
       "medical_safety_note": false
     },
     {
+      "id": "kidneys",
+      "domain": "physical",
+      "label_fr": "Reins",
+      "label_ar": "الكليتان",
+      "aliases": {
+        "fr": [
+          "reins",
+          "rein",
+          "douleur aux reins",
+          "douleur rénale"
+        ],
+        "ar": [
+          "كلية",
+          "الكلى",
+          "الكليتين",
+          "ألم الكلى"
+        ],
+        "ary": [
+          "الكلاوي",
+          "وجع الكلى"
+        ],
+        "en": [
+          "kidney",
+          "kidneys",
+          "kidney pain"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "كلية",
+        "كلى",
+        "مرض",
+        "ضر",
+        "شفاء"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "legs",
+      "domain": "physical",
+      "label_fr": "Jambes et pieds",
+      "label_ar": "الساقان والقدمان",
+      "aliases": {
+        "fr": [
+          "jambe",
+          "jambes",
+          "pied",
+          "pieds",
+          "douleur aux jambes"
+        ],
+        "ar": [
+          "ساق",
+          "رجل",
+          "قدم",
+          "أقدام",
+          "ألم الرجل"
+        ],
+        "ary": [
+          "رجلي كتوجعني",
+          "رجليا",
+          "رجلي"
+        ],
+        "en": [
+          "leg",
+          "legs",
+          "foot",
+          "feet"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "ساق",
+        "رجل",
+        "قدم",
+        "ضر",
+        "مرض"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "liver",
+      "domain": "physical",
+      "label_fr": "Foie",
+      "label_ar": "الكبد",
+      "aliases": {
+        "fr": [
+          "foie",
+          "douleur au foie"
+        ],
+        "ar": [
+          "كبد",
+          "الكبد",
+          "ألم الكبد"
+        ],
+        "ary": [
+          "الكبد",
+          "وجع الكبد"
+        ],
+        "en": [
+          "liver",
+          "liver pain"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "كبد",
+        "مرض",
+        "ضر",
+        "شفاء"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
       "id": "loneliness",
       "domain": "emotional",
       "label_fr": "Solitude et isolement",
@@ -1056,6 +1177,55 @@
         "spiritual_reflection"
       ],
       "medical_safety_note": false
+    },
+    {
+      "id": "lungs",
+      "domain": "physical",
+      "label_fr": "Poumons et respiration",
+      "label_ar": "الرئتان والتنفس",
+      "aliases": {
+        "fr": [
+          "poumons",
+          "respiration",
+          "souffle",
+          "difficulté à respirer",
+          "essoufflement"
+        ],
+        "ar": [
+          "رئة",
+          "الرئتين",
+          "تنفس",
+          "ضيق التنفس"
+        ],
+        "ary": [
+          "التنفس",
+          "ضيق النفس",
+          "كنختنق"
+        ],
+        "en": [
+          "lungs",
+          "breathing",
+          "shortness of breath"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "تنفس",
+        "نفس",
+        "صدر",
+        "ضيق",
+        "مرض"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
     },
     {
       "id": "marital_conflict",
@@ -1235,7 +1405,8 @@
         "ary": [
           "صداع",
           "راسي كيوجعني",
-          "عندي الم فراسي"
+          "عندي الم فراسي",
+          "عندي ألم فراسي"
         ],
         "en": [
           "migraine",
@@ -1255,7 +1426,8 @@
       "candidate_notes_fr": [
         "Les termes modernes « migraine » et « céphalée » ne doivent pas être présentés comme des termes coraniques explicites.",
         "Le mot ألم peut produire des résultats hors sujet, notamment dans l'expression عذاب أليم ; chaque occurrence doit être contrôlée.",
-        "Les termes associés servent à explorer des thèmes voisins, pas à prétendre que le Coran décrit la migraine."
+        "Les termes associés servent à explorer des thèmes voisins, pas à prétendre que le Coran décrit la migraine.",
+        "Le terme moderne migraine ne doit pas être présenté comme un terme coranique explicite."
       ],
       "suggested_relationships": [
         "semantic",
@@ -1488,23 +1660,35 @@
           "peine",
           "deuil",
           "triste",
-          "désespoir"
+          "désespoir",
+          "abattu",
+          "abattue",
+          "mélancolie",
+          "peine de cœur"
         ],
         "ar": [
           "حزن",
           "حزين",
           "أسى",
-          "غم"
+          "غم",
+          "مهموم",
+          "مهمومة",
+          "مغموم"
         ],
         "ary": [
           "الحزن",
           "حزين",
-          "مهموم"
+          "مهموم",
+          "مقهور",
+          "حزين بزاف"
         ],
         "en": [
           "sadness",
           "grief",
-          "sorrow"
+          "sorrow",
+          "downhearted",
+          "depressed mood",
+          "heartbroken"
         ]
       },
       "explicit_quranic_term": "حزن et حزين sont des candidats lexicaux à contrôler dans leur contexte.",
@@ -1725,6 +1909,95 @@
       "label_ar": "الدعاء"
     },
     {
+      "id": "teeth",
+      "domain": "physical",
+      "label_fr": "Dents",
+      "label_ar": "الأسنان",
+      "aliases": {
+        "fr": [
+          "dent",
+          "dents",
+          "mal aux dents",
+          "douleur dentaire"
+        ],
+        "ar": [
+          "سن",
+          "أسنان",
+          "ضرس",
+          "ألم الأسنان"
+        ],
+        "ary": [
+          "سناني",
+          "ضرسي كيوجعني"
+        ],
+        "en": [
+          "tooth",
+          "teeth",
+          "toothache"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "سن",
+        "أسنان",
+        "ضر",
+        "مرض"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "throat",
+      "domain": "physical",
+      "label_fr": "Gorge",
+      "label_ar": "الحلق",
+      "aliases": {
+        "fr": [
+          "gorge",
+          "mal de gorge",
+          "douleur à la gorge"
+        ],
+        "ar": [
+          "حلق",
+          "الحلق",
+          "ألم الحلق"
+        ],
+        "ary": [
+          "الحلق",
+          "كنحس بحلقي"
+        ],
+        "en": [
+          "throat",
+          "sore throat"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "حلق",
+        "مرض",
+        "ضر",
+        "شفاء"
+      ],
+      "candidate_notes_fr": [
+        "Le nom de l'organe dans une recherche ne signifie pas que le passage décrit une maladie ou une douleur de cet organe."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
       "id": "tranquility",
       "domain": "spiritual",
       "label_fr": "Apaisement et quiétude",
@@ -1734,23 +2007,31 @@
           "quiétude",
           "sérénité",
           "tranquillité",
-          "paix intérieure"
+          "paix intérieure",
+          "paix",
+          "calme"
         ],
         "ar": [
           "سكينة",
           "طمأنينة",
-          "اطمئنان"
+          "اطمئنان",
+          "راحة",
+          "سلام"
         ],
         "ary": [
           "السكينة",
           "راحة البال",
-          "الطمأنينة"
+          "الطمأنينة",
+          "الراحة",
+          "الهدوء"
         ],
         "en": [
           "tranquility",
           "serenity",
           "reassurance",
-          "calm"
+          "calm",
+          "inner peace",
+          "peace"
         ]
       },
       "explicit_quranic_term": "سكينة et طمأنينة sont des candidats lexicaux distincts à étudier.",
@@ -1846,5 +2127,5 @@
     "Ne pas inventer de tafsir ni attribuer une interprétation à Ibn Arabi sans source vérifiée.",
     "Si aucun lien direct n'est trouvé, le dire clairement."
   ],
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
