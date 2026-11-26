@@ -933,36 +933,29 @@ async function searchQuranCorpus(terms){
  const requests=terms.map(async entry=>{
   const term=(entry.term||"").trim();
   if(!term)return;
-  // Current Quran.com public search API (v1). The old /api/v4/search
-  // route is no longer the documented search interface.
-  const params=new URLSearchParams({
-   mode:"advanced",
-   query:term,
-   get_text:"1",
-   size:"50",
-   page:"1"
-  });
-  const url="https://api.quran.com/api/v1/search?"+params.toString();
+  // Public, keyless Arabic Quran search. Quran Foundation's newer Search API
+  // requires server credentials; this endpoint is designed for browser use.
+  const url="https://api.alquran.cloud/v1/search/"+encodeURIComponent(term)+"/all/quran-uthmani";
   const response=await fetch(url,{headers:{Accept:"application/json"}});
   if(!response.ok)throw new Error("Quran search HTTP "+response.status+" for "+term);
   const payload=await response.json();
-  const results=payload.result?.verses||payload.verses||payload.search?.results||[];
+  if(payload.code&&payload.code!==200)throw new Error("Quran search API: "+(payload.status||payload.code));
+  const results=payload.data?.matches||payload.data?.ayahs||payload.matches||[];
   results.forEach((item,index)=>{
-   const key=typeof item.key==="string"?item.key:
-    item.verse_key||item.verse?.verse_key||item.verse?.key;
-   const textValue=item.arabic||item.name||item.text_uthmani||item.text||
-    item.verse?.text_uthmani||item.verse?.text;
-   if(typeof key!=="string"||!/^\d+:\d+$/.test(key)||!textValue)return;
-   const [surah,ayah]=key.split(":").map(Number);
-   if(!surah||!ayah)return;
+   const surah=Number(item.surah?.number||item.surah_number||item.chapter_number);
+   const ayah=Number(item.numberInSurah||item.ayah_number||item.verse_number);
+   const textValue=item.text||item.arabic||item.text_uthmani;
+   if(!surah||!ayah||!textValue)return;
+   const key=surah+":"+ayah;
    const id="live_"+surah+"_"+ayah;
    const normalizedVerse=normalizeQuranText(textValue);
    const normalizedTerm=normalizeQuranText(term);
-   const verseTokens=normalizedVerse.replace(/[^\u0600-\u06FF\s]/g," ").split(/\s+/).filter(Boolean);
+   const verseTokens=normalizedVerse.replace(/[^\\u0600-\\u06FF\\s]/g," ").split(/\\s+/).filter(Boolean);
    const lexical=normalizedVerse.includes(normalizedTerm);
    const direct=entry.domain==="user_words"&&verseTokens.includes(normalizedTerm);
    const previous=found.get(id)||{
-    id,score:0,key,text:textValue,directTerms:[],semanticTerms:[],hits:[],conceptIds:new Set()
+    id,score:0,key,text:textValue,directTerms:[],semanticTerms:[],hits:[],conceptIds:new Set(),
+    surahName:item.surah?.name||item.surah?.englishName||""
    };
    previous.score+=(50-index)+(entry.priority||0)*8+(direct?140:lexical?24:0);
    if(lexical){
@@ -996,7 +989,8 @@ async function searchQuranCorpus(terms){
   return {
    id:item.id,score:item.score,
    verse:{
-    ref:"الآية "+item.key,key:item.key,text:item.text,meaning:reason,
+    ref:(item.surahName?item.surahName+" · ":"")+"الآية "+item.key,
+    key:item.key,text:item.text,meaning:reason,
     concept:related.join(" · "),
     audio:[String(surah).padStart(3,"0")+String(ayah).padStart(3,"0")],
     kind,matchLevel:direct?"direct":semantic?"semantic":"thematic",
