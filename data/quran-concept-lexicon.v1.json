@@ -44,253 +44,53 @@
   ],
   "concepts": [
     {
-      "id": "migraine_headache",
-      "domain": "physical",
-      "label_fr": "Migraine et maux de tête",
+      "id": "anger",
+      "domain": "emotional",
+      "label_fr": "Colère et irritation",
+      "label_ar": "الغضب والغيظ",
       "aliases": {
         "fr": [
-          "migraine",
-          "migraines",
-          "mal de tête",
-          "maux de tête",
-          "céphalée",
-          "céphalées",
-          "douleur à la tête"
+          "colère",
+          "en colère",
+          "énervé",
+          "énervée",
+          "irritation",
+          "rancune"
         ],
         "ar": [
-          "صداع",
-          "صداع نصفي",
-          "ألم الرأس",
-          "وجع الرأس"
+          "غضب",
+          "غيظ",
+          "غاضب",
+          "حنق"
         ],
         "ary": [
-          "صداع",
-          "راسي كيوجعني",
-          "عندي الم فراسي"
+          "الغضب",
+          "معصب",
+          "مقلق"
         ],
         "en": [
-          "migraine",
-          "headache",
-          "head pain"
+          "anger",
+          "rage",
+          "irritation"
         ]
       },
       "explicit_quranic_term": null,
       "search_candidates_ar": [
-        "ألم",
-        "ضر",
-        "ضراء",
-        "مرض",
-        "نصب",
-        "شفاء"
+        "غيظ",
+        "غضب",
+        "كظم",
+        "عفو",
+        "صفح"
       ],
       "candidate_notes_fr": [
-        "Les termes modernes « migraine » et « céphalée » ne doivent pas être présentés comme des termes coraniques explicites.",
-        "Le mot ألم peut produire des résultats hors sujet, notamment dans l'expression عذاب أليم ; chaque occurrence doit être contrôlée.",
-        "Les termes associés servent à explorer des thèmes voisins, pas à prétendre que le Coran décrit la migraine."
+        "Ne pas attribuer une intention ou un jugement moral à l'utilisateur."
       ],
       "suggested_relationships": [
         "semantic",
         "contextual",
         "spiritual_reflection"
       ],
-      "medical_safety_note": true
-    },
-    {
-      "id": "pain",
-      "domain": "physical",
-      "label_fr": "Douleur",
-      "aliases": {
-        "fr": [
-          "douleur",
-          "douleurs",
-          "souffrance physique",
-          "ça fait mal",
-          "j'ai mal"
-        ],
-        "ar": [
-          "ألم",
-          "وجع",
-          "أوجاع",
-          "ألم جسدي"
-        ],
-        "ary": [
-          "الوجع",
-          "كنحس بالوجع",
-          "كنضرني"
-        ],
-        "en": [
-          "pain",
-          "ache",
-          "soreness"
-        ]
-      },
-      "explicit_quranic_term": "À vérifier occurrence par occurrence ; ne pas assimiler automatiquement ألم à la douleur physique.",
-      "search_candidates_ar": [
-        "ضر",
-        "ضراء",
-        "نصب",
-        "قرح",
-        "مرض",
-        "شفاء",
-        "أليم"
-      ],
-      "candidate_notes_fr": [
-        "Distinguer douleur physique, épreuve, dommage et châtiment douloureux.",
-        "Ne retenir أليم comme douleur physique que si le contexte le justifie."
-      ],
-      "suggested_relationships": [
-        "direct_lexical",
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
-    },
-    {
-      "id": "illness",
-      "domain": "physical",
-      "label_fr": "Maladie et état de santé",
-      "aliases": {
-        "fr": [
-          "maladie",
-          "malade",
-          "être malade",
-          "problème de santé",
-          "souffrance"
-        ],
-        "ar": [
-          "مرض",
-          "مريض",
-          "المرض",
-          "السقم"
-        ],
-        "ary": [
-          "مريض",
-          "المرض",
-          "عندي مرض"
-        ],
-        "en": [
-          "illness",
-          "sickness",
-          "disease"
-        ]
-      },
-      "explicit_quranic_term": "مرض",
-      "search_candidates_ar": [
-        "مرض",
-        "مريض",
-        "شفاء",
-        "ضر",
-        "ضراء"
-      ],
-      "candidate_notes_fr": [
-        "Séparer les occurrences physiques des emplois figurés, notamment la maladie du cœur.",
-        "La présence du mot ne suffit pas : vérifier le sujet et le contexte."
-      ],
-      "suggested_relationships": [
-        "direct_lexical",
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
-    },
-    {
-      "id": "fatigue",
-      "domain": "physical",
-      "label_fr": "Fatigue et épuisement",
-      "aliases": {
-        "fr": [
-          "fatigue",
-          "épuisement",
-          "épuisé",
-          "fatigué",
-          "manque d'énergie"
-        ],
-        "ar": [
-          "تعب",
-          "إرهاق",
-          "إعياء",
-          "نصب"
-        ],
-        "ary": [
-          "عييت",
-          "عندي العيا",
-          "مرهق"
-        ],
-        "en": [
-          "fatigue",
-          "exhaustion",
-          "tiredness"
-        ]
-      },
-      "explicit_quranic_term": "À vérifier selon la forme et le sens de chaque occurrence.",
-      "search_candidates_ar": [
-        "نصب",
-        "لغوب",
-        "تعب",
-        "ضعف"
-      ],
-      "candidate_notes_fr": [
-        "Écarter les occurrences dont le contexte ne concerne pas l'expérience de l'effort ou de la fatigue."
-      ],
-      "suggested_relationships": [
-        "direct_lexical",
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
-    },
-    {
-      "id": "sleep",
-      "domain": "physical",
-      "label_fr": "Sommeil et repos",
-      "aliases": {
-        "fr": [
-          "sommeil",
-          "dormir",
-          "insomnie",
-          "difficulté à dormir",
-          "repos"
-        ],
-        "ar": [
-          "نوم",
-          "النوم",
-          "منام",
-          "رقاد",
-          "سهر"
-        ],
-        "ary": [
-          "النعاس",
-          "ما كيجينيش النعاس",
-          "ما كنقدرش ننعس"
-        ],
-        "en": [
-          "sleep",
-          "insomnia",
-          "rest"
-        ]
-      },
-      "explicit_quranic_term": "نوم et سنة sont des candidats lexicaux distincts à analyser selon le contexte.",
-      "search_candidates_ar": [
-        "نوم",
-        "سنة",
-        "سبات",
-        "ليل",
-        "رقاد"
-      ],
-      "candidate_notes_fr": [
-        "Ne pas présenter chaque mention de la nuit comme un passage sur l'insomnie.",
-        "Distinguer sommeil, repos, nuit et signes de la création."
-      ],
-      "suggested_relationships": [
-        "direct_lexical",
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": true
+      "medical_safety_note": false
     },
     {
       "id": "anxiety_distress",
@@ -339,6 +139,367 @@
       "candidate_notes_fr": [
         "Anxiété est une catégorie moderne : les résultats doivent être classés comme liens de sens ou réflexion, sauf preuve lexicale précise.",
         "Ne pas diagnostiquer l'utilisateur à partir d'une phrase."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true,
+      "label_ar": "القلق والضيق"
+    },
+    {
+      "id": "back_bones",
+      "domain": "physical",
+      "label_fr": "Dos et articulations",
+      "label_ar": "الظهر والمفاصل",
+      "aliases": {
+        "fr": [
+          "dos",
+          "mal de dos",
+          "douleur au dos",
+          "articulations",
+          "articulation",
+          "genou",
+          "genoux",
+          "os"
+        ],
+        "ar": [
+          "ظهر",
+          "الظهر",
+          "مفاصل",
+          "مفصل",
+          "ركبة",
+          "عظام"
+        ],
+        "ary": [
+          "ظهري كيوجعني",
+          "وجع الظهر",
+          "المفاصل"
+        ],
+        "en": [
+          "back pain",
+          "back",
+          "joints",
+          "knee",
+          "bones"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "ضر",
+        "مرض",
+        "نصب",
+        "ضعف"
+      ],
+      "candidate_notes_fr": [
+        "Les termes corporels servent à explorer des thèmes, pas à établir un diagnostic."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "children_parenting",
+      "domain": "personal",
+      "label_fr": "Enfants et parentalité",
+      "label_ar": "الأبناء والتربية",
+      "aliases": {
+        "fr": [
+          "enfant",
+          "enfants",
+          "fils",
+          "fille",
+          "éducation des enfants",
+          "parentalité",
+          "grossesse",
+          "fertilité",
+          "avoir un enfant"
+        ],
+        "ar": [
+          "ولد",
+          "أولاد",
+          "أبناء",
+          "ذرية",
+          "والد",
+          "والدة"
+        ],
+        "ary": [
+          "ولادي",
+          "أولادي",
+          "الذرية",
+          "بغيت وليد"
+        ],
+        "en": [
+          "children",
+          "parenting",
+          "offspring",
+          "pregnancy"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "ذرية",
+        "ولد",
+        "أبناء",
+        "دعاء",
+        "إحسان"
+      ],
+      "candidate_notes_fr": [
+        "Distinguer les passages sur les enfants, la descendance et la responsabilité parentale."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "eye_pain",
+      "domain": "physical",
+      "label_fr": "Yeux et vision",
+      "label_ar": "العين والبصر",
+      "aliases": {
+        "fr": [
+          "œil",
+          "yeux",
+          "douleur aux yeux",
+          "vision",
+          "vue",
+          "problème de vue"
+        ],
+        "ar": [
+          "عين",
+          "العين",
+          "بصر",
+          "نظر",
+          "ألم العين"
+        ],
+        "ary": [
+          "عيني كتوجعني",
+          "مشكل فالعين",
+          "ضعف النظر"
+        ],
+        "en": [
+          "eye",
+          "eyes",
+          "vision",
+          "eyesight"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "عين",
+        "بصر",
+        "نظر",
+        "ضر"
+      ],
+      "candidate_notes_fr": [
+        "Distinguer l'organe de la vue des emplois symboliques du mot عين."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "faith_doubt",
+      "domain": "spiritual",
+      "label_fr": "Foi et questionnement spirituel",
+      "label_ar": "الإيمان والشك والهداية",
+      "aliases": {
+        "fr": [
+          "foi",
+          "doute",
+          "doutes",
+          "perte de foi",
+          "questionnement spirituel",
+          "sens de la vie",
+          "éloignement de Dieu"
+        ],
+        "ar": [
+          "إيمان",
+          "شك",
+          "يقين",
+          "هداية",
+          "ضلال"
+        ],
+        "ary": [
+          "الإيمان",
+          "الشك",
+          "بغيت نفهم ديني"
+        ],
+        "en": [
+          "faith",
+          "doubt",
+          "belief",
+          "guidance",
+          "spiritual questions"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "إيمان",
+        "يقين",
+        "هداية",
+        "ذكر",
+        "دعاء"
+      ],
+      "candidate_notes_fr": [
+        "Respecter les questions de la personne sans juger sa foi."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "family_relationships",
+      "domain": "personal",
+      "label_fr": "Famille et relations",
+      "label_ar": "الأسرة والعلاقات",
+      "aliases": {
+        "fr": [
+          "famille",
+          "problème familial",
+          "problèmes familiaux",
+          "parents",
+          "relation avec mes parents",
+          "conflit familial"
+        ],
+        "ar": [
+          "أسرة",
+          "عائلة",
+          "أهل",
+          "والدين",
+          "صلة الرحم"
+        ],
+        "ary": [
+          "العائلة",
+          "مشاكل عائلية",
+          "الوالدين"
+        ],
+        "en": [
+          "family",
+          "parents",
+          "family conflict",
+          "relatives"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "أهل",
+        "والدين",
+        "إحسان",
+        "رحمة",
+        "صلة"
+      ],
+      "candidate_notes_fr": [
+        "Étudier les personnes et la situation évoquées dans le passage."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "fatigue",
+      "domain": "physical",
+      "label_fr": "Fatigue et épuisement",
+      "aliases": {
+        "fr": [
+          "fatigue",
+          "épuisement",
+          "épuisé",
+          "fatigué",
+          "manque d'énergie"
+        ],
+        "ar": [
+          "تعب",
+          "إرهاق",
+          "إعياء",
+          "نصب"
+        ],
+        "ary": [
+          "عييت",
+          "عندي العيا",
+          "مرهق"
+        ],
+        "en": [
+          "fatigue",
+          "exhaustion",
+          "tiredness"
+        ]
+      },
+      "explicit_quranic_term": "À vérifier selon la forme et le sens de chaque occurrence.",
+      "search_candidates_ar": [
+        "نصب",
+        "لغوب",
+        "تعب",
+        "ضعف"
+      ],
+      "candidate_notes_fr": [
+        "Écarter les occurrences dont le contexte ne concerne pas l'expérience de l'effort ou de la fatigue."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true,
+      "label_ar": "التعب"
+    },
+    {
+      "id": "fatigue_exhaustion",
+      "domain": "physical",
+      "label_fr": "Fatigue et épuisement",
+      "label_ar": "التعب والإرهاق",
+      "aliases": {
+        "fr": [
+          "fatigue",
+          "fatigué",
+          "fatiguée",
+          "épuisement",
+          "épuisé",
+          "épuisée",
+          "manque d'énergie"
+        ],
+        "ar": [
+          "تعب",
+          "إرهاق",
+          "إعياء",
+          "نصب"
+        ],
+        "ary": [
+          "عييت",
+          "عندي العيا",
+          "مرهق"
+        ],
+        "en": [
+          "fatigue",
+          "exhaustion",
+          "tiredness"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "نصب",
+        "لغوب",
+        "ضعف"
+      ],
+      "candidate_notes_fr": [
+        "Vérifier si le passage décrit réellement la fatigue."
       ],
       "suggested_relationships": [
         "semantic",
@@ -394,6 +555,926 @@
         "contextual",
         "spiritual_reflection"
       ],
+      "medical_safety_note": false,
+      "label_ar": "الخوف"
+    },
+    {
+      "id": "forgiveness_guilt",
+      "domain": "spiritual",
+      "label_fr": "Pardon et repentir",
+      "label_ar": "التوبة والمغفرة",
+      "aliases": {
+        "fr": [
+          "culpabilité",
+          "regret",
+          "remords",
+          "pardon",
+          "pardonner",
+          "repentir",
+          "demander pardon"
+        ],
+        "ar": [
+          "ذنب",
+          "توبة",
+          "مغفرة",
+          "استغفار",
+          "عفو"
+        ],
+        "ary": [
+          "الذنب",
+          "التوبة",
+          "طلب المغفرة"
+        ],
+        "en": [
+          "guilt",
+          "forgiveness",
+          "repentance",
+          "remorse"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "توبة",
+        "غفران",
+        "استغفار",
+        "رحمة",
+        "عفو"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas culpabiliser l'utilisateur ; distinguer le pardon, le repentir et les droits d'autrui."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "hardship",
+      "domain": "life_circumstances",
+      "label_fr": "Épreuve et difficulté",
+      "aliases": {
+        "fr": [
+          "épreuve",
+          "difficulté",
+          "adversité",
+          "période difficile",
+          "épreuve de la vie"
+        ],
+        "ar": [
+          "ابتلاء",
+          "بلاء",
+          "شدة",
+          "عسر",
+          "كرب"
+        ],
+        "ary": [
+          "ابتلاء",
+          "ظروف صعيبة",
+          "مشاكل"
+        ],
+        "en": [
+          "hardship",
+          "trial",
+          "adversity",
+          "difficulty"
+        ]
+      },
+      "explicit_quranic_term": "Plusieurs candidats lexicaux existent ; leur sens dépend du passage.",
+      "search_candidates_ar": [
+        "ابتلاء",
+        "بلاء",
+        "عسر",
+        "يسر",
+        "كرب",
+        "صبر"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas assimiler toute occurrence de بلاء à une épreuve personnelle vécue par l'utilisateur."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false,
+      "label_ar": "الابتلاء والمشقة"
+    },
+    {
+      "id": "headache",
+      "domain": "physical",
+      "label_fr": "Maux de tête et migraines",
+      "label_ar": "الصداع وآلام الرأس",
+      "aliases": {
+        "fr": [
+          "mal de tête",
+          "maux de tête",
+          "migraine",
+          "migraines",
+          "céphalée",
+          "céphalées",
+          "douleur à la tête"
+        ],
+        "ar": [
+          "صداع",
+          "صداع نصفي",
+          "ألم الرأس",
+          "وجع الرأس"
+        ],
+        "ary": [
+          "صداع",
+          "راسي كيوجعني",
+          "عندي ألم فراسي"
+        ],
+        "en": [
+          "headache",
+          "migraine",
+          "head pain"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "ضر",
+        "ضراء",
+        "مرض",
+        "نصب",
+        "شفاء"
+      ],
+      "candidate_notes_fr": [
+        "Le terme moderne migraine ne doit pas être présenté comme un terme coranique explicite."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "healing",
+      "domain": "spiritual",
+      "label_fr": "Guérison et demande de guérison",
+      "aliases": {
+        "fr": [
+          "guérison",
+          "guérir",
+          "être rétabli",
+          "demander la guérison"
+        ],
+        "ar": [
+          "شفاء",
+          "يشفي",
+          "شفاء المرض"
+        ],
+        "ary": [
+          "الشفاء",
+          "الله يشفيني"
+        ],
+        "en": [
+          "healing",
+          "recovery",
+          "cure"
+        ]
+      },
+      "explicit_quranic_term": "شفاء est un candidat lexical attesté ; examiner précisément son objet et son contexte.",
+      "search_candidates_ar": [
+        "شفاء",
+        "يشفي",
+        "رحمة",
+        "دعاء",
+        "مرض"
+      ],
+      "candidate_notes_fr": [
+        "Ne jamais transformer un verset sur الشفاء en promesse de guérison d'une maladie précise.",
+        "Présenter ce volet comme réflexion et accompagnement spirituels, non comme traitement."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true,
+      "label_ar": "الشفاء"
+    },
+    {
+      "id": "heart_chest",
+      "domain": "physical",
+      "label_fr": "Cœur et poitrine",
+      "label_ar": "القلب والصدر",
+      "aliases": {
+        "fr": [
+          "cœur",
+          "coeur",
+          "poitrine",
+          "thorax",
+          "douleur thoracique",
+          "douleur à la poitrine",
+          "palpitations"
+        ],
+        "ar": [
+          "قلب",
+          "القلب",
+          "صدر",
+          "الصدر",
+          "ألم الصدر"
+        ],
+        "ary": [
+          "قلبي كيوجعني",
+          "صدري كيوجعني",
+          "ضيق فالصدر"
+        ],
+        "en": [
+          "heart",
+          "chest",
+          "chest pain",
+          "palpitations"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "قلب",
+        "صدر",
+        "شرح",
+        "ضيق",
+        "مرض"
+      ],
+      "candidate_notes_fr": [
+        "Le mot cœur peut désigner l'organe ou le cœur au sens spirituel ; le contexte est indispensable."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "hope",
+      "domain": "spiritual",
+      "label_fr": "Espérance et confiance",
+      "aliases": {
+        "fr": [
+          "espoir",
+          "espérance",
+          "perdre espoir",
+          "confiance en Dieu"
+        ],
+        "ar": [
+          "رجاء",
+          "أمل",
+          "يأس",
+          "توكل"
+        ],
+        "ary": [
+          "الأمل",
+          "ما نفقدش الأمل",
+          "التوكل"
+        ],
+        "en": [
+          "hope",
+          "trust",
+          "optimism",
+          "despair"
+        ]
+      },
+      "explicit_quranic_term": "Les termes doivent être distingués : رجاء, يأس et توكل ne sont pas interchangeables.",
+      "search_candidates_ar": [
+        "رجاء",
+        "يأس",
+        "توكل",
+        "بشرى",
+        "يسر"
+      ],
+      "candidate_notes_fr": [
+        "Un passage qui met en garde contre le désespoir ne doit pas être présenté comme une garantie que le problème va disparaître."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false,
+      "label_ar": "الرجاء"
+    },
+    {
+      "id": "illness",
+      "domain": "physical",
+      "label_fr": "Maladie et état de santé",
+      "aliases": {
+        "fr": [
+          "maladie",
+          "malade",
+          "être malade",
+          "problème de santé",
+          "souffrance"
+        ],
+        "ar": [
+          "مرض",
+          "مريض",
+          "المرض",
+          "السقم"
+        ],
+        "ary": [
+          "مريض",
+          "المرض",
+          "عندي مرض"
+        ],
+        "en": [
+          "illness",
+          "sickness",
+          "disease"
+        ]
+      },
+      "explicit_quranic_term": "مرض",
+      "search_candidates_ar": [
+        "مرض",
+        "مريض",
+        "شفاء",
+        "ضر",
+        "ضراء"
+      ],
+      "candidate_notes_fr": [
+        "Séparer les occurrences physiques des emplois figurés, notamment la maladie du cœur.",
+        "La présence du mot ne suffit pas : vérifier le sujet et le contexte."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true,
+      "label_ar": "المرض"
+    },
+    {
+      "id": "illness_general",
+      "domain": "physical",
+      "label_fr": "Maladie et santé",
+      "label_ar": "المرض والعافية",
+      "aliases": {
+        "fr": [
+          "maladie",
+          "malade",
+          "problème de santé",
+          "souffrance physique",
+          "être malade"
+        ],
+        "ar": [
+          "مرض",
+          "مريض",
+          "المرض",
+          "السقم"
+        ],
+        "ary": [
+          "مريض",
+          "المرض",
+          "عندي مرض"
+        ],
+        "en": [
+          "illness",
+          "sickness",
+          "disease"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "مرض",
+        "مريض",
+        "شفاء",
+        "ضر"
+      ],
+      "candidate_notes_fr": [
+        "Distinguer les emplois physiques et métaphoriques de مرض."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
+    },
+    {
+      "id": "injustice_conflict",
+      "domain": "personal",
+      "label_fr": "Injustice et conflit",
+      "label_ar": "الظلم والنزاع",
+      "aliases": {
+        "fr": [
+          "injustice",
+          "injuste",
+          "oppression",
+          "on m'a fait du tort",
+          "conflit",
+          "trahison",
+          "mensonge"
+        ],
+        "ar": [
+          "ظلم",
+          "ظالم",
+          "عدوان",
+          "حق",
+          "خصومة"
+        ],
+        "ary": [
+          "تظلمت",
+          "ظلمني",
+          "حكرة"
+        ],
+        "en": [
+          "injustice",
+          "oppression",
+          "conflict",
+          "betrayal"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "ظلم",
+        "عدل",
+        "حق",
+        "صبر",
+        "عفو"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas désigner un coupable ni trancher un conflit à partir d'un descriptif."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "loneliness",
+      "domain": "emotional",
+      "label_fr": "Solitude et isolement",
+      "label_ar": "الوحدة والعزلة",
+      "aliases": {
+        "fr": [
+          "solitude",
+          "seul",
+          "seule",
+          "isolement",
+          "isolé",
+          "isolée",
+          "personne ne me comprend"
+        ],
+        "ar": [
+          "وحدة",
+          "وحيد",
+          "عزلة"
+        ],
+        "ary": [
+          "بوحدي",
+          "حاس براسي بوحدي",
+          "الوحدة"
+        ],
+        "en": [
+          "loneliness",
+          "isolation",
+          "alone"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "قرب",
+        "ولي",
+        "رحمة",
+        "أنس"
+      ],
+      "candidate_notes_fr": [
+        "Les résultats sont des pistes de réflexion, pas une affirmation que le texte décrit l'expérience exacte."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "marital_conflict",
+      "domain": "personal",
+      "label_fr": "Conflit conjugal",
+      "label_ar": "الخلافات الزوجية",
+      "aliases": {
+        "fr": [
+          "dispute conjugale",
+          "conflit de couple",
+          "problème de couple",
+          "problèmes de couple",
+          "séparation",
+          "divorce"
+        ],
+        "ar": [
+          "خلاف زوجي",
+          "مشاكل زوجية",
+          "شقاق",
+          "طلاق"
+        ],
+        "ary": [
+          "مشاكل مع راجلي",
+          "مشاكل مع مرتي",
+          "خلافات زوجية"
+        ],
+        "en": [
+          "marital conflict",
+          "couple conflict",
+          "separation",
+          "divorce"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "إصلاح",
+        "معروف",
+        "مودة",
+        "رحمة",
+        "شقاق"
+      ],
+      "candidate_notes_fr": [
+        "Les versets doivent être contextualisés et ne remplacent pas un conseil adapté à la situation."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "marriage_relationship",
+      "domain": "personal",
+      "label_fr": "Couple et mariage",
+      "label_ar": "الزواج والعلاقة الزوجية",
+      "aliases": {
+        "fr": [
+          "mariage",
+          "mari",
+          "femme",
+          "époux",
+          "épouse",
+          "couple",
+          "conflit conjugal",
+          "problème de couple",
+          "divorce",
+          "séparation"
+        ],
+        "ar": [
+          "زواج",
+          "زوج",
+          "زوجة",
+          "مودة",
+          "طلاق",
+          "شقاق"
+        ],
+        "ary": [
+          "الزواج",
+          "راجلي",
+          "مرتي",
+          "مشاكل زوجية"
+        ],
+        "en": [
+          "marriage",
+          "spouse",
+          "couple",
+          "divorce",
+          "relationship"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "زوج",
+        "مودة",
+        "رحمة",
+        "معروف",
+        "إصلاح"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas réduire un conflit de couple à une seule cause ni imposer de décision."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "mercy",
+      "domain": "spiritual",
+      "label_fr": "Miséricorde et compassion",
+      "aliases": {
+        "fr": [
+          "miséricorde",
+          "compassion",
+          "bonté",
+          "clémence"
+        ],
+        "ar": [
+          "رحمة",
+          "رحيم",
+          "رحمن",
+          "رأفة"
+        ],
+        "ary": [
+          "الرحمة",
+          "رحمة الله"
+        ],
+        "en": [
+          "mercy",
+          "compassion",
+          "kindness"
+        ]
+      },
+      "explicit_quranic_term": "رحمة et ses formes sont des candidats lexicaux à analyser selon le contexte.",
+      "search_candidates_ar": [
+        "رحمة",
+        "رحيم",
+        "رحمن",
+        "رأفة",
+        "غفور"
+      ],
+      "candidate_notes_fr": [
+        "Identifier à qui ou à quoi se rapporte la miséricorde dans le passage."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false,
+      "label_ar": "الرحمة"
+    },
+    {
+      "id": "migraine_headache",
+      "domain": "physical",
+      "label_fr": "Migraine et maux de tête",
+      "aliases": {
+        "fr": [
+          "migraine",
+          "migraines",
+          "mal de tête",
+          "maux de tête",
+          "céphalée",
+          "céphalées",
+          "douleur à la tête"
+        ],
+        "ar": [
+          "صداع",
+          "صداع نصفي",
+          "ألم الرأس",
+          "وجع الرأس"
+        ],
+        "ary": [
+          "صداع",
+          "راسي كيوجعني",
+          "عندي الم فراسي"
+        ],
+        "en": [
+          "migraine",
+          "headache",
+          "head pain"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "ألم",
+        "ضر",
+        "ضراء",
+        "مرض",
+        "نصب",
+        "شفاء"
+      ],
+      "candidate_notes_fr": [
+        "Les termes modernes « migraine » et « céphalée » ne doivent pas être présentés comme des termes coraniques explicites.",
+        "Le mot ألم peut produire des résultats hors sujet, notamment dans l'expression عذاب أليم ; chaque occurrence doit être contrôlée.",
+        "Les termes associés servent à explorer des thèmes voisins, pas à prétendre que le Coran décrit la migraine."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true,
+      "label_ar": "الصداع وآلام الرأس"
+    },
+    {
+      "id": "money_debt",
+      "domain": "material",
+      "label_fr": "Argent et dettes",
+      "label_ar": "المال والديون",
+      "aliases": {
+        "fr": [
+          "argent",
+          "dette",
+          "dettes",
+          "crédit",
+          "prêt",
+          "difficulté financière",
+          "problème financier",
+          "pauvreté",
+          "manque d'argent"
+        ],
+        "ar": [
+          "مال",
+          "دين",
+          "ديون",
+          "قرض",
+          "فقر",
+          "إنفاق"
+        ],
+        "ary": [
+          "الفلوس",
+          "الدين",
+          "مديون",
+          "ما عنديش الفلوس"
+        ],
+        "en": [
+          "money",
+          "debt",
+          "loan",
+          "poverty",
+          "financial hardship"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "رزق",
+        "دين",
+        "قرض",
+        "إنفاق",
+        "يسر"
+      ],
+      "candidate_notes_fr": [
+        "Distinguer dette, prêt, dépense et subsistance selon le contexte."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false
+    },
+    {
+      "id": "pain",
+      "domain": "physical",
+      "label_fr": "Douleur",
+      "aliases": {
+        "fr": [
+          "douleur",
+          "douleurs",
+          "souffrance physique",
+          "ça fait mal",
+          "j'ai mal"
+        ],
+        "ar": [
+          "ألم",
+          "وجع",
+          "أوجاع",
+          "ألم جسدي"
+        ],
+        "ary": [
+          "الوجع",
+          "كنحس بالوجع",
+          "كنضرني"
+        ],
+        "en": [
+          "pain",
+          "ache",
+          "soreness"
+        ]
+      },
+      "explicit_quranic_term": "À vérifier occurrence par occurrence ; ne pas assimiler automatiquement ألم à la douleur physique.",
+      "search_candidates_ar": [
+        "ضر",
+        "ضراء",
+        "نصب",
+        "قرح",
+        "مرض",
+        "شفاء",
+        "أليم"
+      ],
+      "candidate_notes_fr": [
+        "Distinguer douleur physique, épreuve, dommage et châtiment douloureux.",
+        "Ne retenir أليم comme douleur physique que si le contexte le justifie."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true,
+      "label_ar": "الألم"
+    },
+    {
+      "id": "patience",
+      "domain": "spiritual",
+      "label_fr": "Patience et persévérance",
+      "aliases": {
+        "fr": [
+          "patience",
+          "tenir bon",
+          "persévérance",
+          "supporter une difficulté"
+        ],
+        "ar": [
+          "صبر",
+          "الصابرين",
+          "اصبر"
+        ],
+        "ary": [
+          "الصبر",
+          "نصبر"
+        ],
+        "en": [
+          "patience",
+          "perseverance",
+          "steadfastness"
+        ]
+      },
+      "explicit_quranic_term": "صبر est un candidat lexical à analyser selon le contexte.",
+      "search_candidates_ar": [
+        "صبر",
+        "الصابرين",
+        "اصبر",
+        "ثبات"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas utiliser la patience pour minimiser une souffrance ou décourager la recherche d'aide."
+      ],
+      "suggested_relationships": [
+        "direct_lexical",
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": false,
+      "label_ar": "الصبر"
+    },
+    {
+      "id": "protection",
+      "domain": "spiritual",
+      "label_fr": "Protection et refuge",
+      "label_ar": "الحفظ والاستعاذة",
+      "aliases": {
+        "fr": [
+          "protection",
+          "me protéger",
+          "protéger ma famille",
+          "mauvais œil",
+          "envie",
+          "sorcellerie",
+          "envoutement",
+          "ruqya",
+          "ruqia"
+        ],
+        "ar": [
+          "حفظ",
+          "استعاذة",
+          "شر",
+          "حسد",
+          "عين",
+          "سحر"
+        ],
+        "ary": [
+          "الحماية",
+          "العين",
+          "الحسد",
+          "التحصين",
+          "الرقية"
+        ],
+        "en": [
+          "protection",
+          "evil eye",
+          "envy",
+          "sorcery",
+          "ruqyah"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "أعوذ",
+        "شر",
+        "حسد",
+        "حفظ",
+        "استعاذة"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas confirmer qu'une personne est victime de sorcellerie ou de mauvais œil."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
       "medical_safety_note": false
     },
     {
@@ -445,99 +1526,49 @@
         "contextual",
         "spiritual_reflection"
       ],
-      "medical_safety_note": true
+      "medical_safety_note": true,
+      "label_ar": "الحزن والأسى"
     },
     {
-      "id": "hardship",
-      "domain": "life_circumstances",
-      "label_fr": "Épreuve et difficulté",
+      "id": "skin",
+      "domain": "physical",
+      "label_fr": "Peau",
+      "label_ar": "الجلد والبشرة",
       "aliases": {
         "fr": [
-          "épreuve",
-          "difficulté",
-          "adversité",
-          "période difficile",
-          "épreuve de la vie"
+          "peau",
+          "problème de peau",
+          "démangeaison",
+          "démangeaisons",
+          "éruption cutanée"
         ],
         "ar": [
-          "ابتلاء",
-          "بلاء",
-          "شدة",
-          "عسر",
-          "كرب"
+          "جلد",
+          "الجلد",
+          "بشرة",
+          "حكة",
+          "طفح"
         ],
         "ary": [
-          "ابتلاء",
-          "ظروف صعيبة",
-          "مشاكل"
+          "الحكة",
+          "مشكل فالجلد"
         ],
         "en": [
-          "hardship",
-          "trial",
-          "adversity",
-          "difficulty"
+          "skin",
+          "itch",
+          "rash"
         ]
       },
-      "explicit_quranic_term": "Plusieurs candidats lexicaux existent ; leur sens dépend du passage.",
+      "explicit_quranic_term": null,
       "search_candidates_ar": [
-        "ابتلاء",
-        "بلاء",
-        "عسر",
-        "يسر",
-        "كرب",
-        "صبر"
-      ],
-      "candidate_notes_fr": [
-        "Ne pas assimiler toute occurrence de بلاء à une épreuve personnelle vécue par l'utilisateur."
-      ],
-      "suggested_relationships": [
-        "direct_lexical",
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": false
-    },
-    {
-      "id": "healing",
-      "domain": "spiritual",
-      "label_fr": "Guérison et demande de guérison",
-      "aliases": {
-        "fr": [
-          "guérison",
-          "guérir",
-          "être rétabli",
-          "demander la guérison"
-        ],
-        "ar": [
-          "شفاء",
-          "يشفي",
-          "شفاء المرض"
-        ],
-        "ary": [
-          "الشفاء",
-          "الله يشفيني"
-        ],
-        "en": [
-          "healing",
-          "recovery",
-          "cure"
-        ]
-      },
-      "explicit_quranic_term": "شفاء est un candidat lexical attesté ; examiner précisément son objet et son contexte.",
-      "search_candidates_ar": [
-        "شفاء",
-        "يشفي",
-        "رحمة",
-        "دعاء",
+        "جلد",
+        "ضر",
         "مرض"
       ],
       "candidate_notes_fr": [
-        "Ne jamais transformer un verset sur الشفاء en promesse de guérison d'une maladie précise.",
-        "Présenter ce volet comme réflexion et accompagnement spirituels, non comme traitement."
+        "Vérifier le contexte de chaque occurrence."
       ],
       "suggested_relationships": [
-        "direct_lexical",
         "semantic",
         "contextual",
         "spiritual_reflection"
@@ -545,40 +1576,46 @@
       "medical_safety_note": true
     },
     {
-      "id": "patience",
-      "domain": "spiritual",
-      "label_fr": "Patience et persévérance",
+      "id": "sleep",
+      "domain": "physical",
+      "label_fr": "Sommeil et repos",
       "aliases": {
         "fr": [
-          "patience",
-          "tenir bon",
-          "persévérance",
-          "supporter une difficulté"
+          "sommeil",
+          "dormir",
+          "insomnie",
+          "difficulté à dormir",
+          "repos"
         ],
         "ar": [
-          "صبر",
-          "الصابرين",
-          "اصبر"
+          "نوم",
+          "النوم",
+          "منام",
+          "رقاد",
+          "سهر"
         ],
         "ary": [
-          "الصبر",
-          "نصبر"
+          "النعاس",
+          "ما كيجينيش النعاس",
+          "ما كنقدرش ننعس"
         ],
         "en": [
-          "patience",
-          "perseverance",
-          "steadfastness"
+          "sleep",
+          "insomnia",
+          "rest"
         ]
       },
-      "explicit_quranic_term": "صبر est un candidat lexical à analyser selon le contexte.",
+      "explicit_quranic_term": "نوم et سنة sont des candidats lexicaux distincts à analyser selon le contexte.",
       "search_candidates_ar": [
-        "صبر",
-        "الصابرين",
-        "اصبر",
-        "ثبات"
+        "نوم",
+        "سنة",
+        "سبات",
+        "ليل",
+        "رقاد"
       ],
       "candidate_notes_fr": [
-        "Ne pas utiliser la patience pour minimiser une souffrance ou décourager la recherche d'aide."
+        "Ne pas présenter chaque mention de la nuit comme un passage sur l'insomnie.",
+        "Distinguer sommeil, repos, nuit et signes de la création."
       ],
       "suggested_relationships": [
         "direct_lexical",
@@ -586,7 +1623,58 @@
         "contextual",
         "spiritual_reflection"
       ],
-      "medical_safety_note": false
+      "medical_safety_note": true,
+      "label_ar": "النوم"
+    },
+    {
+      "id": "stomach_abdomen",
+      "domain": "physical",
+      "label_fr": "Ventre et digestion",
+      "label_ar": "البطن والجهاز الهضمي",
+      "aliases": {
+        "fr": [
+          "ventre",
+          "estomac",
+          "abdomen",
+          "douleur abdominale",
+          "mal au ventre",
+          "digestion"
+        ],
+        "ar": [
+          "بطن",
+          "البطن",
+          "معدة",
+          "المعدة",
+          "ألم البطن"
+        ],
+        "ary": [
+          "كرشي كيوجعني",
+          "المعدة",
+          "وجع البطن"
+        ],
+        "en": [
+          "stomach",
+          "abdomen",
+          "stomach pain",
+          "digestion"
+        ]
+      },
+      "explicit_quranic_term": null,
+      "search_candidates_ar": [
+        "بطن",
+        "مرض",
+        "ضر",
+        "شفاء"
+      ],
+      "candidate_notes_fr": [
+        "Ne pas assimiler les mentions du ventre à une description médicale."
+      ],
+      "suggested_relationships": [
+        "semantic",
+        "contextual",
+        "spiritual_reflection"
+      ],
+      "medical_safety_note": true
     },
     {
       "id": "supplication",
@@ -633,7 +1721,8 @@
         "contextual",
         "spiritual_reflection"
       ],
-      "medical_safety_note": false
+      "medical_safety_note": false,
+      "label_ar": "الدعاء"
     },
     {
       "id": "tranquility",
@@ -681,96 +1770,57 @@
         "contextual",
         "spiritual_reflection"
       ],
-      "medical_safety_note": false
+      "medical_safety_note": false,
+      "label_ar": "السكينة"
     },
     {
-      "id": "mercy",
-      "domain": "spiritual",
-      "label_fr": "Miséricorde et compassion",
+      "id": "work_career",
+      "domain": "material",
+      "label_fr": "Travail et carrière",
+      "label_ar": "العمل والرزق",
       "aliases": {
         "fr": [
-          "miséricorde",
-          "compassion",
-          "bonté",
-          "clémence"
+          "travail",
+          "emploi",
+          "chômage",
+          "carrière",
+          "profession",
+          "entreprise",
+          "collègue",
+          "problème au travail"
         ],
         "ar": [
-          "رحمة",
-          "رحيم",
-          "رحمن",
-          "رأفة"
+          "عمل",
+          "وظيفة",
+          "رزق",
+          "سعي",
+          "كسب"
         ],
         "ary": [
-          "الرحمة",
-          "رحمة الله"
+          "الخدمة",
+          "العمل",
+          "ما عنديش خدمة"
         ],
         "en": [
-          "mercy",
-          "compassion",
-          "kindness"
+          "work",
+          "job",
+          "career",
+          "employment",
+          "business"
         ]
       },
-      "explicit_quranic_term": "رحمة et ses formes sont des candidats lexicaux à analyser selon le contexte.",
+      "explicit_quranic_term": null,
       "search_candidates_ar": [
-        "رحمة",
-        "رحيم",
-        "رحمن",
-        "رأفة",
-        "غفور"
+        "رزق",
+        "فضل",
+        "سعي",
+        "أجر",
+        "توكل"
       ],
       "candidate_notes_fr": [
-        "Identifier à qui ou à quoi se rapporte la miséricorde dans le passage."
+        "Ne pas présenter un passage sur le rizq comme une promesse de revenu ou d'emploi."
       ],
       "suggested_relationships": [
-        "direct_lexical",
-        "semantic",
-        "contextual",
-        "spiritual_reflection"
-      ],
-      "medical_safety_note": false
-    },
-    {
-      "id": "hope",
-      "domain": "spiritual",
-      "label_fr": "Espérance et confiance",
-      "aliases": {
-        "fr": [
-          "espoir",
-          "espérance",
-          "perdre espoir",
-          "confiance en Dieu"
-        ],
-        "ar": [
-          "رجاء",
-          "أمل",
-          "يأس",
-          "توكل"
-        ],
-        "ary": [
-          "الأمل",
-          "ما نفقدش الأمل",
-          "التوكل"
-        ],
-        "en": [
-          "hope",
-          "trust",
-          "optimism",
-          "despair"
-        ]
-      },
-      "explicit_quranic_term": "Les termes doivent être distingués : رجاء, يأس et توكل ne sont pas interchangeables.",
-      "search_candidates_ar": [
-        "رجاء",
-        "يأس",
-        "توكل",
-        "بشرى",
-        "يسر"
-      ],
-      "candidate_notes_fr": [
-        "Un passage qui met en garde contre le désespoir ne doit pas être présenté comme une garantie que le problème va disparaître."
-      ],
-      "suggested_relationships": [
-        "direct_lexical",
         "semantic",
         "contextual",
         "spiritual_reflection"
@@ -795,5 +1845,6 @@
     "Séparer explicitement le texte coranique, la traduction, l'analyse thématique et la réflexion spirituelle.",
     "Ne pas inventer de tafsir ni attribuer une interprétation à Ibn Arabi sans source vérifiée.",
     "Si aucun lien direct n'est trouvé, le dire clairement."
-  ]
+  ],
+  "version": "1.1.0"
 }
