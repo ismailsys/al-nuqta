@@ -550,6 +550,14 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 .tafsirStatus{font-size:10px;color:#89877e;line-height:1.7;margin:6px 0}
 .tafsirText p{font-size:13px;line-height:1.9;color:#55564f;margin:7px 0}
 
+
+.analysisRelations{margin-top:12px;display:grid;gap:8px}
+.analysisRelations[hidden]{display:none!important}
+.analysisRelationTitle{font-size:12px;color:#596f5b}
+.analysisRelation{padding:9px 11px;border-radius:10px;background:#f6f4ed;border:1px solid #e6e0d1}
+.analysisRelation strong{display:block;color:#596f5b;font-size:11px}
+.analysisRelation p{font-size:11px;line-height:1.8;color:#77766e;margin:4px 0 0}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -588,6 +596,7 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
  <div class="analysisHeading">ما الذي فهمناه من وصفك؟</div>
  <div class="analysisDimensions" id="analysisDimensions"></div>
  <div class="analysisConcepts" id="analysisConcepts"></div>
+ <div class="analysisRelations" id="analysisRelations" hidden></div>
  <div class="analysisNote">هذا فهم لغوي أولي لما كتبته، وليس تشخيصاً أو حكماً على حالتك.</div>
 </div>
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
@@ -1094,7 +1103,8 @@ function renderAnalysisSummary(analysis){
  const box=document.getElementById("analysisSummary");
  const dimensions=document.getElementById("analysisDimensions");
  const concepts=document.getElementById("analysisConcepts");
- dimensions.replaceChildren();concepts.replaceChildren();
+ const relations=document.getElementById("analysisRelations");
+ dimensions.replaceChildren();concepts.replaceChildren();relations.replaceChildren();
  if(!analysis.concepts.length){box.hidden=true;return;}
  analysis.dimensions.forEach(group=>{
   const chip=document.createElement("span");chip.className="analysisDimension";
@@ -1104,6 +1114,17 @@ function renderAnalysisSummary(analysis){
   const chip=document.createElement("span");chip.className="analysisConcept";
   chip.textContent=concept.label;concepts.append(chip);
  });
+ if(analysis.relations?.length){
+  const title=document.createElement("strong");title.className="analysisRelationTitle";title.textContent="روابط ظهرت في الوصف";
+  relations.append(title);
+  analysis.relations.forEach(relation=>{
+   const item=document.createElement("div");item.className="analysisRelation";
+   const name=document.createElement("strong");name.textContent=relation.label;
+   const desc=document.createElement("p");desc.textContent=relation.description;
+   item.append(name,desc);relations.append(item);
+  });
+  relations.hidden=false;
+ }else relations.hidden=true;
  box.hidden=false;
 }
 function updateResultConfirmation(analysis,selectedCategories){
