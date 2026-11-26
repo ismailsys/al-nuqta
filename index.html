@@ -1002,7 +1002,8 @@ async function fetchQuranEncTranslation(key){
  const response=await fetch(url,{headers:{Accept:"application/json"}});
  if(!response.ok)throw new Error("Translation API HTTP "+response.status);
  const payload=await response.json();
- return payload.translation||payload.translation_text||"";
+ const data=payload.result||payload.data||payload;
+ return data.translation||data.translation_text||"";
 }
 async function fetchQuranEncTafsir(key){
  const [surah,ayah]=key.split(":").map(Number);
@@ -1065,9 +1066,11 @@ async function loadVerseContext(key,container){
    }
    list.append(item);
   });
-  const attribution=document.createElement("p");attribution.className="translationAttribution";
-  attribution.textContent="Traduction du sens : Rachid Maach · QuranEnc · version 1.0.3.";
-  list.append(attribution);
+  if(results.some(row=>row.translation)){
+   const attribution=document.createElement("p");attribution.className="translationAttribution";
+   attribution.textContent="Traduction des sens : Rachid Maach · QuranEnc · version 1.0.3.";
+   list.append(attribution);
+  }
   const tafsirPanel=document.createElement("section");tafsirPanel.className="tafsirPanel";
   const tafsirTitle=document.createElement("strong");tafsirTitle.textContent="التفسير الميسر";
   const tafsirStatus=document.createElement("p");tafsirStatus.className="tafsirStatus";tafsirStatus.textContent="جارٍ جلب شرح الآية من مصدر التفسير…";
