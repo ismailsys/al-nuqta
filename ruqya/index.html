@@ -312,6 +312,34 @@ body[data-page="result"] #path{margin-top:20px}
 .topicHint{font-size:11px;color:var(--muted);margin:8px 0 0}
 @media(max-width:650px){.topicTags{gap:7px}.topicTag{font-size:12px;padding:8px 11px}}
 
+
+/* Refined SAKINA palette: calm green with restrained gold details */
+:root{--accent:#879b87;--accent2:#596f5b;--glow:#c5a66a30}
+body{background:radial-gradient(ellipse at 50% -18%,#e4e9df 0%,#f3f0e9 62%)}
+.needCard{border:1px solid #c9b88f;box-shadow:0 14px 38px #514b3f10, inset 0 0 0 1px #ffffffa8}
+.needCard #needText{border:1px solid #c9b88f;box-shadow:inset 0 1px 5px #6e624014}
+.needCard #needText:focus{border-color:#a88b50;box-shadow:0 0 0 3px #c9a66b25}
+.topicTag.active{background:#e7ede5;border-color:#9b8a61;color:#526b55;box-shadow:0 0 0 1px #c9a66b40}
+.player{border-color:#c9b88f;background:linear-gradient(145deg,#fffefa,#f0f3ec);box-shadow:0 12px 32px #514b3f0d, inset 0 0 0 1px #ffffffa8}
+.verse{border-color:#d8d1c1;background:linear-gradient(145deg,#fffefa,#f8f7f1);transition:border-color .25s,box-shadow .25s,transform .25s}
+.verse.playing{border-color:#b89a5b;box-shadow:0 0 0 1px #c9a66b55,0 10px 28px #b69a6020;background:linear-gradient(145deg,#fffefa,#f1f4ec);transform:translateY(-2px)}
+.verse.playing .versehead{color:#7e956f}
+.verse.playing .arabic{color:#435d49}
+.playButton{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-width:190px;position:relative;overflow:hidden;transition:background .25s,border-color .25s,box-shadow .25s,transform .2s}
+.playButton.is-playing{background:#617d68!important;border-color:#b99a5c!important;color:#fff!important;box-shadow:0 0 0 3px #c9a66b2b,0 0 24px #a58a4d38;animation:playGlow 2s ease-in-out infinite}
+.playButton.is-playing:after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid #e4cc91;pointer-events:none}
+.playIcon{font-size:12px}
+.soundBars{display:inline-flex;align-items:center;gap:3px;height:19px}
+.soundBars i{display:block;width:3px;height:5px;border-radius:3px;background:#f4dfae;animation:buttonSound .65s ease-in-out infinite alternate}
+.soundBars i:nth-child(2){animation-delay:.14s}
+.soundBars i:nth-child(3){animation-delay:.28s}
+.soundBars i:nth-child(4){animation-delay:.42s}
+@keyframes buttonSound{from{height:4px;opacity:.65}to{height:18px;opacity:1}}
+@keyframes playGlow{0%,100%{box-shadow:0 0 0 2px #c9a66b22,0 0 12px #a58a4d22}50%{box-shadow:0 0 0 4px #c9a66b38,0 0 25px #a58a4d45}}
+.backBtn{border-color:#c9b88f}
+.path{border-color:#d5c7a7}
+@media(prefers-reduced-motion:reduce){.playButton.is-playing{animation:none}.soundBars i{animation:none;height:10px}}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -356,7 +384,7 @@ body[data-page="result"] #path{margin-top:20px}
 <h4>استمع بهدوء</h4>
 <p class="playerIntro">تلاوة متتابعة للمسار المختار</p>
 <div class="playerControls">
-<button class="btn primary" id="playAll" disabled>▶ ابدأ التلاوة</button>
+<button class="btn primary playButton" id="playAll" disabled><span class="playIcon">▶</span> ابدأ التلاوة</button>
 <button class="btn" id="stopAll">إيقاف</button>
 </div>
 <div class="playerOptions">
@@ -406,6 +434,13 @@ const paths={
 const choices=[...document.querySelectorAll(".choice")],path=document.getElementById("path"),versesBox=document.getElementById("verses"),playAll=document.getElementById("playAll"),stopAll=document.getElementById("stopAll"),repeatSelect=document.getElementById("repeatCount"),statusEl=document.getElementById("playerStatus");
 let activeButton=null,currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTotal=3,playingCard=null,stopRequested=false,currentIds=[];
 function setStatus(s){statusEl.textContent=s}
+function setPlayButton(active,label){
+ playAll.classList.toggle("is-playing",active);
+ playAll.setAttribute("aria-label",label);
+ playAll.innerHTML=active
+  ? '<span class="soundBars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>التلاوة جارية</span>'
+  : '<span class="playIcon" aria-hidden="true">▶</span><span>'+label+'</span>';
+}
 let audioContext=null,frequencyOscillator=null,frequencyGain=null;
 function stopFrequency(){
  if(frequencyOscillator){try{frequencyOscillator.stop();}catch(e){}try{frequencyOscillator.disconnect();}catch(e){}frequencyOscillator=null;}
@@ -434,16 +469,16 @@ function connectAudioFrequency(audio){
   startFrequency();
  }catch(error){stopFrequency();}
 }
-function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}stopFrequency();currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
+function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}stopFrequency();currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;setPlayButton(false,"ابدأ التلاوة");setStatus("تم إيقاف التلاوة.");}
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
 function audioUrl(id){return "https://everyayah.com/data/aziz_alili_128kbps/"+id+".mp3";}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
  stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;
- playAll.textContent="التلاوة جارية";playNext();
+ setPlayButton(true,"التلاوة جارية");playNext();
 }
 function playNext(){
  if(stopRequested)return;
- if(playIndex>=playlist.length){if(pass<repeatTotal){pass++;playIndex=0;}else{playingCard?.classList.remove("playing");playingCard=null;currentAudio=null;playAll.textContent="▶ قراءة جميع الآيات";setStatus("اكتملت التلاوة.");return;}}
+ if(playIndex>=playlist.length){if(pass<repeatTotal){pass++;playIndex=0;}else{playingCard?.classList.remove("playing");playingCard=null;currentAudio=null;setPlayButton(false,"إعادة التلاوة");setStatus("اكتملت التلاوة.");return;}}
  const item=playlist[playIndex];const v=verses[item.id];
  if(playingCard)playingCard.classList.remove("playing");
  const card=[...document.querySelectorAll(".verse")].find(el=>el.dataset.verse===item.id);
@@ -455,7 +490,7 @@ function playNext(){
  currentAudio.addEventListener("error",()=>{stopFrequency();setStatus("تعذر تحميل المقطع الصوتي. تحقق من الاتصال ثم أعد المحاولة.");playIndex++;playNext();},{once:true});
  const audioToPlay=currentAudio;
  const resume=audioContext&&audioContext.state==="suspended"?audioContext.resume():Promise.resolve();
- resume.then(()=>audioToPlay.play()).catch(()=>{if(audioToPlay===currentAudio){stopFrequency();setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");playAll.textContent="▶ إعادة المحاولة";}});
+ resume.then(()=>audioToPlay.play()).catch(()=>{if(audioToPlay===currentAudio){stopFrequency();setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");setPlayButton(false,"إعادة المحاولة");}});
 }
 function renderVerse(id){
  const v=verses[id],card=document.createElement("article");card.className="verse";card.dataset.verse=id;
