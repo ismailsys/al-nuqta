@@ -540,6 +540,10 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 .contextSource[hidden]{display:none}
 .analysisNote{line-height:1.9}
 
+
+.contextTranslation{font-size:13px;line-height:1.85;color:#55564f;margin:7px 0 0}
+.translationAttribution{font-size:10px;color:#89877e;line-height:1.7;margin:8px 0 0}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -975,34 +979,63 @@ async function fetchVerseByKey(key){
  const verse=payload.verse||payload;
  return verse.text_uthmani||verse.text||verse.verse?.text_uthmani||"";
 }
+async function fetchQuranEncTranslation(key){
+ const [surah,ayah]=key.split(":").map(Number);
+ const url="https://quranenc.com/api/v1/translation/aya/french_rashid/"+surah+"/"+ayah;
+ const response=await fetch(url,{headers:{Accept:"application/json"}});
+ if(!response.ok)throw new Error("Translation API HTTP "+response.status);
+ const payload=await response.json();
+ return payload.translation||payload.translation_text||"";
+}
 async function loadVerseContext(key,container){
  if(container.dataset.loaded==="true")return;
  if(container.dataset.loading==="true")return;
  container.dataset.loading="true";
  const status=container.querySelector(".contextStatus");
- status.textContent="جارٍ جلب الآيات المحيطة…";
+ status.textContent="جارٍ جلب الآيات المحيطة والترجمة…";
  try{
   const [surah,ayah]=key.split(":").map(Number);
-  const requests=[];
-  if(ayah>1)requests.push(fetchVerseByKey(surah+":"+(ayah-1)).then(text=>({label:"الآية السابقة · "+surah+":"+(ayah-1),text})));
-  requests.push(fetchVerseByKey(key).then(text=>({label:"الآية محل البحث · "+key,text})));
-  requests.push(fetchVerseByKey(surah+":"+(ayah+1)).then(text=>({label:"الآية التالية · "+surah+":"+(ayah+1),text})));
-  const rows=await Promise.all(requests);
+  const keys=[];
+  if(ayah>1)keys.push(surah+":"+(ayah-1));
+  keys.push(key);
+  keys.push(surah+":"+(ayah+1));
+  const results=await Promise.all(keys.map(async verseKey=>{
+   const [arabic,translation]=await Promise.allSettled([
+    fetchVerseByKey(verseKey),fetchQuranEncTranslation(verseKey)
+   ]);
+   return {
+    key:verseKey,
+    arabic:arabic.status==="fulfilled"?arabic.value:"",
+    translation:translation.status==="fulfilled"?translation.value:""
+   };
+  }));
   const list=container.querySelector(".contextRows");list.replaceChildren();
-  rows.forEach(row=>{
-   if(!row.text)return;
+  results.forEach(row=>{
+   if(!row.arabic&&!row.translation)return;
    const item=document.createElement("div");item.className="contextRow";
-   const label=document.createElement("strong");label.textContent=row.label;
-   const text=document.createElement("div");text.className="contextArabic";text.textContent=row.text;
-   item.append(label,text);list.append(item);
+   const label=document.createElement("strong");label.textContent=(row.key===key?"الآية محل البحث · ":"آية من السياق · ")+row.key;
+   item.append(label);
+   if(row.arabic){
+    const arabic=document.createElement("div");arabic.className="contextArabic";arabic.textContent=row.arabic;arabic.setAttribute("translate","no");item.append(arabic);
+   }
+   if(row.translation){
+    const translation=document.createElement("p");translation.className="contextTranslation";translation.textContent=row.translation;item.append(translation);
+   }
+   list.append(item);
   });
-  const source=document.createElement("a");source.href="https://quran.com/"+key;source.target="_blank";source.rel="noopener noreferrer";source.textContent="فتح المقطع كاملاً ومراجعة ترجماته وتفاسيره على Quran.com";
+  const attribution=document.createElement("p");attribution.className="translationAttribution";
+  attribution.textContent="Traduction du sens : Rachid Maach · QuranEnc · version 1.0.3.";
+  list.append(attribution);
+  const source=document.createElement("a");source.href="https://quran.com/"+key;source.target="_blank";source.rel="noopener noreferrer";source.textContent="Consulter le passage complet et les tafsirs disponibles sur Quran.com";
   source.className="contextSource";list.append(source);
+  const hasContext=results.some(r=>r.arabic);
+  const hasTranslation=results.some(r=>r.translation);
   container.dataset.loaded="true";
-  status.textContent="السياق القريب معروض. اقرأ المقطع كاملاً قبل استخلاص المعنى.";
+  status.textContent=(hasContext?"Contexte des versets voisins chargé. ":"")+(hasTranslation?"Traduction française chargée. ":"")+
+   "La lecture du passage complet reste nécessaire pour comprendre le sens.";
  }catch(error){
   console.warn("SAKINA context retrieval:",error);
-  status.textContent="تعذر تحميل السياق آلياً. يمكنك فتح النص الكامل ومراجعته على Quran.com.";
+  status.textContent="Le contexte ou la traduction n'a pas pu être chargé. Consulte le passage complet sur Quran.com.";
   const link=container.querySelector(".contextSource");link.hidden=false;
  }
  container.dataset.loading="false";
