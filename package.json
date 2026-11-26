@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p dist/ruqya && cp index.html dist/index.html && cp ruqya/index.html dist/ruqya/index.html"
+    "build": "mkdir -p dist/ruqya dist/al-nuqta && cp ruqya/index.html dist/index.html && cp ruqya/index.html dist/ruqya/index.html && cp index.html dist/al-nuqta/index.html"
   }
 }
