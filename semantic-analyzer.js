@@ -71,6 +71,25 @@
     }
     const dimensions=[...new Set(found.map(c=>c.domain))]
       .map(id=>({id,label:domainLabels[id]||id,concepts:found.filter(c=>c.domain===id)}));
+    const ids=new Set(found.map(c=>c.id));
+    const relations=[];
+    const addRelation=(id,label,description,required)=>{
+      if(required.every(group=>group.some(conceptId=>ids.has(conceptId)))){
+        relations.push({id,label,description,concepts:required.flat().filter(conceptId=>ids.has(conceptId))});
+      }
+    };
+    addRelation("physical_emotional","تزامن الجانب الجسدي والمشاعر",
+      "ذكرت في وصفك جانباً جسدياً وجانباً شعورياً معاً. نعرضهما كمحورين متزامنين دون افتراض أن أحدهما سبب الآخر.",
+      [["pain","migraine_headache","illness","fatigue","stomach_abdomen","headache","heart_chest","back_bones","kidneys","liver","lungs","legs"],["anxiety_distress","fear","sadness_grief","anger"]]);
+    addRelation("financial_emotional","الظروف المادية والمشاعر",
+      "وردت في وصفك مسألة مادية إلى جانب شعور أو قلق. سنبحث في كل محور ثم في مواضع تجمع بينهما.",
+      [["money_debt","work_career"],["anxiety_distress","fear","sadness_grief"]]);
+    addRelation("family_emotional","العلاقات والمشاعر",
+      "وردت علاقة شخصية مع شعور عاطفي في الوصف. هذا تزامن في الموضوعات وليس حكماً على العلاقة أو سبب المشكلة.",
+      [["family_relationships","marriage_relationship","marital_conflict","children_parenting"],["anxiety_distress","fear","sadness_grief","anger","loneliness"]]);
+    addRelation("sleep_fatigue","النوم والتعب",
+      "ذكرت النوم والتعب معاً؛ يمكن قراءة المواضع المتعلقة بالليل والراحة والمشقة كلٌّ في سياقه.",
+      [["sleep"],["fatigue","fatigue_exhaustion"]]);
     const terms=[];
     const queues=found.map(concept=>({
       concept,
@@ -99,6 +118,7 @@
       original:description,
       concepts:found,
       dimensions,
+      relations,
       searchTerms:terms.slice(0,20),
       summary:found.map(c=>c.label),
       hasDetectedConcepts:found.length>0,
