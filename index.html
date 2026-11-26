@@ -563,11 +563,10 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 <body data-theme="sleep">
 <div class="wrap">
 <header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
-<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>رقية بطريقة مناسبة لك</h1><p></p></section>
+<section class="hero"><h1>ما الذي يشغلك؟</h1><p>اكتب ما تريد، وسنبحث لك عن الآيات ذات الصلة.</p></section>
 <section class="section needFirst" id="customNeed">
 <div class="needCard">
-<div class="needKicker">مساحتك الخاصة</div>
-<h2>ما الذي يشغل بالك، أو شعورك ؟</h2>
+<h2>اكتب وصفك أو اختر موضوعاً</h2>
 
 <div class="topicPicker" aria-label="موضوعات متكررة">
  <div class="topicLabel">أو اختر ما يعبّر عنك</div>
@@ -578,7 +577,7 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
   <button class="topicTag" type="button" data-category="children" data-label="الأبناء والذرية" aria-pressed="false">الأبناء والذرية</button>
   <button class="topicTag" type="button" data-category="calm" data-label="السكينة وراحة النفس" aria-pressed="false">السكينة وراحة النفس</button>
  </div>
- <p class="topicHint">هذه اقتراحات سريعة لمن لا يرغب في كتابة التفاصيل. ويمكنك تجاهلها وكتابة وصفك بحرية.</p>
+
 </div>
 <div class="composerField">
 <textarea id="needText" rows="4" placeholder="اكتب بحرية كل ما تريد: ما تشعر به، ألم في أي موضع، أو مشكلة شخصية أو عائلية أو مادية..."></textarea>
@@ -586,7 +585,7 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 </div>
 
 <p class="voiceStatus" id="voiceStatus" aria-live="polite"></p>
-<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">اكتب بحرية؛ سنحلل المحاور التي ذكرتها ونبحث عن الآيات ذات الصلة.</p></div>
+<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">اعرض الآيات</button></div>
 </div>
 </section>
 <section class="path" id="path" aria-live="polite">
@@ -618,7 +617,7 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 <div class="verses" id="verses"></div>
 </section>
 
-<div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Aziz Alili (Hafs). المحاور التأملية مستلهمة من موضوعات في فكر ابن عربي، ولا تمثل تفسيراً منسوباً إليه أو وصفة مخصوصة.</div>
+
 </div>
 <script src="/semantic-analyzer.js"></script>
 <script>
@@ -815,7 +814,7 @@ function renderVerse(id){
  if(v.key){
   const details=document.createElement("details");details.className="verseContext";
   const summary=document.createElement("summary");summary.textContent="عرض سياق الآية";
-  const status=document.createElement("p");status.className="contextStatus";status.textContent="السياق permet de vérifier le sens du passage.";
+  const status=document.createElement("p");status.className="contextStatus";status.textContent="اقرأ الآيات في سياقها لفهم المعنى.";
   const rows=document.createElement("div");rows.className="contextRows";
   const source=document.createElement("a");source.href=v.source;source.target="_blank";source.rel="noopener noreferrer";source.textContent="Ouvrir le passage complet sur Quran.com";source.className="contextSource";source.hidden=true;
   details.append(summary,status,rows,source);
@@ -1115,7 +1114,7 @@ async function loadVerseContext(key,container){
    "La lecture du passage complet reste nécessaire pour comprendre le sens.";
  }catch(error){
   console.warn("SAKINA context retrieval:",error);
-  status.textContent="Le contexte ou la traduction n'a pas pu être chargé. Consulte le passage complet sur Quran.com.";
+  status.textContent="تعذر تحميل السياق أو الترجمة. يمكنك فتح المقطع كاملاً.";
   const link=container.querySelector(".contextSource");link.hidden=false;
  }
  container.dataset.loading="false";
@@ -1164,9 +1163,9 @@ async function composeNeed(){
  updateResultConfirmation({concepts:[],dimensions:[]},selectedCategories);
  document.body.dataset.page="result";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
- document.getElementById("pathText").textContent="جارٍ فهم وصفك واستخراج محاوره، ثم البحث في النص القرآني عن مواضع مرتبطة بها.";
+ document.getElementById("pathText").textContent="الآيات الأقرب إلى وصفك.";
  const meta=document.getElementById("pathMeta");meta.innerHTML="";
- const searching=document.createElement("span");searching.className="pill";searching.textContent="تحليل الوصف والبحث في القرآن…";meta.append(searching);
+ const searching=document.createElement("span");searching.className="pill";searching.textContent="جارٍ البحث…";meta.append(searching);
  versesBox.innerHTML="";
  path.classList.add("show");window.scrollTo({top:0,behavior:"smooth"});
  stopPlayback();currentIds=[];playlist=[];playAll.disabled=true;
@@ -1190,7 +1189,7 @@ async function composeNeed(){
   if(matches.length){
    matches.forEach(item=>{verses[item.id]=item.verse;ids.push(item.id);});
    const info=document.createElement("span");info.className="pill";info.textContent=matches.length+" موضعاً مرشحاً";meta.replaceChildren(info);
-   const source=document.createElement("span");source.className="pill";source.textContent="البحث النصي: Quran.com";meta.append(source);
+   
    matches.forEach(item=>versesBox.appendChild(renderVerse(item.id)));
    playlist=buildPlaylist(ids);currentIds=ids;playAll.disabled=!ids.length;
    setStatus("تم العثور على "+ids.length+" موضعاً قرآنياً مرشحاً.");
