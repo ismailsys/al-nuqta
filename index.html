@@ -511,6 +511,12 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 .composerToolbar #startRecording .micIcon{font-size:19px;line-height:1}
 @media(max-width:650px){.composerToolbar #startRecording.micOnly{width:44px;height:44px;min-width:44px;min-height:44px}}
 
+
+.resultConfirm{margin:18px 0 20px;padding:20px 18px;text-align:center;border:1px solid #526b59;border-radius:18px;background:linear-gradient(135deg,#243b30,#1c3028);box-shadow:0 10px 28px #0002}
+.resultConfirm strong{display:block;color:#f0dfb8;font:700 clamp(24px,4.5vw,31px) Amiri,serif;line-height:1.65}
+.resultConfirm span{display:block;margin-top:5px;color:#d0d9ce;font-size:14px;line-height:1.9}
+@media(max-width:600px){.resultConfirm{padding:17px 12px}.resultConfirm strong{font-size:24px}.resultConfirm span{font-size:13px}}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -544,6 +550,7 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 </section>
 <section class="path" id="path" aria-live="polite">
 <div class="resultTop"><button class="btn backBtn" id="backToNeed" type="button">← العودة إلى الصفحة الأولى</button></div>
+<div class="resultConfirm" id="resultConfirm" role="status" aria-live="polite"><strong>تم اختيار الآيات المناسبة لحالتك</strong><span id="resultConfirmDetail">اعتماداً على ما كتبته أو اخترته من أعراض ومشاعر.</span></div>
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
 <div class="player">
@@ -885,6 +892,31 @@ async function searchQuranCorpus(terms){
  await Promise.all(requests);
  return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,40);
 }
+const problemLabels={
+ sleep:"صعوبة النوم أو الأرق",
+ anxiety:"القلق أو التوتر أو الخوف",
+ sadness:"الحزن أو الهم",
+ marital_conflict:"الخلافات الزوجية",
+ debt:"الديون أو الضيق المالي",
+ protection:"طلب الحماية والتحصين",
+ healing:"المرض أو طلب الشفاء"
+};
+const categoryLabels={
+ protection:"الحماية والتحصين",marriage:"الزواج والأسرة",rizq:"الرزق والعمل",
+ children:"الأبناء والذرية",calm:"السكينة وراحة النفس",healing:"الشفاء والعافية"
+};
+function updateResultConfirmation(typed,problemMatches,selectedCategories,detected){
+ const detail=document.getElementById("resultConfirmDetail");
+ const matched=[...new Set(problemMatches.map(rule=>problemLabels[rule.key]||rule.key))];
+ const chosen=[...new Set(selectedCategories.map(key=>categoryLabels[key]||key))];
+ const categories=[...new Set(detected.map(key=>categoryLabels[key]||key))];
+ let description="";
+ if(matched.length) description="تم التعرّف في وصفك على: "+matched.join("، ")+".";
+ else if(typed&&categories.length) description="الموضوع الأقرب إلى وصفك: "+categories.join("، ")+".";
+ else if(chosen.length) description="الموضوع الذي اخترته: "+chosen.join("، ")+".";
+ else description="تم تحليل وصفك واستخراج الموضوع الأقرب إليه.";
+ detail.textContent="اعتماداً على ما كتبته أو اخترته من أعراض ومشاعر. "+description+" الآيات المقترحة مرتبطة بهذا الموضوع للتدبر والتلاوة.";
+}
 function composeNeed(){
  const typed=baseDescription();
  const detected=detectCategories(typed);
@@ -893,6 +925,7 @@ function composeNeed(){
  let all=[...new Set([...detected,...selectedCategories])];
  if(!all.length&&typed)all=["calm"];
  if(!typed&&!all.length){voiceStatus.textContent="اكتب ما يشغلك أو اختر موضوعاً واحداً على الأقل.";return;}
+ updateResultConfirmation(typed,problemMatches,selectedCategories,detected);
  document.body.dataset.page="result";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
  document.getElementById("pathText").textContent="جارٍ البحث في النص القرآني عن مواضع مرتبطة بوصفك. ستُعرض النتائج مع مراجعها، ويُستحسن قراءة سياق كل موضع.";
