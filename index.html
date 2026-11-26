@@ -528,6 +528,18 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 .analysisNote{margin-top:10px;color:#89877e;font-size:11px;line-height:1.8}
 .verse .meaning:before{content:"سبب الاقتراح: ";font-weight:600;color:#6b806d}
 
+
+.verseContext{margin-top:14px;padding-top:10px;border-top:1px solid #e5e0d4;color:#596f5b}
+.verseContext summary{cursor:pointer;font-size:12px;font-weight:600;list-style-position:inside}
+.contextStatus{font-size:11px;color:#89877e;line-height:1.7;margin:9px 0}
+.contextRows{display:grid;gap:10px}
+.contextRow{padding:10px 12px;border-radius:10px;background:#f5f4ee}
+.contextRow strong{display:block;font-size:11px;color:#687d69;margin-bottom:5px}
+.contextArabic{font:22px/2 Amiri,serif;text-align:right;color:#3f5143}
+.contextSource{display:inline-block;margin-top:10px;color:#687d69;font-size:11px;text-decoration:underline}
+.contextSource[hidden]{display:none}
+.analysisNote{line-height:1.9}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -777,10 +789,20 @@ function renderVerse(id){
  const tag=document.createElement("span");tag.className="tag";tag.textContent=v.kind;
  const wave=document.createElement("span");wave.className="audio-wave";wave.setAttribute("aria-label","التلاوة جارية");wave.innerHTML="<i></i><i></i><i></i><i></i>";
  head.append(ref,tag,wave);
- const text=document.createElement("div");text.className="arabic";text.textContent=v.text;
+ const text=document.createElement("div");text.className="arabic";text.textContent=v.text;text.setAttribute("translate","no");
  const meaning=document.createElement("div");meaning.className="meaning";meaning.textContent=v.meaning;
  card.append(head,text,meaning);
- if(v.concept){const c=document.createElement("div");c.className="concept";c.textContent="محور التدبر: "+v.concept+" · إلهام موضوعي لا نسبة نصية إلى ابن عربي";card.append(c);}
+ if(v.concept){const c=document.createElement("div");c.className="concept";c.textContent="محاور مرتبطة: "+v.concept;card.append(c);}
+ if(v.key){
+  const details=document.createElement("details");details.className="verseContext";
+  const summary=document.createElement("summary");summary.textContent="عرض سياق الآية";
+  const status=document.createElement("p");status.className="contextStatus";status.textContent="السياق permet de vérifier le sens du passage.";
+  const rows=document.createElement("div");rows.className="contextRows";
+  const source=document.createElement("a");source.href=v.source;source.target="_blank";source.rel="noopener noreferrer";source.textContent="Ouvrir le passage complet sur Quran.com";source.className="contextSource";source.hidden=true;
+  details.append(summary,status,rows,source);
+  details.addEventListener("toggle",()=>{if(details.open)loadVerseContext(v.key,details);});
+  card.append(details);
+ }
  return card;
 }
 function renderPath(key){
@@ -905,39 +927,85 @@ async function searchQuranCorpus(terms){
    const id="live_"+surah+"_"+ayah;
    const normalizedVerse=normalizeQuranText(textValue);
    const lexical=normalizedVerse.includes(normalizeQuranText(term));
+   const direct=lexical&&entry.domain==="user_words";
    const previous=found.get(id)||{
-    id,score:0,key,text:textValue,lexicalTerms:[],hits:[],conceptIds:new Set()
+    id,score:0,key,text:textValue,directTerms:[],semanticTerms:[],hits:[],conceptIds:new Set()
    };
-   previous.score+=(50-index)+(entry.priority||0)*8+(lexical?25:0);
-   if(lexical&&!previous.lexicalTerms.includes(term))previous.lexicalTerms.push(term);
+   previous.score+=(50-index)+(entry.priority||0)*8+(direct?140:lexical?24:0);
+   if(lexical){
+    const bucket=direct?previous.directTerms:previous.semanticTerms;
+    if(!bucket.includes(term))bucket.push(term);
+   }
    if(!previous.hits.some(h=>h.term===term)){
     previous.hits.push({term,label:entry.label||"لفظ بحث",conceptId:entry.conceptId,domain:entry.domain});
    }
-   (entry.conceptIds||[entry.conceptId]).filter(Boolean).forEach(id=>previous.conceptIds.add(id));
+   (entry.conceptIds||[entry.conceptId]).filter(Boolean).forEach(cid=>previous.conceptIds.add(cid));
    found.set(id,previous);
   });
  });
  const settled=await Promise.allSettled(requests);
- if(!settled.some(r=>r.status==="fulfilled") && settled.length) throw new Error("All Quran searches failed");
- return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,35).map(item=>{
+ if(!settled.some(r=>r.status==="fulfilled")&&settled.length)throw new Error("All Quran searches failed");
+ return [...found.values()].sort((a,b)=>b.score-a.score).slice(0,25).map(item=>{
   const related=[...new Set(item.hits.map(h=>h.label))];
-  const reason=item.lexicalTerms.length
-   ?"ورد في النص لفظ بحث قرآني مرتبط: "+item.lexicalTerms.join("، ")+"؛ ويجب فهمه ضمن سياق الآية."
-   :"اقتُرح هذا الموضع لارتباطه بموضوع: "+related.join("، ")+"؛ وليس بالضرورة ذكراً مباشراً للمشكلة التي وصفتها.";
+  const direct=item.directTerms.length>0;
+  const kind=direct?"مطابقة لفظية مباشرة":item.semanticTerms.length?"ارتباط دلالي":"اقتراح موضوعي";
+  const reason=direct
+   ?"ورد في نص الآية لفظ مطابق لكلمة عربية من وصفك: "+item.directTerms.join("، ")+". وهذا يثبت المطابقة اللفظية فقط، لا أن الآية تتحدث عن الحالة الطبية أو الشخصية نفسها."
+   :item.semanticTerms.length
+    ?"وردت في الآية ألفاظ مرتبطة بموضوع: "+related.join("، ")+" ("+item.semanticTerms.join("، ")+"). هذا ارتباط لغوي محتمل يحتاج إلى قراءة السياق."
+    :"اقتُرح هذا الموضع بسبب ارتباط موضوعي محتمل بـ "+related.join("، ")+"؛ ولا توجد مطابقة مباشرة مع وصفك.";
   const surah=Number(item.key.split(":")[0]),ayah=Number(item.key.split(":")[1]);
   return {
    id:item.id,score:item.score,
    verse:{
-    ref:"الآية "+item.key,
-    text:item.text,
-    meaning:reason,
+    ref:"الآية "+item.key,key:item.key,text:item.text,meaning:reason,
     concept:related.join(" · "),
     audio:[String(surah).padStart(3,"0")+String(ayah).padStart(3,"0")],
-    kind:item.lexicalTerms.length?"مطابقة لفظية":"صلة موضوعية",
+    kind,matchLevel:direct?"direct":item.semanticTerms.length?"semantic":"thematic",
     source:"https://quran.com/"+item.key
    }
   };
  });
+}
+async function fetchVerseByKey(key){
+ const url="https://api.quran.com/api/v4/verses/by_key/"+encodeURIComponent(key)+"?language=ar";
+ const response=await fetch(url,{headers:{Accept:"application/json"}});
+ if(!response.ok)throw new Error("Context API HTTP "+response.status);
+ const payload=await response.json();
+ const verse=payload.verse||payload;
+ return verse.text_uthmani||verse.text||verse.verse?.text_uthmani||"";
+}
+async function loadVerseContext(key,container){
+ if(container.dataset.loaded==="true")return;
+ if(container.dataset.loading==="true")return;
+ container.dataset.loading="true";
+ const status=container.querySelector(".contextStatus");
+ status.textContent="جارٍ جلب الآيات المحيطة…";
+ try{
+  const [surah,ayah]=key.split(":").map(Number);
+  const requests=[];
+  if(ayah>1)requests.push(fetchVerseByKey(surah+":"+(ayah-1)).then(text=>({label:"الآية السابقة · "+surah+":"+(ayah-1),text})));
+  requests.push(fetchVerseByKey(key).then(text=>({label:"الآية محل البحث · "+key,text})));
+  requests.push(fetchVerseByKey(surah+":"+(ayah+1)).then(text=>({label:"الآية التالية · "+surah+":"+(ayah+1),text})));
+  const rows=await Promise.all(requests);
+  const list=container.querySelector(".contextRows");list.replaceChildren();
+  rows.forEach(row=>{
+   if(!row.text)return;
+   const item=document.createElement("div");item.className="contextRow";
+   const label=document.createElement("strong");label.textContent=row.label;
+   const text=document.createElement("div");text.className="contextArabic";text.textContent=row.text;
+   item.append(label,text);list.append(item);
+  });
+  const source=document.createElement("a");source.href="https://quran.com/"+key;source.target="_blank";source.rel="noopener noreferrer";source.textContent="فتح المقطع كاملاً ومراجعة ترجماته وتفاسيره على Quran.com";
+  source.className="contextSource";list.append(source);
+  container.dataset.loaded="true";
+  status.textContent="السياق القريب معروض. اقرأ المقطع كاملاً قبل استخلاص المعنى.";
+ }catch(error){
+  console.warn("SAKINA context retrieval:",error);
+  status.textContent="تعذر تحميل السياق آلياً. يمكنك فتح النص الكامل ومراجعته على Quran.com.";
+  const link=container.querySelector(".contextSource");link.hidden=false;
+ }
+ container.dataset.loading="false";
 }
 function renderAnalysisSummary(analysis){
  const box=document.getElementById("analysisSummary");
