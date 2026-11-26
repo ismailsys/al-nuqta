@@ -843,7 +843,30 @@ recordButton.addEventListener("click",async()=>{
   voiceStatus.textContent="تعذر الوصول إلى الميكروفون. تحقق من أذونات المتصفح.";
  }
 });
-playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
+playAll.addEventListener("click",(event)=>{
+ event.preventDefault();
+ const ids=currentIds.length?currentIds:[...new Set(playlist.map(item=>item.id))];
+ if(!ids.length){
+  setStatus("لم يتم العثور على مقاطع للتلاوة. أعد إنشاء المسار أولاً.");
+  return;
+ }
+ const queue=buildPlaylist(ids);
+ if(!queue.length){
+  setStatus("قائمة التلاوة فارغة. أعد إنشاء المسار.");
+  return;
+ }
+ try{
+  setStatus("جارٍ تشغيل التلاوة…");
+  playQueue(queue,0,Number(repeatSelect.value)||1,null);
+ }catch(error){
+  console.error("SAKINA audio start error:",error);
+  stopRequested=true;
+  stopFrequency();
+  currentAudio=null;
+  setPlayButton(false,"إعادة المحاولة");
+  setStatus("حدث خطأ أثناء بدء التلاوة. أعد المحاولة أو حدّث الصفحة.");
+ }
+});
 stopAll.addEventListener("click",stopPlayback);
 repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
 
