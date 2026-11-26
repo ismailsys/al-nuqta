@@ -88,6 +88,24 @@ body[data-theme="pain"]{--bg:#f4f0eb;--panel:#fbf9f6;--panel2:#eee8e0;--accent:#
 .section h2{font-size:24px;color:#4a4d46;font-weight:400}
 .hint{color:var(--muted)}
 .choices{gap:12px}
+.needFirst{margin-top:12px}
+.needCard{padding:clamp(18px,3vw,30px);border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fffefa,#f4f1e9);box-shadow:0 14px 38px #514b3f10}
+.needKicker{font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:8px}
+.needCard h2{font-size:29px;margin:0 0 4px;color:#454a43}
+.needCard .hint{margin-bottom:14px}
+.needCard .voiceTools{margin:0 0 12px}
+.needCard #startRecording{min-height:48px;min-width:190px;font-size:14px}
+.needCard #stopRecording{min-height:48px}
+.needCard #needText{min-height:130px;background:#fff;border-color:#ded9ce;font-size:15px}
+.needCard #needText::placeholder{color:#99978e}
+.needCard #recordedAudio{margin-top:12px}
+.needCard .voiceStatus{margin:10px 0 0}
+.composeArea{text-align:center;margin:18px 0 4px}
+.composeArea .buildBtn{min-width:min(320px,100%);padding:14px 26px;font-size:15px}
+.composeHint{font-size:11px;color:var(--muted);margin:8px 0}
+.section h2{margin-bottom:6px}
+@media(max-width:650px){.needCard{padding:17px;border-radius:18px}.needCard h2{font-size:25px}.needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}.needCard #startRecording{grid-column:1/-1;width:100%}.needCard #voiceLanguage{width:100%}.composeArea .buildBtn{width:100%}}
+
 .choice{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:16px;padding:16px 12px;box-shadow:0 3px 14px #625b4d08}
 .choice small{color:var(--muted)}
 .choice:hover,.choice.active{border-color:var(--accent);background:#fff;box-shadow:0 5px 18px #625b4d12;transform:translateY(-1px)}
@@ -129,8 +147,18 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <body data-theme="sleep">
 <div class="wrap">
 <header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
-<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>اختر الحالة الأقرب إلى شعورك. ستقترح الصفحة آيات للتلاوة والتدبر، مع توضيح سبب اختيارها. الاختيارات موضوعات للتأمل وليست تشخيصاً أو وصفة علاجية.</p></section>
-<section class="section"><h2>اختر ما تحتاجه</h2><p class="hint">يمكنك اختيار أكثر من موضوع، ثم إضافة وصف خاص بك.</p>
+<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>مساحة شخصية للتلاوة والتدبر. اكتب أو أمْلِ ما يشغلك، ثم اختر الموضوعات التي تريد إضافتها إلى مسارك.</p></section>
+<section class="section needFirst" id="customNeed"><div class="needCard"><div class="needKicker">مساحتك الخاصة</div><h2>ما الذي تحتاج أن تعبّر عنه اليوم؟</h2><p class="hint">تحدث مباشرة أو اكتب ما يشغلك. يمكنك استخدام العربية أو الدارجة أو الفرنسية.</p><div class="voiceTools">
+<select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
+<button class="btn primary" id="startRecording" type="button">🎙 ابدأ التحدث</button>
+<button class="btn" id="stopRecording" type="button" disabled>إيقاف التسجيل</button>
+</div>
+<textarea id="needText" rows="4" placeholder="ستظهر كلماتك هنا أثناء الإملاء، أو اكتب حاجتك بنفسك..."></textarea>
+<audio id="recordedAudio" controls hidden></audio>
+<p class="voiceStatus" id="voiceStatus" aria-live="polite">يُستخدم الميكروفون للإملاء داخل المتصفح. راجع النص الناتج قبل إنشاء المسار.</p>
+
+</section>
+</div></section><section class="section"><h2>اختر ما تحتاجه</h2><p class="hint">اختر موضوعاً أو أكثر، أو اتركها دون اختيار إذا كنت قد وصفت حاجتك أعلاه.</p>
 <div class="choices" id="choices">
 <button class="choice" data-key="protection">الحماية والتحصين<small>العين والحسد والاستعاذة</small></button>
 <button class="choice" data-key="marriage">الزواج والأسرة<small>المودة والرحمة</small></button>
@@ -139,20 +167,9 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <button class="choice" data-key="calm">السكينة وراحة النفس<small>القلق والحزن والضيق</small></button>
 <button class="choice" data-key="healing">الشفاء والعافية<small>الرحمة والدعاء</small></button>
 </div></section>
-<section class="section" id="customNeed"><h2>أو عبّر عن حاجتك بطريقتك</h2><p class="hint">اكتب ما يشغلك، أو سجّل رسالة صوتية بالعربية أو الدارجة أو الفرنسية.</p>
-<textarea id="needText" rows="4" placeholder="اكتب حاجتك هنا... مثال: أبحث عن السكينة وأتمنى تيسير الزواج والعمل."></textarea>
-<div class="voiceTools">
-<select id="voiceLanguage" aria-label="لغة التسجيل"><option value="ar-MA">العربية / الدارجة</option><option value="ar-SA">العربية</option><option value="fr-FR">Français</option></select>
-<button class="btn" id="startRecording" type="button">🎙 بدء التسجيل</button>
-<button class="btn" id="stopRecording" type="button" disabled>إيقاف التسجيل</button>
-</div>
-<audio id="recordedAudio" controls hidden></audio>
-<p class="voiceStatus" id="voiceStatus" aria-live="polite">التسجيل الصوتي لا يُرفع إلى الموقع. قد تعتمد الكتابة الصوتية على خدمة المتصفح وإعدادات الخصوصية فيه.</p>
-<button class="btn primary buildBtn" id="buildNeed" type="button">إنشاء مساري القرآني</button>
-</section>
-<section class="path" id="path" aria-live="polite">
-<h3 id="pathTitle">مسار السكينة والنوم</h3><p id="pathText">نجمع بين آيات من الأذكار المعروفة، وآيات تتناول النوم والليل والنفس والراحة. الإضافات مستوحاة من معانٍ تأملية قريبة من موضوعات تناولها ابن عربي، وليست وصفة مخصوصة منسوبة إليه.</p>
-<div class="pathMeta" id="pathMeta"><span class="pill">الأساس النبوي</span><span class="pill">معنى النوم والليل</span><span class="pill">التسليم والتفكر</span></div>
+<div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">إنشاء مساري القرآني</button><p class="composeHint">ستُجمع الآيات المناسبة، وتُزال المكررات، ويُحترم ترتيب المصحف.</p></div><section class="path" id="path" aria-live="polite">
+<h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
+<div class="pathMeta" id="pathMeta"></div>
 <div class="player">
 <div class="playerEyebrow">لحظة تلاوة</div>
 <h4>استمع بهدوء</h4>
@@ -171,7 +188,7 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <div class="verses" id="verses"></div>
 </section>
 
-<div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Mishary Alafasy. استلهام مفاهيمي من موضوعات القلب والتدبير والتفكر عند ابن عربي، دون نسبة هذه الاختيارات إليه أو نقل أقوال حرفية.</div>
+<div class="footer">النصوص القرآنية وروابط المراجعة: Quran.com. التلاوة الصوتية: EveryAyah · Mishary Alafasy. المحاور التأملية مستلهمة من موضوعات في فكر ابن عربي، ولا تمثل تفسيراً منسوباً إليه أو وصفة مخصوصة.</div>
 </div>
 <script>
 const verses={
@@ -182,21 +199,21 @@ const verses={
  ikhlas:{ref:"الإخلاص · ١–٤",title:"سورة الإخلاص",text:"قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",meaning:"إفراد الله بالقصد والتوحيد.",audio:["112001","112002","112003","112004"],kind:"القلائد الثلاث",source:"https://quran.com/112"},
  falaq:{ref:"الفلق · ١–٥",title:"سورة الفلق",text:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",meaning:"سورة استعاذة والتجاء إلى الله من الشرور.",audio:["113001","113002","113003","113004","113005"],kind:"القلائد الثلاث",source:"https://quran.com/113"},
  nas:{ref:"الناس · ١–٦",title:"سورة الناس",text:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",meaning:"سورة استعاذة بالله من الوسواس.",audio:["114001","114002","114003","114004","114005","114006"],kind:"القلائد الثلاث",source:"https://quran.com/114"},
- ra3d:{ref:"الرعد · ٢٨",title:"طمأنينة القلب",text:"الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",meaning:"تربط الآية طمأنينة القلب بذكر الله.",audio:["013028"],kind:"آية مساندة",source:"https://quran.com/13/28"},
- sharh:{ref:"الشرح · ٥–٦",title:"مع العسر يسر",text:"فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",meaning:"تفتح الآيتان باب الرجاء وتذكّران بمعية اليسر للعسر.",audio:["094005","094006"],kind:"آية مساندة",source:"https://quran.com/94/5-6"},
- isra:{ref:"الإسراء · ٨٢",title:"الشفاء والرحمة",text:"وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ وَلَا يَزِيدُ الظَّالِمِينَ إِلَّا خَسَارًا",meaning:"تصف الآية القرآن بأنه شفاء ورحمة للمؤمنين.",audio:["017082"],kind:"آية مساندة",source:"https://quran.com/17/82"},
+ ra3d:{ref:"الرعد · ٢٨",title:"طمأنينة القلب",text:"الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",concept:"القلب والذكر — حضور القلب بذكر الله، وهو محور تأملي حاضر في الكتابات الصوفية.",meaning:"تربط الآية طمأنينة القلب بذكر الله.",audio:["013028"],kind:"آية مساندة",source:"https://quran.com/13/28"},
+ sharh:{ref:"الشرح · ٥–٦",title:"مع العسر يسر",text:"فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",concept:"الرجاء واتساع المعنى — تأمل في اليسر بعد العسر.",meaning:"تفتح الآيتان باب الرجاء وتذكّران بمعية اليسر للعسر.",audio:["094005","094006"],kind:"آية مساندة",source:"https://quran.com/94/5-6"},
+ isra:{ref:"الإسراء · ٨٢",title:"الشفاء والرحمة",text:"وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ وَلَا يَزِيدُ الظَّالِمِينَ إِلَّا خَسَارًا",concept:"الرحمة والشفاء — التأمل في الرحمة الإلهية ومعنى الشفاء.",meaning:"تصف الآية القرآن بأنه شفاء ورحمة للمؤمنين.",audio:["017082"],kind:"آية مساندة",source:"https://quran.com/17/82"},
  anam60:{ref:"الأنعام · ٦٠",title:"النوم والتسليم",text:"وَهُوَ ٱلَّذِى يَتَوَفَّىٰكُم بِٱلَّيۡلِ وَيَعْلَمُ مَا جَرَحۡتُم بِٱلنَّهَارِ ثُمَّ يَبْعَثُكُمۡ فِيهِ لِيُقۡضَىٰٓ أَجَلٞ مُّسَمًّۭى ۖ ثُمَّ إِلَيْهِ مَرْجِعُكُمۡ ثُمَّ يُنَبِّئُكُم بِمَا كُنتُمۡ تَعْمَلُونَ ٦٠",meaning:"تصف الآية النوم واليقظة في سياق سلطان الله وعلمه؛ وتفتح باب التأمل في التسليم.",audio:["006060"],kind:"إضافة للتدبر",concept:"التسليم — تفويض الأمر إلى الله",source:"https://quran.com/6/60"},
  zumar42:{ref:"الزمر · ٤٢",title:"النفس والمنام",text:"ٱللَّهُ يَتَوَفَّى ٱلْأَنفُسَ حِينَ مَوْتِهَا وَٱلَّتِى لَمْ تَمُتْ فِى مَنَامِهَا ۖ فَيُمْسِكُ ٱلَّتِى قَضَىٰ عَلَيْهَا ٱلْمَوْتَ وَيُرْسِلُ ٱلْأُخْرَىٰٓ إِلَىٰٓ أَجَلٍۢ مُّسَمًّى ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ ٤٢",meaning:"تربط الآية النوم بآية من آيات الله وتدعو إلى التفكر.",audio:["039042"],kind:"إضافة للتدبر",concept:"النفس — التأمل في حقيقة النفس والمنام",source:"https://quran.com/39/42"},
  naba9:{ref:"النبأ · ٩",title:"النوم راحة",text:"وَجَعَلْنَا نَوْمَكُمْ سُبَاتًۭا ٩",meaning:"تذكر الآية أن النوم جُعل للإنسان سكوناً وراحة.",audio:["078009"],kind:"إضافة للتدبر",concept:"الراحة — السكون والهدوء",source:"https://quran.com/78/9"},
  furqan47:{ref:"الفرقان · ٤٧",title:"الليل لباساً والنوم سباتاً",text:"وَهُوَ ٱلَّذِى جَعَلَ لَكُمُ ٱلَّيْلَ لِبَاسًۭا وَٱلنَّوْمَ سُبَاتًۭا وَجَعَلَ ٱلنَّهَارَ نُشُورًۭا ٤٧",meaning:"تجمع الآية بين ستر الليل وراحة النوم واليقظة في النهار.",audio:["025047"],kind:"إضافة للتدبر",concept:"الستر — الليل لباس وسكن",source:"https://quran.com/25/47"},
  rum23:{ref:"الروم · ٢٣",title:"النوم من آيات الله",text:"وَمِنْ ءَايَـٰتِهِۦ مَنَامُكُم بِٱلَّيْلِ وَٱلنَّهَارِ وَٱبْتِغَآؤُكُم مِّن فَضْلِهِۦٓ ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍ يَسْمَعُونَ ٢٣",meaning:"تدعو الآية إلى النظر في النوم بوصفه آية من آيات الله.",audio:["030023"],kind:"إضافة للتدبر",concept:"التفكر — رؤية النوم كآية",source:"https://quran.com/30/23"}
 ,
- rum21:{ref:"الروم · ٢١",title:"المودة والرحمة",text:"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",meaning:"تتحدث الآية عن السكن والمودة والرحمة بين الزوجين.",audio:["030021"],kind:"آية للتدبر",source:"https://quran.com/30/21"},
+ rum21:{ref:"الروم · ٢١",title:"المودة والرحمة",text:"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",concept:"السكن والمودة — تأمل في الرحمة والعلاقة بوصفها مجالاً للسكن.",meaning:"تتحدث الآية عن السكن والمودة والرحمة بين الزوجين.",audio:["030021"],kind:"آية للتدبر",source:"https://quran.com/30/21"},
  furqan74:{ref:"الفرقان · ٧٤",title:"دعاء للأسرة والذرية",text:"وَالَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",meaning:"دعاء قرآني بصلاح الأسرة والذرية وقرة العين.",audio:["025074"],kind:"دعاء قرآني",source:"https://quran.com/25/74"},
- hud6:{ref:"هود · ٦",title:"الرزق بيد الله",text:"وَمَا مِن دَابَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا وَيَعْلَمُ مُسْتَقَرَّهَا وَمُسْتَوْدَعَهَا ۚ كُلٌّ فِي كِتَابٍ مُّبِينٍ",meaning:"تذكير بأن الله تكفّل بأرزاق خلقه وعلمه محيط بأحوالهم.",audio:["011006"],kind:"آية للتدبر",source:"https://quran.com/11/6"},
+ hud6:{ref:"هود · ٦",title:"الرزق بيد الله",text:"وَمَا مِن دَابَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا وَيَعْلَمُ مُسْتَقَرَّهَا وَمُسْتَوْدَعَهَا ۚ كُلٌّ فِي كِتَابٍ مُّبِينٍ",concept:"التوكل والرزق — الثقة بالله مع الأخذ بالأسباب.",meaning:"تذكير بأن الله تكفّل بأرزاق خلقه وعلمه محيط بأحوالهم.",audio:["011006"],kind:"آية للتدبر",source:"https://quran.com/11/6"},
  talaq2:{ref:"الطلاق · ٢",title:"التقوى والمخرج",text:"فَإِذَا بَلَغْنَ أَجَلَهُنَّ فَأَمْسِكُوهُنَّ بِمَعْرُوفٍ أَوْ فَارِقُوهُنَّ بِمَعْرُوفٍ وَأَشْهِدُوا ذَوَيْ عَدْلٍ مِّنكُمْ وَأَقِيمُوا الشَّهَادَةَ لِلَّهِ ۚ ذَٰلِكُمْ يُوعَظُ بِهِ مَن كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ ۚ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا",meaning:"تختم الآية بذكر التقوى وما يجعل الله معها من مخرج.",audio:["065002"],kind:"آية للتدبر",source:"https://quran.com/65/2"},
- talaq3:{ref:"الطلاق · ٣",title:"التوكل والرزق",text:"وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ ۚ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا",meaning:"تجمع الآية بين التوكل على الله والرزق من حيث لا يحتسب الإنسان.",audio:["065003"],kind:"آية للتدبر",source:"https://quran.com/65/3"},
- aliImran38:{ref:"آل عمران · ٣٨",title:"دعاء زكريا بالذرية",text:"هُنَالِكَ دَعَا زَكَرِيَّا رَبَّهُ ۖ قَالَ رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً ۖ إِنَّكَ سَمِيعُ الدُّعَاءِ",meaning:"دعاء نبي الله زكريا عليه السلام بطلب الذرية الطيبة.",audio:["003038"],kind:"دعاء قرآني",source:"https://quran.com/3/38"}
+ talaq3:{ref:"الطلاق · ٣",title:"التوكل والرزق",text:"وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ ۚ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا",concept:"التوكل — الجمع بين بذل السبب وتفويض النتيجة إلى الله.",meaning:"تجمع الآية بين التوكل على الله والرزق من حيث لا يحتسب الإنسان.",audio:["065003"],kind:"آية للتدبر",source:"https://quran.com/65/3"},
+ aliImran38:{ref:"آل عمران · ٣٨",title:"دعاء زكريا بالذرية",text:"هُنَالِكَ دَعَا زَكَرِيَّا رَبَّهُ ۖ قَالَ رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً ۖ إِنَّكَ سَمِيعُ الدُّعَاءِ",concept:"الدعاء والافتقار — التوجه إلى الله بطلب الذرية الطيبة.",meaning:"دعاء نبي الله زكريا عليه السلام بطلب الذرية الطيبة.",audio:["003038"],kind:"دعاء قرآني",source:"https://quran.com/3/38"}
 };
 const paths={
  anxiety:{title:"مسار الذكر وطمأنينة القلب",text:"نبدأ بمعنى الذكر بوصفه عودة واعية إلى الله وحضوراً للقلب. هذا اختيار للتدبر، لا وعد بنتيجة محددة.",ids:["fatiha","ra3d","sharh"],names:["السَّلَام","اللَّطِيف"],theme:"anxiety"},
@@ -285,13 +302,14 @@ function renderPath(key){
 }
 
 const categoryInfo={
- protection:{label:"الحماية والتحصين",ids:["kursi","ikhlas","falaq","nas"]},
- marriage:{label:"الزواج والأسرة",ids:["rum21","furqan74"]},
- rizq:{label:"الرزق والعمل",ids:["hud6","talaq2","talaq3"]},
- children:{label:"الأبناء والذرية",ids:["aliImran38","furqan74"]},
- calm:{label:"السكينة وراحة النفس",ids:["fatiha","ra3d","sharh"]},
- healing:{label:"الشفاء والعافية",ids:["fatiha","isra","ikhlas"]}
+ protection:{label:"الحماية والتحصين",ids:["kursi","ikhlas","falaq","nas","ra3d"]},
+ marriage:{label:"الزواج والأسرة",ids:["rum21","furqan74","sharh"]},
+ rizq:{label:"الرزق والعمل",ids:["hud6","talaq2","talaq3","sharh"]},
+ children:{label:"الأبناء والذرية",ids:["aliImran38","furqan74","ra3d"]},
+ calm:{label:"السكينة وراحة النفس",ids:["ra3d","sharh","isra","zumar42","anam60"]},
+ healing:{label:"الشفاء والعافية",ids:["isra","fatiha","ikhlas","sharh"]}
 };
+const foundationIds=["fatiha","kursi","baqara285","baqara286","ikhlas","falaq","nas"];
 const selectedCategories=new Set();
 const voiceStatus=document.getElementById("voiceStatus"),needText=document.getElementById("needText"),recordButton=document.getElementById("startRecording"),stopRecordButton=document.getElementById("stopRecording"),recordedAudio=document.getElementById("recordedAudio");
 let mediaRecorder=null,recordedChunks=[],recordedStream=null,recognition=null,recordedUrl=null;
@@ -312,21 +330,25 @@ function detectCategories(text){
  return found;
 }
 function composeNeed(){
- const detected=detectCategories(needText.value);
- const all=[...new Set([...selectedCategories,...detected])];
- if(!all.length){voiceStatus.textContent="اختر موضوعاً واحداً على الأقل أو اكتب حاجتك بكلمات أوضح.";return;}
- const ids=[...new Set(all.flatMap(key=>categoryInfo[key].ids))].sort((a,b)=>Number(verses[a].audio[0])-Number(verses[b].audio[0]));
+ const typed=needText.value.trim();
+ const detected=detectCategories(typed);
+ let all=[...new Set([...selectedCategories,...detected])];
+ if(!all.length&&typed)all=["calm"];
+ if(!all.length){voiceStatus.textContent="Décrivez votre besoin ou sélectionnez au moins une catégorie.";return;}
+ const ids=[...new Set([...foundationIds,...all.flatMap(key=>categoryInfo[key].ids)])]
+  .sort((a,b)=>Number(verses[a].audio[0])-Number(verses[b].audio[0]));
  currentIds=ids;
  document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
- document.getElementById("pathTitle").textContent="مسارك القرآني المختار";
- document.getElementById("pathText").textContent="تم جمع الآيات المرتبطة بالموضوعات التي اخترتها أو ظهرت في وصفك، مع حذف التكرار وترتيبها حسب ترتيب السور والآيات في المصحف.";
+ document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
+ document.getElementById("pathText").textContent="يجمع هذا المسار بين آيات معروفة في التلاوة والرقية، وآيات أخرى للتدبر مرتبطة بموضوعك. جُمعت الآيات دون تكرار ورُتبت حسب ترتيب المصحف.";
  const meta=document.getElementById("pathMeta");meta.innerHTML="";
  all.forEach(key=>{const el=document.createElement("span");el.className="pill";el.textContent=categoryInfo[key].label;meta.append(el);});
+ const min=document.createElement("span");min.className="pill";min.textContent=ids.length+" مقطعاً قرآنياً";meta.append(min);
  versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
  playlist=buildPlaylist(ids);stopPlayback();playAll.disabled=false;
  setStatus("تم إعداد المسار · "+ids.length+" مقاطع صوتية.");
  path.classList.add("show");path.scrollIntoView({behavior:"smooth",block:"start"});
- voiceStatus.textContent="الموضوعات المعتمدة: "+all.map(key=>categoryInfo[key].label).join(" · ");
+ voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ");
 }
 choices.forEach(btn=>btn.addEventListener("click",()=>{
  const key=btn.dataset.key;
@@ -334,6 +356,7 @@ choices.forEach(btn=>btn.addEventListener("click",()=>{
  else{selectedCategories.add(key);btn.classList.add("active");}
 }));
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
+needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.textContent="راجع النص، ثم اضغط على «إنشاء مساري القرآني».";});
 recordButton.addEventListener("click",async()=>{
  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){voiceStatus.textContent="التسجيل الصوتي غير متاح في هذا المتصفح. يمكنك كتابة حاجتك بدلاً من ذلك.";return;}
  try{
