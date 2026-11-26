@@ -1,0 +1,1 @@
+AL-NUQTA static release: Cloudflare Pages build output is dist/.
