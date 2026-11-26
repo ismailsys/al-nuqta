@@ -745,12 +745,12 @@ function normalizeNeed(value){
  return (value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u064b-\u065f\u0670]/g,"").replace(/ـ/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه");
 }
 const keywordRules=[
- {key:"protection",words:["عين","عين حاسده","حسد","حاسد","محسود","سحر","مسحور","اذي","شر","تحصين","حمايه","وقايه","حفظ","رقية","رقيا","evil eye","envy","black magic","protection","mauvais oeil","jalousie","proteger"]},
- {key:"marriage",words:["زواج","اتزوج","الزواج","زوج","زوجي","زوجتي","زوجها","زوجته","ازواج","زوجه","زوجة","خطوبه","خطوبة","ارتباط","موده","مودة","رحمه","رحمة","خلاف زوجي","مشاكل زوجيه","اسره","علاقه زوجيه","mariage","marier","couple","conjoint","relation"]},
- {key:"rizq",words:["رزق","الرزق","رزاق","يرزق","رزقني","رزقه","رزقها","عمل","وظيفه","شغل","مال","فلوس","فقر","دين","تجاره","تجارة","مشروع","بركه","بركة","سعه","سعة","ضيق المعيشه","travail","emploi","argent","revenu","professionnel","business"]},
- {key:"children",words:["اطفال","طفل","طفله","طفلة","ابناء","ابني","ابنتي","اولاد","ولد","بنت","ذريه","ذرية","انجاب","انجاب","حمل","تربيه الابناء","صلاح الابناء","enfant","enfants","descendance","enfantement"]},
- {key:"calm",words:["قلق","خوف","خائف","فزع","هم","غم","حزن","ضيق","كرب","وسواس","نوم","ارق","أرق","توتر","سكينه","سكينة","طمأنينه","طمأنينة","راحه نفسيه","راحة البال","angoisse","anxiete","stress","tristesse","peur","sommeil","calme","serenite"]},
- {key:"healing",words:["شفاء","اشفي","مرض","مريض","الم","وجع","تعب","صحه","صحة","عافيه","عافية","بلاء","guerison","maladie","douleur","fatigue","sante"]}
+ {key:"protection",words:["عين","عين حاسده","حسد","حاسد","محسود","سحر","مسحور","اذي","شر","تحصين","حمايه","وقايه","حفظ","رقية","رقيا","evil eye","envy","black magic","protection","protect","protecting","mauvais oeil","jalousie","proteger","protection contre","envoutement","sorcellerie","sort","malefice"]},
+ {key:"marriage",words:["زواج","اتزوج","الزواج","زوج","زوجي","زوجتي","زوجها","زوجته","ازواج","زوجه","زوجة","خطوبه","خطوبة","ارتباط","موده","مودة","رحمه","رحمة","خلاف زوجي","مشاكل زوجيه","اسره","علاقه زوجيه","mariage","marier","marie","mari","femme","couple","conjoint","conjointe","relation amoureuse","relation de couple","fiance","fiancee","divorce","separation","dispute conjugale"]},
+ {key:"rizq",words:["رزق","الرزق","رزاق","يرزق","رزقني","رزقه","رزقها","عمل","وظيفه","شغل","مال","فلوس","فقر","دين","تجاره","تجارة","مشروع","بركه","بركة","سعه","سعة","ضيق المعيشه","travail","emploi","argent","revenu","professionnel","business","chomage","salaire","carriere","carriere professionnelle","entreprise","trouver un emploi","trouver du travail","dette","dettes","difficulte financiere","difficultes financieres","reussite professionnelle"]},
+ {key:"children",words:["اطفال","طفل","طفله","طفلة","ابناء","ابني","ابنتي","اولاد","ولد","بنت","ذريه","ذرية","انجاب","حمل","تربيه الابناء","صلاح الابناء","enfant","enfants","bebe","bebe","grossesse","enceinte","tomber enceinte","fertilite","fertilite","conception","avoir un enfant","avoir des enfants","education des enfants","maternite","paternite"]},
+ {key:"calm",words:["قلق","خوف","خائف","فزع","هم","غم","حزن","ضيق","كرب","وسواس","نوم","ارق","توتر","سكينه","طمأنينه","راحه نفسيه","راحة البال","angoisse","anxiete","anxieux","anxieuse","stress","stresse","stressee","tristesse","peur","sommeil","insomnie","calme","apaisement","serenite","inquiet","inquiete","panique","solitude","fatigue mentale","epuisement emotionnel","mal etre"]},
+ {key:"healing",words:["شفاء","اشفي","مرض","مريض","الم","وجع","تعب","صحه","عافيه","بلاء","guerison","maladie","malade","douleur","fatigue","sante","souffrance physique","retablissement"]}
 ];
 function detectCategories(text){
  const normalized=normalizeNeed(text),found=[];
