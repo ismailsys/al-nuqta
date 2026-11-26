@@ -293,6 +293,16 @@ select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:1
  .needCard #voiceLanguage{min-width:0;width:100%}
 }
 
+
+/* Two-step experience: request screen and generated ruqya screen */
+body[data-page="result"] .hero,body[data-page="result"] #customNeed,body[data-page="result"] .composeArea{display:none!important}
+body[data-page="result"] #path{margin-top:20px}
+.resultTop{display:flex;justify-content:flex-start;margin-bottom:16px}
+.backBtn{border-color:var(--accent);color:var(--accent2)}
+.frequencyToggle{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;cursor:pointer}
+.frequencyToggle input{accent-color:var(--accent);width:16px;height:16px}
+@media(max-width:650px){.resultTop .backBtn{width:100%}.playerOptions{gap:14px}}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -315,6 +325,7 @@ select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:1
 </section>
 
 <div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">أنشئ رقيتي</button><p class="composeHint">آيات مختارة ومرتبة حسب المصحف.</p></div><section class="path" id="path" aria-live="polite">
+<div class="resultTop"><button class="btn backBtn" id="backToNeed" type="button">← العودة إلى الصفحة الأولى</button></div>
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
 <div class="player">
@@ -328,6 +339,7 @@ select{background:#172522;border:1px solid #46584e;color:#e8e5dc;border-radius:1
 <div class="playerOptions">
 <label>التكرار
 <select id="repeatCount" aria-label="عدد مرات التكرار"><option value="1">مرة واحدة</option><option value="3" selected>3 مرات</option><option value="7">7 مرات</option><option value="10">10 مرات</option><option value="20">20 مرة</option></select></label>
+<label class="frequencyToggle"><input type="checkbox" id="frequency528" checked> تردد 528 هرتز</label>
 </div>
 <div class="playerStatus" id="playerStatus">اضغط على ابدأ للاستماع إلى المسار كاملاً.</div>
 </div>
@@ -372,7 +384,31 @@ const paths={
 const choices=[...document.querySelectorAll(".choice")],path=document.getElementById("path"),versesBox=document.getElementById("verses"),playAll=document.getElementById("playAll"),stopAll=document.getElementById("stopAll"),repeatSelect=document.getElementById("repeatCount"),statusEl=document.getElementById("playerStatus");
 let activeButton=null,currentAudio=null,playlist=[],playIndex=0,pass=1,repeatTotal=3,playingCard=null,stopRequested=false,currentIds=[];
 function setStatus(s){statusEl.textContent=s}
-function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
+let audioContext=null,frequencyOscillator=null,frequencyGain=null;
+function stopFrequency(){
+ if(frequencyOscillator){try{frequencyOscillator.stop();}catch(e){}try{frequencyOscillator.disconnect();}catch(e){}frequencyOscillator=null;}
+ if(frequencyGain){try{frequencyGain.disconnect();}catch(e){}frequencyGain=null;}
+}
+function connectAudioFrequency(audio){
+ const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+ if(!AudioContextClass)return;
+ try{
+  if(!audioContext)audioContext=new AudioContextClass();
+  const source=audioContext.createMediaElementSource(audio);
+  source.connect(audioContext.destination);
+  if(document.getElementById("frequency528")?.checked){
+   frequencyOscillator=audioContext.createOscillator();
+   frequencyGain=audioContext.createGain();
+   frequencyOscillator.type="sine";
+   frequencyOscillator.frequency.value=528;
+   frequencyGain.gain.value=0.018;
+   frequencyOscillator.connect(frequencyGain);
+   frequencyGain.connect(audioContext.destination);
+   frequencyOscillator.start();
+  }
+ }catch(error){stopFrequency();}
+}
+function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}stopFrequency();currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;playAll.textContent="▶ ابدأ التلاوة";setStatus("تم إيقاف التلاوة.");}
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
 function audioUrl(id){return "https://everyayah.com/data/aziz_alili_128kbps/"+id+".mp3";}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
@@ -388,9 +424,12 @@ function playNext(){
  playingCard=card||null;playingCard?.classList.add("playing");
  setStatus("الآن: "+v.ref+" · التكرار "+pass+" من "+repeatTotal);
  currentAudio=new Audio(audioUrl(item.src));
- currentAudio.addEventListener("ended",()=>{playIndex++;playNext();},{once:true});
- currentAudio.addEventListener("error",()=>{setStatus("تعذر تحميل المقطع الصوتي. تحقق من الاتصال ثم أعد المحاولة.");playIndex++;playNext();},{once:true});
- currentAudio.play().catch(()=>{setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");playAll.textContent="▶ إعادة المحاولة";});
+ connectAudioFrequency(currentAudio);
+ currentAudio.addEventListener("ended",()=>{stopFrequency();playIndex++;playNext();},{once:true});
+ currentAudio.addEventListener("error",()=>{stopFrequency();setStatus("تعذر تحميل المقطع الصوتي. تحقق من الاتصال ثم أعد المحاولة.");playIndex++;playNext();},{once:true});
+ const audioToPlay=currentAudio;
+ const resume=audioContext&&audioContext.state==="suspended"?audioContext.resume():Promise.resolve();
+ resume.then(()=>audioToPlay.play()).catch(()=>{if(audioToPlay===currentAudio){stopFrequency();setStatus("تعذر تشغيل الصوت. اضغط على زر التشغيل مرة أخرى.");playAll.textContent="▶ إعادة المحاولة";}});
 }
 function renderVerse(id){
  const v=verses[id],card=document.createElement("article");card.className="verse";card.dataset.verse=id;
@@ -461,6 +500,7 @@ function composeNeed(){
   });
  currentIds=ids;
  document.body.dataset.theme=all.includes("calm")?"distress":all.includes("protection")?"fear":"sleep";
+ document.body.dataset.page="result";
  document.getElementById("pathTitle").textContent="مسارك القرآني الشخصي";
  document.getElementById("pathText").textContent="يجمع هذا المسار بين آيات معروفة في التلاوة والرقية، وآيات أخرى للتدبر مرتبطة بموضوعك. جُمعت الآيات دون تكرار ورُتبت حسب ترتيب المصحف.";
  const meta=document.getElementById("pathMeta");meta.innerHTML="";
@@ -469,10 +509,11 @@ function composeNeed(){
  versesBox.innerHTML="";ids.forEach(id=>versesBox.appendChild(renderVerse(id)));
  playlist=buildPlaylist(ids);stopPlayback();playAll.disabled=false;
  setStatus("تم إعداد المسار · "+ids.length+" مقاطع صوتية.");
- path.classList.add("show");path.scrollIntoView({behavior:"smooth",block:"start"});
+ path.classList.add("show");window.scrollTo({top:0,behavior:"smooth"});
  voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ");
 }
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
+document.getElementById("backToNeed").addEventListener("click",()=>{stopPlayback();document.body.dataset.page="input";window.scrollTo({top:0,behavior:"smooth"});});
 needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.textContent="راجع النص، ثم اضغط على «إنشاء مساري القرآني».";});
 function finishRecording(){
  if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
