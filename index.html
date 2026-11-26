@@ -641,8 +641,10 @@ function connectAudioFrequency(audio){
 }
 function stopPlayback(){stopRequested=true;if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}stopFrequency();currentAudio=null;playingCard?.classList.remove("playing");playingCard=null;playIndex=0;pass=1;setPlayButton(false,"ابدأ التلاوة");setStatus("تم إيقاف التلاوة.");}
 function buildPlaylist(ids){return ids.flatMap(id=>verses[id].audio.map(src=>({src,id})));}
-function audioUrl(id){return "https://huggingface.co/datasets/maqra-project/aziz-alili-128kbps/resolve/main/"+id+".mp3";}
-function fallbackAudioUrl(id){return "https://everyayah.com/data/aziz_alili_128kbps/"+id+".mp3";}
+// Recitateur : Mishary Rashid Alafasy (128 kbps, verset par verset).
+// Source principale : miroir Maqra vérifié ; secours : EveryAyah.
+function audioUrl(id){return "https://huggingface.co/datasets/maqra-project/mishari-alafasy-128kbps/resolve/main/"+id+".mp3";}
+function fallbackAudioUrl(id){return "https://everyayah.com/data/Alafasy_128kbps/"+id+".mp3";}
 function playQueue(queue,startIndex=0,repeat=1,card=null){
  stopPlayback();stopRequested=false;playlist=queue;playIndex=startIndex;repeatTotal=repeat;pass=1;playingCard=card;
  setPlayButton(true,"التلاوة جارية");playNext();
