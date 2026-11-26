@@ -300,8 +300,6 @@ body[data-page="input"] #path{display:none!important}
 body[data-page="result"] #path{margin-top:20px}
 .resultTop{display:flex;justify-content:flex-start;margin-bottom:16px}
 .backBtn{border-color:var(--accent);color:var(--accent2)}
-.frequencyToggle{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;cursor:pointer}
-.frequencyToggle input{accent-color:var(--accent);width:16px;height:16px}
 @media(max-width:650px){.resultTop .backBtn{width:100%}.playerOptions{gap:14px}}
 
 </style>
@@ -340,7 +338,6 @@ body[data-page="result"] #path{margin-top:20px}
 <div class="playerOptions">
 <label>التكرار
 <select id="repeatCount" aria-label="عدد مرات التكرار"><option value="1">مرة واحدة</option><option value="3" selected>3 مرات</option><option value="7">7 مرات</option><option value="10">10 مرات</option><option value="20">20 مرة</option></select></label>
-<label class="frequencyToggle"><input type="checkbox" id="frequency528" checked> تردد 528 هرتز</label>
 </div>
 <div class="playerStatus" id="playerStatus">اضغط على ابدأ للاستماع إلى المسار كاملاً.</div>
 </div>
@@ -391,7 +388,7 @@ function stopFrequency(){
  if(frequencyGain){try{frequencyGain.disconnect();}catch(e){}frequencyGain=null;}
 }
 function startFrequency(){
- if(!audioContext||!document.getElementById("frequency528")?.checked||frequencyOscillator)return;
+ if(!audioContext||frequencyOscillator)return;
  try{
   frequencyOscillator=audioContext.createOscillator();
   frequencyGain=audioContext.createGain();
@@ -565,7 +562,6 @@ recordButton.addEventListener("click",async()=>{
 });
 playAll.addEventListener("click",()=>{if(currentIds.length)playQueue(buildPlaylist(currentIds),0,Number(repeatSelect.value),null);});
 stopAll.addEventListener("click",stopPlayback);
-document.getElementById("frequency528").addEventListener("change",event=>{if(event.target.checked){if(audioContext?.state==="suspended")audioContext.resume();startFrequency();}else stopFrequency();});
 repeatSelect.addEventListener("change",()=>{setStatus("عدد التكرارات المحدد: "+repeatSelect.value+" · يبدأ تطبيقه عند التشغيل التالي.");});
 
 
