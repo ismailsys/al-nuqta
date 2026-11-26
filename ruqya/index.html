@@ -458,6 +458,45 @@ body[data-page="result"] #path{margin-top:20px}
  .needCard .composeArea .buildBtn{width:100%;padding:12px}
 }
 
+
+/* Restore the original deep SAKINA night palette */
+:root{
+ color-scheme:dark;
+ --bg:#111a27;--panel:#1b2636;--panel2:#222f42;
+ --accent:#c9a66b;--accent2:#e5d0a0;--text:#f3eee4;
+ --muted:#b7bdc7;--line:#354254;--glow:#c9a66b22;
+}
+body{background:radial-gradient(ellipse at 50% -15%,var(--glow) 0%,var(--bg) 58%);color:var(--text)}
+body[data-theme="anxiety"]{--bg:#211b16;--panel:#2a211a;--panel2:#35291e;--accent:#d6a65d;--accent2:#f0d5a0;--line:#51402d;--glow:#d6a65d28}
+body[data-theme="fear"]{--bg:#111b30;--panel:#1a2942;--panel2:#223655;--accent:#8ca9d5;--accent2:#d7e4fb;--line:#354b6c;--glow:#7195d42b}
+body[data-theme="sadness"]{--bg:#211b2a;--panel:#2b2337;--panel2:#382b45;--accent:#b69ac7;--accent2:#eadcf2;--line:#4b3b5b;--glow:#b69ac72a}
+body[data-theme="distress"]{--bg:#14231f;--panel:#1d302a;--panel2:#263d35;--accent:#8db9a2;--accent2:#d7eee0;--line:#385448;--glow:#8db9a22a}
+body[data-theme="sleep"]{--bg:#101a2a;--panel:#182438;--panel2:#202e43;--accent:#d4b47a;--accent2:#f1dfb9;--line:#34445c;--glow:#d4b47a24}
+body[data-theme="pain"]{--bg:#241e18;--panel:#30271f;--panel2:#3b3025;--accent:#c6a17c;--accent2:#f0ddc8;--line:#554434;--glow:#c6a17c24}
+.needCard{background:linear-gradient(145deg,var(--panel),var(--bg));border-color:#9c8050;box-shadow:0 14px 38px #0004,inset 0 0 0 1px #ffffff08}
+.needCard h2,.needCard .hint{color:var(--text)}
+.topicLabel,.topicHint{color:var(--muted)}
+.topicTag{background:var(--panel2);border-color:var(--line);color:var(--text)}
+.topicTag:hover{background:var(--panel);border-color:var(--accent)}
+.topicTag.active{background:#263a30;border-color:var(--accent);color:#dce9d9;box-shadow:inset 0 0 0 1px #c9a66b30}
+.composerField{background:var(--panel);border-color:#9c8050;box-shadow:0 3px 12px #0003}
+.needCard .composerField #needText{color:var(--text);background:transparent}
+.needCard .composerField #needText::placeholder{color:#aab1b9}
+.composerToolbar{background:var(--panel2);border-top-color:var(--line)}
+.composerToolbar #startRecording{background:#526f5a;border-color:var(--accent);color:#fff}
+.needCard .composeArea .buildBtn{background:linear-gradient(110deg,#526f5a,#6c866c);border-color:var(--accent);color:#fff}
+.needCard .composeHint{color:var(--muted)}
+.path{background:linear-gradient(145deg,var(--panel),#111a27aa);border-color:var(--line)}
+.player{background:linear-gradient(145deg,var(--panel),var(--panel2));border-color:var(--line)}
+.player h4,.path h3{color:var(--accent2)}
+.verse{background:var(--panel);border-color:var(--line)}
+.verse.playing{background:var(--panel2);border-color:var(--accent);box-shadow:0 0 0 1px var(--glow),0 10px 28px #0003}
+.arabic{color:var(--text)}
+.meaning,.path p{color:var(--muted)}
+.pill,.tag{background:var(--panel2);border-color:var(--line);color:var(--accent2)}
+.btn{background:var(--panel2);border-color:var(--line);color:var(--text)}
+.btn.primary{background:#526f5a;border-color:var(--accent);color:#fff}
+
 </style>
 </head>
 <body data-theme="sleep">
@@ -584,8 +623,8 @@ function connectAudioFrequency(audio){
  if(!AudioContextClass)return;
  try{
   if(!audioContext)audioContext=new AudioContextClass();
-  const source=audioContext.createMediaElementSource(audio);
-  source.connect(audioContext.destination);
+  // Keep the Quran MP3 on native playback. Routing cross-origin MP3s
+  // through MediaElementAudioSource can mute them when CORS is unavailable.
   startFrequency();
  }catch(error){stopFrequency();}
 }
