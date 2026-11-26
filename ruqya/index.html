@@ -139,12 +139,54 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 .note strong{color:var(--accent2)}
 .footer{color:#929188}
 @media(max-width:650px){.hero{padding-top:32px}.player{padding:22px 15px}.playerControls>*{flex:initial}.playerOptions{gap:10px}.arabic{font-size:24px}}
+
+/* SAKINA refresh — warm ivory, botanical green and soft champagne */
+:root{--bg:#f2f0e8;--panel:#fffefa;--panel2:#e9eee7;--accent:#718879;--accent2:#465f50;--text:#303a33;--muted:#777f76;--line:#dce3d9;--glow:#a8bba533}
+body{background:radial-gradient(ellipse at 50% -20%,#e3eadf 0%,#f4f2eb 56%,#eeece3 100%);color:var(--text)}
+.wrap{width:min(900px,92%);padding-top:30px}
+.top{border-bottom:1px solid #d9e1d7}
+.brand{color:#66816d;letter-spacing:.16em}.brand span{color:#9a8258}
+.hero{padding:58px 0 34px}.hero .eyebrow{color:#8e7955;letter-spacing:.2em}
+.hero h1{color:#35483b;font-size:clamp(36px,6vw,54px);letter-spacing:.01em}
+.hero p{color:#788077;max-width:560px;font-size:14px;line-height:2}
+.needCard{position:relative;overflow:hidden;border:1px solid #dce5da;border-radius:28px;background:linear-gradient(145deg,#fffefa 0%,#f4f6ef 58%,#edf2e9 100%);box-shadow:0 22px 60px #425b4712;padding:clamp(22px,4vw,38px)}
+.needCard:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,#d8e5d7a0 0%,#d8e5d700 72%);top:-90px;left:-70px;pointer-events:none}
+.needKicker{color:#9a8054;letter-spacing:.18em;font-size:10px}
+.needCard h2{color:#3f5947;font-size:clamp(27px,4vw,34px);margin:0 0 8px}
+.needCard .hint{color:#7d857b;font-size:13px}
+.needCard #needText{background:#fffefa;border:1px solid #dce4d9;border-radius:18px;color:#354238;min-height:150px;padding:18px;font:16px/2 "DM Sans",sans-serif;box-shadow:inset 0 2px 8px #3d564508}
+.needCard #needText:focus{border-color:#8ba38e;box-shadow:0 0 0 3px #a8bba533}
+.needCard #needText::placeholder{color:#a2a79e}
+.voiceTools{gap:10px}
+.btn{border:1px solid #d8e1d6;background:#f4f6f0;color:#526b58;border-radius:999px;padding:12px 20px;font-size:13px;transition:all .2s ease}
+.btn.primary{background:linear-gradient(135deg,#718d78,#597761);border-color:#718d78;color:#fff;box-shadow:0 8px 20px #607c681f}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.02);box-shadow:0 9px 22px #4c6a5418}
+.btn:disabled{box-shadow:none}
+select{background:#fffefa;border:1px solid #dce4d9;color:#526456;border-radius:12px;padding:11px 13px}
+.voiceStatus{color:#81897f;line-height:1.9}
+.composeArea{margin:18px 0 8px}.composeArea .buildBtn{min-width:min(360px,100%);padding:15px 28px;font-size:15px}
+.composeHint{color:#899087;line-height:1.8}
+.path{border:1px solid #dce4d9;background:#ffffffa8;border-radius:26px;box-shadow:0 16px 45px #425b470b;padding:clamp(18px,4vw,32px)}
+.path h3{color:#526d59}.path p{color:#788077;line-height:2}
+.pathMeta .pill{background:#f4f6f0;border-color:#dce4d9;color:#627665}
+.player{border:1px solid #dce4d9;border-radius:24px;background:linear-gradient(145deg,#fffefa,#f1f5ef);box-shadow:0 14px 34px #425b470c}
+.playerEyebrow{color:#9a8054}.player h4{color:#435c49}
+.playerIntro,.playerStatus{color:#7d857b}
+.verse{border:1px solid #dfe6dc;border-radius:20px;background:#fffefa;box-shadow:0 6px 22px #425b4708}
+.verse.playing{border-color:#8da792;box-shadow:0 0 0 3px #a8bba533}
+.versehead{color:#718a76}.tag{border-color:#dfe6dc;background:#f5f7f2;color:#778579}
+.arabic{color:#35473b}.meaning{border-color:#e5e9e1;color:#737d73}
+.concept{background:#f2f5ef;color:#617765;border-right-color:#829b85;border-radius:8px}
+.method,.note{background:#f7f8f3;border-color:#dfe6dc;color:#7a8379}.note{border-right-color:#829b85}
+.footer{color:#959b91}
+@media(max-width:650px){.hero{padding:38px 0 26px}.needCard{border-radius:21px;padding:19px}.needCard .voiceTools{display:grid;grid-template-columns:1fr 1fr}.needCard #startRecording{grid-column:1/-1;width:100%}.needCard #voiceLanguage{width:100%}.composeArea .buildBtn{width:100%}}
+
 </style>
 </head>
 <body data-theme="sleep">
 <div class="wrap">
 <header class="top"><div class="brand">SAKINA <span>· سكينة</span></div><a class="back" href="/">العودة إلى الصفحة الرئيسية ←</a></header>
-<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>مساحة شخصية للتلاوة والتدبر. اكتب أو أمْلِ ما يشغلك، ثم اختر الموضوعات التي تريد إضافتها إلى مسارك.</p></section>
+<section class="hero"><div class="eyebrow">SAKINA · سكينة</div><h1>مساحة هادئة للذكر والتلاوة</h1><p>مساحة هادئة لك. اكتب ما يشغلك أو سجّل صوتك، وسنقترح عليك آيات مناسبة لما عبّرت عنه.</p></section>
 <section class="section needFirst" id="customNeed">
 <div class="needCard">
 <div class="needKicker">مساحتك الخاصة</div>
@@ -160,15 +202,7 @@ select{background:#fff;border-color:var(--line);color:var(--text)}
 <p class="voiceStatus" id="voiceStatus" aria-live="polite">يُستخدم الميكروفون للإملاء داخل المتصفح. راجع النص الناتج قبل إنشاء المسار.</p>
 </div>
 </section>
-<section class="section"><h2>اختر ما تحتاجه</h2><p class="hint">اختر موضوعاً أو أكثر، أو اتركها دون اختيار إذا كنت قد وصفت حاجتك أعلاه.</p>
-<div class="choices" id="choices">
-<button class="choice" data-key="protection">الحماية والتحصين<small>العين والحسد والاستعاذة</small></button>
-<button class="choice" data-key="marriage">الزواج والأسرة<small>المودة والرحمة</small></button>
-<button class="choice" data-key="rizq">الرزق والعمل<small>الرزق والتيسير والتوكل</small></button>
-<button class="choice" data-key="children">الأبناء والذرية<small>صلاح الأبناء والذرية</small></button>
-<button class="choice" data-key="calm">السكينة وراحة النفس<small>القلق والحزن والضيق</small></button>
-<button class="choice" data-key="healing">الشفاء والعافية<small>الرحمة والدعاء</small></button>
-</div></section>
+
 <div class="composeArea"><button class="btn primary buildBtn" id="buildNeed" type="button">إنشاء مساري القرآني</button><p class="composeHint">ستُجمع الآيات المناسبة، وتُزال المكررات، ويُحترم ترتيب المصحف.</p></div><section class="path" id="path" aria-live="polite">
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
@@ -275,10 +309,9 @@ const categoryInfo={
  rizq:{label:"الرزق والعمل",ids:["hud6","talaq2","talaq3","sharh"]},
  children:{label:"الأبناء والذرية",ids:["aliImran38","furqan74","ra3d"]},
  calm:{label:"السكينة وراحة النفس",ids:["ra3d","sharh","isra","zumar42","anam60"]},
- healing:{label:"الشفاء والعافية",ids:["isra","fatiha","ikhlas","sharh"]}
+ healing:{label:"الشفاء والعافية",ids:["isra","ikhlas","sharh"]}
 };
-const foundationIds=["fatiha","kursi","baqara285","baqara286","ikhlas","falaq","nas"];
-const selectedCategories=new Set();
+const foundationIds=["kursi","baqara285","baqara286","ikhlas","falaq","nas"];
 const voiceStatus=document.getElementById("voiceStatus"),needText=document.getElementById("needText"),recordButton=document.getElementById("startRecording"),stopRecordButton=document.getElementById("stopRecording"),recordedAudio=document.getElementById("recordedAudio");
 let mediaRecorder=null,recordedChunks=[],recordedStream=null,recognition=null,recordedUrl=null;
 function normalizeNeed(value){
@@ -300,9 +333,9 @@ function detectCategories(text){
 function composeNeed(){
  const typed=needText.value.trim();
  const detected=detectCategories(typed);
- let all=[...new Set([...selectedCategories,...detected])];
+ let all=[...new Set(detected)];
  if(!all.length&&typed)all=["calm"];
- if(!all.length){voiceStatus.textContent="Décrivez votre besoin ou sélectionnez au moins une catégorie.";return;}
+ if(!all.length){voiceStatus.textContent="اكتب ما يشغلك أو سجّل صوتك أولاً.";return;}
  const ids=[...new Set([...foundationIds,...all.flatMap(key=>categoryInfo[key].ids)])]
   .sort((a,b)=>{
    const parse=id=>{const n=Number(verses[id].audio[0]);return {surah:Math.floor(n/1000),ayah:n%1000};};
@@ -322,11 +355,6 @@ function composeNeed(){
  path.classList.add("show");path.scrollIntoView({behavior:"smooth",block:"start"});
  voiceStatus.textContent="الموضوعات التي جُمعت: "+all.map(key=>categoryInfo[key].label).join(" · ");
 }
-choices.forEach(btn=>btn.addEventListener("click",()=>{
- const key=btn.dataset.key;
- if(selectedCategories.has(key)){selectedCategories.delete(key);btn.classList.remove("active");}
- else{selectedCategories.add(key);btn.classList.add("active");}
-}));
 document.getElementById("buildNeed").addEventListener("click",composeNeed);
 needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.textContent="راجع النص، ثم اضغط على «إنشاء مساري القرآني».";});
 recordButton.addEventListener("click",async()=>{
