@@ -442,7 +442,7 @@ function detectCategories(text){
  const containsConcept=(word)=>{
   const term=normalizeNeed(word);
   if(term.includes(" "))return normalized.includes(term);
-  return normalized.split(/[^\\p{L}\\p{N}]+/u).some(token=>token===term||token.startsWith(term)&&term.length>=4);
+  return normalized.split(/[^\u0600-\u06FFa-z0-9]+/i).some(token=>token===term||token.startsWith(term)&&term.length>=4);
  };
  keywordRules.forEach(rule=>{if(rule.words.some(containsConcept))found.push(rule.key);});
  return found;
