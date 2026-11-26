@@ -637,7 +637,7 @@ function startFrequency(){
   frequencyGain=audioContext.createGain();
   frequencyOscillator.type="sine";
   frequencyOscillator.frequency.value=528;
-  frequencyGain.gain.value=0.006;
+  frequencyGain.gain.value=0.002;
   frequencyOscillator.connect(frequencyGain);
   frequencyGain.connect(audioContext.destination);
   frequencyOscillator.start();
