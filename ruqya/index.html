@@ -651,8 +651,8 @@ needText.addEventListener("input",()=>{if(needText.value.trim())voiceStatus.text
 function finishRecording(){
  if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();
  if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
- recordButton.textContent="🎙 ابدأ التحدث";
- recordButton.classList.add("primary");
+ recordButton.innerHTML='<span class="micIcon">🎙</span><span>ابدأ التحدث</span>';
+ recordButton.classList.remove("recording");recordButton.classList.add("primary");
 }
 recordButton.addEventListener("click",async()=>{
  if(mediaRecorder&&mediaRecorder.state!=="inactive"){finishRecording();return;}
@@ -666,8 +666,8 @@ recordButton.addEventListener("click",async()=>{
    if(recordedUrl)URL.revokeObjectURL(recordedUrl);
    recordedUrl=URL.createObjectURL(blob);recordedAudio.src=recordedUrl;recordedAudio.hidden=false;
    recordedStream?.getTracks().forEach(track=>track.stop());recordedStream=null;
-   recordButton.textContent="🎙 ابدأ التحدث";
-   recordButton.classList.add("primary");
+   recordButton.innerHTML='<span class="micIcon">🎙</span><span>ابدأ التحدث</span>';
+   recordButton.classList.remove("recording");recordButton.classList.add("primary");
    voiceStatus.textContent="انتهى التسجيل.";
   };
   mediaRecorder.start();
