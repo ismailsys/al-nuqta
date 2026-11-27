@@ -518,14 +518,14 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 @media(max-width:600px){.resultConfirm{padding:17px 12px}.resultConfirm strong{font-size:24px}.resultConfirm span{font-size:13px}}
 
 
-.analysisSummary{margin:14px 0 20px;padding:16px 18px;border:1px solid #d9d3c5;border-radius:16px;background:linear-gradient(145deg,#fffefa,#f3f2eb)}
+.analysisSummary{margin:12px 0 18px;padding:15px 16px;border:1px solid #c7d9c8;border-radius:17px;background:linear-gradient(135deg,#e4f0e5 0%,#f1f7ef 55%,#e8f1e8 100%);box-shadow:0 5px 16px rgba(45,78,52,.07)}
 .analysisSummary[hidden]{display:none!important}
-.analysisHeading{font:400 20px Amiri,serif;color:#596f5b;margin-bottom:10px}
-.analysisDimensions{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px}
-.analysisDimension{border:1px solid #d7dece;background:#edf2e9;color:#526b55;border-radius:999px;padding:6px 10px;font-size:11px}
+.analysisHeading{font:600 18px Amiri,serif;color:#355b3d;margin-bottom:9px}
+.analysisDimensions{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
+.analysisDimension{border:1px solid #c2d6c3;background:#d9eadb;color:#355b3d;border-radius:999px;padding:5px 10px;font-size:11px}
 .analysisConcepts{display:flex;flex-wrap:wrap;gap:6px}
-.analysisConcept{border:1px solid #e2ddcf;background:#fff;color:#69685f;border-radius:999px;padding:5px 9px;font-size:11px}
-.analysisNote{margin-top:10px;color:#89877e;font-size:11px;line-height:1.8}
+.analysisConcept{border:1px solid #d1dfd0;background:rgba(255,255,255,.78);color:#536b55;border-radius:999px;padding:5px 9px;font-size:11px}
+.analysisNote{display:none}
 .verse .meaning:before{content:"سبب الاقتراح: ";font-weight:600;color:#6b806d}
 
 
@@ -592,11 +592,10 @@ body[data-theme="pain"]{--bg:#24271b;--panel:#343a27;--panel2:#414a30;--accent:#
 <div class="resultTop"><button class="btn backBtn" id="backToNeed" type="button">← العودة إلى الصفحة الأولى</button></div>
 <div class="resultConfirm" id="resultConfirm" role="status" aria-live="polite"><strong>تم اختيار الآيات المناسبة لحالتك</strong><span id="resultConfirmDetail">اعتماداً على ما كتبته أو اخترته من أعراض ومشاعر.</span></div>
 <div class="analysisSummary" id="analysisSummary" hidden>
- <div class="analysisHeading">ما الذي فهمناه من وصفك؟</div>
+ <div class="analysisHeading">من وصفك</div>
  <div class="analysisDimensions" id="analysisDimensions"></div>
  <div class="analysisConcepts" id="analysisConcepts"></div>
  <div class="analysisRelations" id="analysisRelations" hidden></div>
- <div class="analysisNote">هذا فهم لغوي أولي لما كتبته، وليس تشخيصاً أو حكماً على حالتك.</div>
 </div>
 <h3 id="pathTitle">مسارك القرآني</h3><p id="pathText">ستظهر هنا الآيات المرتبطة بالموضوعات التي اخترتها أو وصفتها.</p>
 <div class="pathMeta" id="pathMeta"></div>
